@@ -1,1 +1,529 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c10"><title>Moto Cardz — V1</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"></head><body><main id="app"><header class="top"><div class="brand"><span class="mark">M</span><div><div class="logo">MOTO <b>CARDZ</b></div><div class="tag">MOTORCYCLE STAT BATTLE</div></div></div><div class="score"><span id="round">ROUND 1</span><strong><i id="playerScore">0</i> — <i id="aiScore">0</i></strong></div></header><section id="home" class="screen active"><div class="hero"><div class="eyebrow">V1 PLAYABLE PROTOTYPE</div><h1>Pick a stat.<br><span>Take the win.</span></h1><p>178-bike game architecture • Player vs AI • five core stats</p><button id="start" class="primary">START GAME <span>→</span></button></div><div class="feature"><div>🏍️ <b>178 bikes</b><small>starting set</small></div><div>🤖 <b>AI opponent</b><small>first battle mode</small></div><div>⚡ <b>Mobile first</b><small>built to scale</small></div></div></section><section id="game" class="screen"><div class="battle-head"><span>YOUR BIKE</span><span id="status">CHOOSE YOUR STAT</span><span>AI BIKE</span></div><div class="battle"><article id="playerCard" class="card"></article><div class="vs">VS</div><article id="aiCard" class="card face-down"><div class="back-logo">M<br><small>CARDZ</small></div></article></div><div id="stats" class="stats"></div><button id="next" class="primary hidden">NEXT ROUND <span>→</span></button><button id="quit" class="ghost">QUIT TO MENU</button></section></main><div id="toast" class="toast"></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en-GB"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111216">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Moto Cardz">
+<title>Moto Cardz</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+:root{--bg:#0b0c0f;--panel:#15171c;--panel2:#1d2027;--text:#f7f7f2;--muted:#9ca0aa;--accent:#c8ff3d;--danger:#ff5c72;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:radial-gradient(circle at 20% 0%,#25212f 0,#0b0c0f 38%),#0b0c0f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;min-height:100dvh}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{max-width:1080px;margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{font-weight:900;letter-spacing:-.04em;font-size:26px}.brand span{color:var(--accent)}
+.hud{display:flex;gap:8px;align-items:center}
+.pill{background:rgba(255,255,255,.07);border:1px solid var(--line);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:800;color:#ddd}
+.screen{display:none}.screen.active{display:block}
+
+/* home */
+.hero{min-height:72vh;display:grid;place-items:center;text-align:center}
+.hero-inner{max-width:680px;width:100%}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.18em;color:var(--accent);text-transform:uppercase}
+h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin:12px 0 20px}
+.hero p.lede{font-size:18px;color:var(--muted);margin:0 auto 26px;max-width:540px}
+.setting{margin:18px auto 0;max-width:620px;text-align:left}
+.setting-title{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.opts{display:grid;gap:8px}
+.opts.c2{grid-template-columns:repeat(2,1fr)}.opts.c3{grid-template-columns:repeat(3,1fr)}
+.opt{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;padding:13px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:14px;text-align:left;cursor:pointer}
+.opt strong{display:block;font-size:14px}
+.opt small{display:block;color:var(--muted);margin-top:3px;font-size:11px;line-height:1.35}
+.opt.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:rgba(200,255,61,.08)}
+.mode-note{max-width:620px;margin:14px auto 0;text-align:left;color:var(--muted);font-size:13px;line-height:1.5}
+
+.btn{border:0;border-radius:16px;padding:14px 20px;font-weight:900;cursor:pointer;transition:.18s transform,.18s opacity;background:var(--accent);color:#111}
+.btn:hover{transform:translateY(-1px)}
+.btn.secondary{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
+
+/* game chrome */
+.game-top{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px;gap:12px}
+.round{font-size:12px;color:var(--muted);font-weight:800}
+.score{font-size:24px;font-weight:900}
+.pips{display:flex;gap:6px;margin:0 0 12px;min-height:12px}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.12)}
+.pip.w{background:var(--accent)}.pip.l{background:var(--danger)}.pip.d{background:#c9ccd4}
+.notice{margin:0 0 12px;color:var(--muted);font-size:13px;min-height:1.4em}
+
+/* cards */
+.card{border-radius:24px;overflow:hidden;background:var(--panel);border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.35);position:relative}
+.card-head{padding:14px 16px;background:var(--c1);color:var(--c2)}
+.card-type{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.card-name{font-size:26px;line-height:1;letter-spacing:-.04em;font-weight:950;margin-top:6px}
+.card-body{padding:16px}
+.bike-meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px;margin-bottom:12px}
+.stats{display:grid;gap:8px}
+.stat{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;padding:10px 13px;border-radius:12px;background:#20232a;border:1px solid rgba(255,255,255,.05)}
+.stat .lab{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat .label{font-size:11px;font-weight:900;color:#bfc3cb}
+.stat .spec{font-size:12px;color:var(--muted);white-space:nowrap}
+.stat .value{font-size:24px;font-weight:950;line-height:1}
+.stat.act{cursor:pointer}
+.stat.act:hover{border-color:rgba(200,255,61,.5)}
+.stat.sel{background:rgba(200,255,61,.14);border-color:var(--accent)}
+.stat.target{border-color:var(--accent);border-style:dashed}
+.stat.dim{opacity:.4}
+.stat.hit{background:rgba(255,255,255,.1);border-color:#fff}
+.card.won{box-shadow:0 0 0 2px var(--accent),0 18px 50px rgba(0,0,0,.35)}
+.card.won .stat.hit{background:rgba(200,255,61,.16);border-color:var(--accent)}
+.card.lost{box-shadow:0 0 0 2px var(--danger),0 18px 50px rgba(0,0,0,.35)}
+.card.lost .stat.hit{background:rgba(255,92,114,.16);border-color:var(--danger)}
+.card.mini{border-radius:16px}
+.mini .card-head{padding:10px 12px}
+.mini .card-type{font-size:9px}
+.mini .card-name{font-size:16px;margin-top:4px}
+.mini .card-body{padding:10px}
+.mini .bike-meta{font-size:11px;margin-bottom:8px}
+.mini .stats{gap:6px}
+.mini .stat{padding:7px 9px;border-radius:9px}
+.mini .stat .label{font-size:10px}
+.mini .stat .spec{font-size:11px}
+.mini .stat .value{font-size:18px}
+.back{min-height:100%;height:100%;display:grid;place-items:center;align-content:center;gap:14px;padding:24px;background:linear-gradient(135deg,#20232b,#0f1014);text-align:center}
+.back .mark{font-size:28px;font-weight:1000;transform:rotate(-8deg);line-height:1.05}
+.back .held{font-size:12px;color:var(--muted);font-weight:700}
+.mini .back{padding:14px;min-height:120px}
+.mini .back .mark{font-size:20px}
+.badge{font-size:12px;font-weight:800;color:#111;background:var(--accent);padding:6px 10px;border-radius:999px}
+.flip-in{animation:flip .32s ease-out}
+@keyframes flip{from{transform:perspective(700px) rotateY(80deg);opacity:.2}to{transform:perspective(700px) rotateY(0);opacity:1}}
+
+/* quick match */
+.battle{display:grid;grid-template-columns:1fr 80px 1fr;gap:14px;align-items:center}
+.player .stat.act:hover{border-color:rgba(200,255,61,.5)}
+.vs{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111;font-weight:1000;font-size:15px;margin:auto;box-shadow:0 10px 35px rgba(255,255,255,.12)}
+
+/* duel */
+.foe-hand{display:flex;align-items:center;gap:10px;margin-bottom:14px;color:var(--muted);font-size:12px;font-weight:700}
+.foe-cards{display:flex;gap:5px}
+.foe-card{width:22px;height:30px;border-radius:5px;background:linear-gradient(135deg,#2a2e38,#14161b);border:1px solid var(--line)}
+.arena{display:grid;grid-template-columns:1fr 44px 1fr;gap:8px;align-items:stretch;margin:0 auto 14px;max-width:560px}
+.arena .vs{width:40px;height:40px;font-size:12px;align-self:center}
+.slot-empty{min-height:120px;border:1.5px dashed rgba(255,255,255,.18);border-radius:16px;display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center;padding:12px}
+.section-title{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}
+.hand{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:8px 2px 14px;margin:0 -2px}
+.hand .card{flex:0 0 206px;scroll-snap-align:start;transition:transform .15s}
+.hand .card.selected{transform:translateY(-6px);box-shadow:0 0 0 2px var(--accent),0 18px 40px rgba(0,0,0,.4)}
+.hand .card.defendable{cursor:pointer}
+.confirm{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;margin-top:6px;border-radius:16px;background:#22252d;border:1px solid var(--accent);box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:5}
+.confirm p{margin:0;font-size:14px;font-weight:700}
+.confirm .actions{margin:0}
+
+/* results + overlay */
+.result{margin-top:16px;margin-bottom:14px;border-radius:18px;padding:16px;background:rgba(255,255,255,.06);border:1px solid var(--line);display:none}
+.result.show{display:block}
+.result.win{border-color:rgba(200,255,61,.4)}.result.lose{border-color:rgba(255,92,114,.4)}.result.draw{border-color:rgba(255,255,255,.25)}
+.result-title{font-size:22px;font-weight:950}
+.result-copy{color:var(--muted);margin-top:4px;font-size:13px;line-height:1.5}
+.actions{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+.overlay{position:fixed;inset:0;background:rgba(6,7,9,.78);display:grid;place-items:center;padding:20px;z-index:20}
+.end-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:26px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.end-card h2{margin:0 0 6px;font-size:32px;letter-spacing:-.04em;line-height:1}
+.end-card .big{font-size:56px;font-weight:950;letter-spacing:-.05em;margin:10px 0 2px}
+.end-card p{color:var(--muted);font-size:14px;margin:6px 0 0;line-height:1.5}
+.end-card .actions{justify-content:center;margin-top:20px}
+.end-card.win h2{color:var(--accent)}.end-card.lose h2{color:var(--danger)}
+
+@media(min-width:900px){.hand{overflow:visible;flex-wrap:nowrap}.hand .card{flex:1 1 0;min-width:0}}
+@media(max-width:760px){
+  .app{padding:14px 10px 26px}
+  .battle{grid-template-columns:1fr;gap:10px}
+  .vs{width:48px;height:48px}
+  .ai{order:3}.player{order:1}.battle .vs{order:2}
+  .card-name{font-size:23px}
+  .opts.c3.levels{grid-template-columns:1fr}
+  .game-top{margin-bottom:10px}
+  .arena .vs{width:34px;height:34px;font-size:11px}
+  .arena{grid-template-columns:1fr 34px 1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head>
+<body><div class="app">
+<header><div class="brand">MOTO <span>CARDZ</span></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div></div></header>
+
+<section id="home" class="screen active"><div class="hero"><div class="hero-inner">
+  <div class="eyebrow">Full data V2</div>
+  <h1>Pick a stat.<br>Take the win.</h1>
+  <p class="lede" id="lede"></p>
+  <div class="setting"><div class="setting-title">Mode</div>
+    <div class="opts c2" id="modeOpts">
+      <button class="opt" data-v="quick"><strong>Quick match</strong><small>One card each. You choose the stat.</small></button>
+      <button class="opt" data-v="duel"><strong>Duel</strong><small>Hold five cards. Attack and defend.</small></button>
+    </div></div>
+  <div class="setting"><div class="setting-title">AI level</div>
+    <div class="opts c3 levels" id="levelOpts">
+      <button class="opt" data-v="easy"><strong>Easy</strong><small></small></button>
+      <button class="opt" data-v="medium"><strong>Medium</strong><small></small></button>
+      <button class="opt" data-v="hard"><strong>Hard</strong><small></small></button>
+    </div></div>
+  <div class="setting" id="targetSetting"><div class="setting-title">First to</div>
+    <div class="opts c3" id="targetOpts">
+      <button class="opt" data-v="3"><strong>3 wins</strong><small>Short</small></button>
+      <button class="opt" data-v="5"><strong>5 wins</strong><small>Standard</small></button>
+      <button class="opt" data-v="7"><strong>7 wins</strong><small>Long</small></button>
+    </div></div>
+  <p class="mode-note" id="modeNote"></p>
+  <div style="margin-top:18px"><button class="btn" id="start">Start game</button></div>
+</div></div></section>
+
+<section id="quick" class="screen">
+  <div class="game-top"><div><div class="round" id="qRound"></div><div class="score" id="qScore"></div></div><button class="btn secondary" data-menu>Menu</button></div>
+  <div class="pips" id="qPips"></div>
+  <p class="notice" id="qPrompt"></p>
+  <div class="battle"><article class="card player" id="qPlayer"></article><div class="vs">VS</div><article class="card ai" id="qAi"></article></div>
+  <div class="result" id="qResult"><div class="result-title" id="qResultTitle"></div><div class="result-copy" id="qResultCopy"></div><div class="actions"><button class="btn" id="qNext">Next round</button></div></div>
+</section>
+
+<section id="duel" class="screen">
+  <div class="game-top"><div><div class="round" id="dRound"></div><div class="score" id="dScore"></div></div><button class="btn secondary" data-menu>Menu</button></div>
+  <div class="pips" id="dPips"></div>
+  <div class="foe-hand"><span id="foeLabel"></span><div class="foe-cards" id="foeCards"></div></div>
+  <p class="notice" id="dPrompt"></p>
+  <div class="arena"><div id="dYou"></div><div class="vs">VS</div><div id="dFoe"></div></div>
+  <div class="result" id="dResult"><div class="result-title" id="dResultTitle"></div><div class="result-copy" id="dResultCopy"></div><div class="actions"><button class="btn" id="dNext">Next round</button></div></div>
+  <h2 class="section-title" id="handTitle">Your hand</h2>
+  <div class="hand" id="dHand"></div>
+  <div class="confirm" id="dConfirm" hidden><p id="dConfirmText"></p><div class="actions"><button class="btn secondary" id="dCancel">Change</button><button class="btn" id="dGo">Play card</button></div></div>
+</section>
+</div>
+
+<div class="overlay" id="end" role="dialog" aria-modal="true" aria-labelledby="endTitle" hidden>
+  <div class="end-card" id="endCard"><h2 id="endTitle"></h2><div class="big" id="endScore"></div><p id="endCopy"></p>
+    <div class="actions"><button class="btn secondary" id="endMenu">Menu</button><button class="btn" id="rematch">Play again</button></div></div>
+</div>
+
+<script>
+const BIKES=[{"id":"BK-001","make":"Aprilia","model":"RSV4 Factory 1100","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":23885,"engineCC":1099,"engineType":"V4","topSpeed":186,"power":217,"mpg":45,"stats":{"topSpeed":90,"power":99,"engine":72,"economy":45,"value":31},"allRound":67},{"id":"BK-002","make":"Aprilia","model":"Tuono V4 Factory","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":16996,"engineCC":1098,"engineType":"V4","topSpeed":166,"power":178,"mpg":35,"stats":{"topSpeed":91,"power":91,"engine":79,"economy":3,"value":34},"allRound":60},{"id":"BK-003","make":"Aprilia","model":"Tuono 660 Factory","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":11495,"engineCC":659,"engineType":"twin","topSpeed":136,"power":104,"mpg":49,"stats":{"topSpeed":55,"power":47,"engine":24,"economy":40,"value":38},"allRound":41},{"id":"BK-004","make":"Aprilia","model":"Tuareg 660","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":10946,"engineCC":659,"engineType":"twin","topSpeed":120,"power":78,"mpg":55,"stats":{"topSpeed":37,"power":38,"engine":29,"economy":54,"value":25},"allRound":37},{"id":"BK-005","make":"Aprilia","model":"RS660","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":10495,"engineCC":659,"engineType":"twin","topSpeed":138,"power":81,"mpg":45,"stats":{"topSpeed":59,"power":30,"engine":24,"economy":27,"value":29},"allRound":34},{"id":"BK-006","make":"Benelli","model":"Leoncino 800 Trail","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":6599,"engineCC":754,"engineType":"twin","topSpeed":115,"power":80,"mpg":40,"stats":{"topSpeed":25,"power":37,"engine":40,"economy":11,"value":36},"allRound":30},{"id":"BK-007","make":"Bimota","model":"KB4","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":31269,"engineCC":1043,"engineType":"inline 4","topSpeed":166,"power":140,"mpg":40,"stats":{"topSpeed":91,"power":77,"engine":76,"economy":11,"value":6},"allRound":52},{"id":"BK-008","make":"Bimota","model":"Tesi H2 Tera","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":34392,"engineCC":998,"engineType":"inline 4","topSpeed":170,"power":197,"mpg":40,"stats":{"topSpeed":81,"power":89,"engine":55,"economy":22,"value":6},"allRound":51},{"id":"BK-009","make":"BMW","model":"R18 Classic","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":19640,"engineCC":1802,"engineType":"flat twin","topSpeed":115,"power":91,"mpg":51,"stats":{"topSpeed":32,"power":51,"engine":95,"economy":40,"value":8},"allRound":45},{"id":"BK-010","make":"BMW","model":"R18","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":17680,"engineCC":1802,"engineType":"flat twin","topSpeed":113,"power":87,"mpg":50,"stats":{"topSpeed":25,"power":47,"engine":95,"economy":34,"value":12},"allRound":43},{"id":"BK-011","make":"BMW","model":"K1600GT","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":23990,"engineCC":1649,"engineType":"inline 6","topSpeed":164,"power":158,"mpg":48,"stats":{"topSpeed":90,"power":87,"engine":91,"economy":32,"value":21},"allRound":64},{"id":"BK-012","make":"BMW","model":"R1300GS Adventure TE","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":20846,"engineCC":1300,"engineType":"flat twin","topSpeed":136,"power":143,"mpg":41,"stats":{"topSpeed":71,"power":84,"engine":92,"economy":13,"value":16},"allRound":55},{"id":"BK-013","make":"BMW","model":"R1300GS TE ASA","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":20120,"engineCC":1300,"engineType":"flat twin","topSpeed":136,"power":143,"mpg":42,"stats":{"topSpeed":71,"power":84,"engine":92,"economy":16,"value":20},"allRound":57},{"id":"BK-014","make":"BMW","model":"R1300GS TE","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":19360,"engineCC":1300,"engineType":"flat twin","topSpeed":135,"power":138,"mpg":49,"stats":{"topSpeed":66,"power":82,"engine":92,"economy":35,"value":30},"allRound":61},{"id":"BK-015","make":"BMW","model":"R1300RT LE","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":21470,"engineCC":1300,"engineType":"flat twin","topSpeed":136,"power":143,"mpg":60,"stats":{"topSpeed":64,"power":79,"engine":88,"economy":71,"value":35},"allRound":67},{"id":"BK-016","make":"BMW","model":"R1300RS SE","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":16080,"engineCC":1300,"engineType":"flat twin","topSpeed":140,"power":143,"mpg":43,"stats":{"topSpeed":76,"power":82,"engine":91,"economy":21,"value":45},"allRound":63},{"id":"BK-017","make":"BMW","model":"R12 nineT","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":14500,"engineCC":1170,"engineType":"flat twin","topSpeed":140,"power":108,"mpg":65,"stats":{"topSpeed":77,"power":69,"engine":84,"economy":79,"value":71},"allRound":76},{"id":"BK-018","make":"BMW","model":"R12 G/S","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":14420,"engineCC":1170,"engineType":"flat twin","topSpeed":140,"power":107,"mpg":55,"stats":{"topSpeed":77,"power":67,"engine":84,"economy":50,"value":60},"allRound":68},{"id":"BK-019","make":"BMW","model":"M1000RR","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":32850,"engineCC":998,"engineType":"inline 4","topSpeed":195,"power":209,"mpg":36,"stats":{"topSpeed":97,"power":96,"engine":55,"economy":11,"value":8},"allRound":53},{"id":"BK-020","make":"BMW","model":"M1000XR","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":23160,"engineCC":999,"engineType":"inline 4","topSpeed":173,"power":190,"mpg":42,"stats":{"topSpeed":96,"power":96,"engine":68,"economy":17,"value":14},"allRound":58},{"id":"BK-021","make":"BMW","model":"S1000RR Sport","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":19426,"engineCC":999,"engineType":"inline 4","topSpeed":190,"power":207,"mpg":44,"stats":{"topSpeed":96,"power":94,"engine":62,"economy":40,"value":45},"allRound":67},{"id":"BK-022","make":"BMW","model":"S1000XR TE","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":18870,"engineCC":999,"engineType":"inline 4","topSpeed":155,"power":166,"mpg":43,"stats":{"topSpeed":78,"power":87,"engine":68,"economy":21,"value":23},"allRound":55},{"id":"BK-023","make":"BMW","model":"S1000R Sport","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":15905,"engineCC":999,"engineType":"inline 4","topSpeed":167,"power":168,"mpg":38,"stats":{"topSpeed":93,"power":89,"engine":68,"economy":5,"value":40},"allRound":59},{"id":"BK-024","make":"BMW","model":"F900GS","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":12060,"engineCC":895,"engineType":"twin","topSpeed":130,"power":103,"mpg":60,"stats":{"topSpeed":57,"power":57,"engine":58,"economy":71,"value":67},"allRound":62},{"id":"BK-025","make":"BMW","model":"F900XR","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":10060,"engineCC":895,"engineType":"twin","topSpeed":126,"power":103,"mpg":57,"stats":{"topSpeed":47,"power":57,"engine":58,"economy":60,"value":79},"allRound":60},{"id":"BK-026","make":"BMW","model":"F450GS","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":6990,"engineCC":420,"engineType":"twin","topSpeed":102,"power":47,"mpg":74,"stats":{"topSpeed":12,"power":15,"engine":9,"economy":95,"value":64},"allRound":39},{"id":"BK-027","make":"BSA","model":"Gold Star","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":6299,"engineCC":652,"engineType":"single","topSpeed":105,"power":43,"mpg":58,"stats":{"topSpeed":18,"power":13,"engine":29,"economy":55,"value":44},"allRound":32},{"id":"BK-028","make":"BSA","model":"Scrambler 650","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":6298,"engineCC":652,"engineType":"single","topSpeed":105,"power":45,"mpg":60,"stats":{"topSpeed":16,"power":16,"engine":26,"economy":66,"value":67},"allRound":38},{"id":"BK-029","make":"BSA","model":"Bantam 350","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":3699,"engineCC":334,"engineType":"single","topSpeed":95,"power":29,"mpg":70,"stats":{"topSpeed":10,"power":8,"engine":2,"economy":89,"value":95},"allRound":41},{"id":"BK-030","make":"CFMoto","model":"800MT-X","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":7198,"engineCC":799,"engineType":"twin","topSpeed":130,"power":94,"mpg":51,"stats":{"topSpeed":56,"power":55,"engine":46,"economy":45,"value":92},"allRound":59},{"id":"BK-031","make":"CFMoto","model":"675SR-R","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":7198,"engineCC":675,"engineType":"triple","topSpeed":130,"power":94,"mpg":45,"stats":{"topSpeed":57,"power":49,"engine":30,"economy":28,"value":78},"allRound":48},{"id":"BK-032","make":"CFMoto","model":"675NK","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":6498,"engineCC":675,"engineType":"triple","topSpeed":126,"power":94,"mpg":49,"stats":{"topSpeed":47,"power":49,"engine":30,"economy":40,"value":89},"allRound":51},{"id":"BK-033","make":"CFMoto","model":"450MT","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":5898,"engineCC":449,"engineType":"twin","topSpeed":142,"power":46,"mpg":65,"stats":{"topSpeed":80,"power":18,"engine":15,"economy":78,"value":98},"allRound":58},{"id":"BK-034","make":"Ducati","model":"Diavel V4","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":26771,"engineCC":1158,"engineType":"V4","topSpeed":160,"power":166,"mpg":43,"stats":{"topSpeed":88,"power":91,"engine":79,"economy":21,"value":10},"allRound":58},{"id":"BK-035","make":"Ducati","model":"Diavel V4","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":24771,"engineCC":1158,"engineType":"V4","topSpeed":160,"power":166,"mpg":44,"stats":{"topSpeed":88,"power":91,"engine":79,"economy":25,"value":17},"allRound":60},{"id":"BK-036","make":"Ducati","model":"Multistrada V4 Rally","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":24371,"engineCC":1158,"engineType":"V4","topSpeed":160,"power":168,"mpg":39,"stats":{"topSpeed":87,"power":92,"engine":73,"economy":7,"value":14},"allRound":55},{"id":"BK-037","make":"Ducati","model":"Multistrada V4 S","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":24871,"engineCC":1168,"engineType":"V4","topSpeed":166,"power":165,"mpg":38,"stats":{"topSpeed":93,"power":89,"engine":78,"economy":4,"value":12},"allRound":55},{"id":"BK-038","make":"Ducati","model":"Panigale V4 S","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":30871,"engineCC":1103,"engineType":"V4","topSpeed":187,"power":203,"mpg":39,"stats":{"topSpeed":94,"power":92,"engine":75,"economy":16,"value":11},"allRound":58},{"id":"BK-039","make":"Ducati","model":"Streetfighter V4 S","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":26771,"engineCC":1103,"engineType":"V4","topSpeed":198,"power":181,"mpg":34,"stats":{"topSpeed":99,"power":81,"engine":75,"economy":3,"value":14},"allRound":54},{"id":"BK-040","make":"Ducati","model":"Panigale V2 S","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":17871,"engineCC":890,"engineType":"V-twin","topSpeed":160,"power":118,"mpg":53,"stats":{"topSpeed":71,"power":50,"engine":41,"economy":68,"value":41},"allRound":54},{"id":"BK-041","make":"Ducati","model":"Multistrada V2 S","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":16666,"engineCC":890,"engineType":"V-twin","topSpeed":145,"power":114,"mpg":47,"stats":{"topSpeed":80,"power":61,"engine":46,"economy":29,"value":28},"allRound":49},{"id":"BK-042","make":"Ducati","model":"Streetfighter V2 S","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":16671,"engineCC":890,"engineType":"V-twin","topSpeed":160,"power":118,"mpg":53,"stats":{"topSpeed":81,"power":61,"engine":49,"economy":58,"value":36},"allRound":57},{"id":"BK-043","make":"Ducati","model":"Monster","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":12171,"engineCC":890,"engineType":"V-twin","topSpeed":135,"power":109,"mpg":64,"stats":{"topSpeed":66,"power":70,"engine":57,"economy":75,"value":73},"allRound":68},{"id":"BK-044","make":"Ducati","model":"Scrambler Full Throttle","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":11671,"engineCC":803,"engineType":"V-twin","topSpeed":126,"power":73,"mpg":47,"stats":{"topSpeed":48,"power":33,"engine":49,"economy":28,"value":17},"allRound":35},{"id":"BK-045","make":"Ducati","model":"Hypermotard 698 Mono","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":11471,"engineCC":659,"engineType":"single","topSpeed":130,"power":76,"mpg":69,"stats":{"topSpeed":57,"power":32,"engine":25,"economy":86,"value":48},"allRound":50},{"id":"BK-046","make":"Fantic","model":"Caballero 700","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":9699,"engineCC":689,"engineType":"twin","topSpeed":115,"power":76,"mpg":58,"stats":{"topSpeed":32,"power":36,"engine":35,"economy":55,"value":29},"allRound":37},{"id":"BK-047","make":"Fantic","model":"Caballero 500 Rally","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":7199,"engineCC":463,"engineType":"single","topSpeed":100,"power":44,"mpg":67,"stats":{"topSpeed":13,"power":17,"engine":18,"economy":85,"value":42},"allRound":35},{"id":"BK-048","make":"Harley-Davidson","model":"CVO Street Glide","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":45995,"engineCC":1977,"engineType":"V-twin","topSpeed":120,"power":120,"mpg":50,"stats":{"topSpeed":27,"power":70,"engine":98,"economy":43,"value":2},"allRound":48},{"id":"BK-049","make":"Harley-Davidson","model":"Low Rider ST","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":21745,"engineCC":1923,"engineType":"V-twin","topSpeed":116,"power":114,"mpg":51,"stats":{"topSpeed":30,"power":67,"engine":98,"economy":50,"value":14},"allRound":52},{"id":"BK-050","make":"Harley-Davidson","model":"Pan America Special","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":17745,"engineCC":1252,"engineType":"V-twin","topSpeed":136,"power":148,"mpg":43,"stats":{"topSpeed":64,"power":84,"engine":86,"economy":21,"value":37},"allRound":58},{"id":"BK-051","make":"Harley-Davidson","model":"Sportster S","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":13995,"engineCC":1252,"engineType":"V-twin","topSpeed":120,"power":119,"mpg":60,"stats":{"topSpeed":36,"power":73,"engine":88,"economy":71,"value":62},"allRound":66},{"id":"BK-052","make":"Harley-Davidson","model":"Nightster Special","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":11495,"engineCC":975,"engineType":"V-twin","topSpeed":120,"power":89,"mpg":52,"stats":{"topSpeed":36,"power":42,"engine":64,"economy":54,"value":43},"allRound":48},{"id":"BK-053","make":"Hero","model":"Hunk 440","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":3799,"engineCC":440,"engineType":"single","topSpeed":80,"power":27,"mpg":70,"stats":{"topSpeed":5,"power":5,"engine":13,"economy":90,"value":97},"allRound":42},{"id":"BK-054","make":"Honda","model":"GL1800 Gold Wing Tour","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":33499,"engineCC":1833,"engineType":"flat six","topSpeed":112,"power":125,"mpg":51,"stats":{"topSpeed":13,"power":73,"engine":94,"economy":49,"value":4},"allRound":47},{"id":"BK-055","make":"Honda","model":"Africa Twin Adventure Sports","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":16499,"engineCC":1084,"engineType":"twin","topSpeed":130,"power":94,"mpg":44,"stats":{"topSpeed":56,"power":55,"engine":76,"economy":22,"value":14},"allRound":45},{"id":"BK-056","make":"Honda","model":"NT1100 DCT","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":14200,"engineCC":1084,"engineType":"twin","topSpeed":123,"power":97,"mpg":52,"stats":{"topSpeed":33,"power":43,"engine":67,"economy":52,"value":42},"allRound":47},{"id":"BK-057","make":"Honda","model":"Africa Twin","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":13399,"engineCC":1084,"engineType":"twin","topSpeed":130,"power":94,"mpg":47,"stats":{"topSpeed":56,"power":55,"engine":76,"economy":28,"value":35},"allRound":50},{"id":"BK-058","make":"Honda","model":"CMX1100 Rebel","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":9999,"engineCC":1084,"engineType":"twin","topSpeed":125,"power":86,"mpg":52,"stats":{"topSpeed":48,"power":45,"engine":76,"economy":44,"value":68},"allRound":56},{"id":"BK-059","make":"Honda","model":"CBR1000RR-R Fireblade SP","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":23699,"engineCC":1000,"engineType":"inline 4","topSpeed":185,"power":215,"mpg":42,"stats":{"topSpeed":87,"power":97,"engine":65,"economy":32,"value":25},"allRound":61},{"id":"BK-060","make":"Honda","model":"CB1000GT","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":19999,"engineCC":1000,"engineType":"inline 4","topSpeed":164,"power":148,"mpg":47,"stats":{"topSpeed":84,"power":81,"engine":73,"economy":33,"value":22},"allRound":59},{"id":"BK-061","make":"Honda","model":"CB1000 Hornet SP","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":10099,"engineCC":1000,"engineType":"inline 4","topSpeed":160,"power":156,"mpg":37,"stats":{"topSpeed":88,"power":87,"engine":71,"economy":4,"value":91},"allRound":68},{"id":"BK-062","make":"Honda","model":"XL750 Transalp","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":9899,"engineCC":755,"engineType":"twin","topSpeed":135,"power":91,"mpg":58,"stats":{"topSpeed":57,"power":35,"engine":27,"economy":63,"value":79},"allRound":52},{"id":"BK-063","make":"Honda","model":"CB750 Hornet","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":7449,"engineCC":755,"engineType":"twin","topSpeed":140,"power":91,"mpg":65,"stats":{"topSpeed":77,"power":51,"engine":40,"economy":79,"value":97},"allRound":69},{"id":"BK-064","make":"Honda","model":"X-ADV","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":11499,"engineCC":745,"engineType":"twin","topSpeed":105,"power":54,"mpg":70,"stats":{"topSpeed":15,"power":16,"engine":38,"economy":90,"value":27},"allRound":37},{"id":"BK-065","make":"Honda","model":"NC750X","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":7599,"engineCC":745,"engineType":"twin","topSpeed":115,"power":58,"mpg":70,"stats":{"topSpeed":25,"power":18,"engine":38,"economy":90,"value":82},"allRound":51},{"id":"BK-066","make":"Honda","model":"CBR650R E-Clutch","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":8799,"engineCC":649,"engineType":"inline 4","topSpeed":138,"power":86,"mpg":54,"stats":{"topSpeed":59,"power":32,"engine":18,"economy":62,"value":76},"allRound":49},{"id":"BK-067","make":"Honda","model":"CB650R","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":7999,"engineCC":649,"engineType":"inline 4","topSpeed":140,"power":94,"mpg":52,"stats":{"topSpeed":77,"power":55,"engine":26,"economy":44,"value":84},"allRound":57},{"id":"BK-068","make":"Honda","model":"CBR600RR","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":10999,"engineCC":599,"engineType":"inline 4","topSpeed":165,"power":119,"mpg":52,"stats":{"topSpeed":88,"power":63,"engine":14,"economy":54,"value":77},"allRound":59},{"id":"BK-069","make":"Honda","model":"GB350S","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":3999,"engineCC":348,"engineType":"single","topSpeed":80,"power":21,"mpg":70,"stats":{"topSpeed":7,"power":6,"engine":4,"economy":89,"value":89},"allRound":39},{"id":"BK-070","make":"Honda","model":"CRF300L","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":5899,"engineCC":286,"engineType":"single","topSpeed":80,"power":27,"mpg":70,"stats":{"topSpeed":5,"power":5,"engine":2,"economy":90,"value":54},"allRound":31},{"id":"BK-072","make":"Husqvarna","model":"Norden 901","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":12599,"engineCC":889,"engineType":"twin","topSpeed":130,"power":103,"mpg":63,"stats":{"topSpeed":45,"power":47,"engine":41,"economy":81,"value":67},"allRound":56},{"id":"BK-073","make":"Husqvarna","model":"Svartpilen 801","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":6999,"engineCC":799,"engineType":"twin","topSpeed":130,"power":103,"mpg":50,"stats":{"topSpeed":57,"power":62,"engine":46,"economy":34,"value":93},"allRound":58},{"id":"BK-074","make":"Husqvarna","model":"Vitpilen 801","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":8399,"engineCC":799,"engineType":"twin","topSpeed":130,"power":103,"mpg":47,"stats":{"topSpeed":57,"power":62,"engine":46,"economy":23,"value":76},"allRound":53},{"id":"BK-075","make":"Husqvarna","model":"701 Enduro","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":10499,"engineCC":693,"engineType":"single","topSpeed":120,"power":78,"mpg":66,"stats":{"topSpeed":37,"power":38,"engine":37,"economy":84,"value":55},"allRound":50},{"id":"BK-076","make":"Husqvarna","model":"Vitpilen 401","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":3499,"engineCC":399,"engineType":"single","topSpeed":105,"power":44,"mpg":64,"stats":{"topSpeed":18,"power":17,"engine":13,"economy":75,"value":99},"allRound":44},{"id":"BK-077","make":"Indian","model":"Sport Chief RT","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":22355,"engineCC":1890,"engineType":"V-twin","topSpeed":120,"power":89,"mpg":40,"stats":{"topSpeed":27,"power":33,"engine":96,"economy":11,"value":6},"allRound":35},{"id":"BK-078","make":"Indian","model":"Chief Dark Horse","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":16355,"engineCC":1890,"engineType":"V-twin","topSpeed":120,"power":89,"mpg":40,"stats":{"topSpeed":36,"power":42,"engine":96,"economy":11,"value":16},"allRound":40},{"id":"BK-079","make":"Indian","model":"Chieftain PowerPlus Ltd","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":27655,"engineCC":1834,"engineType":"V-twin","topSpeed":125,"power":127,"mpg":40,"stats":{"topSpeed":35,"power":75,"engine":95,"economy":11,"value":7},"allRound":45},{"id":"BK-080","make":"Indian","model":"101 Scout","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":16155,"engineCC":1250,"engineType":"V-twin","topSpeed":120,"power":110,"mpg":40,"stats":{"topSpeed":36,"power":64,"engine":86,"economy":11,"value":19},"allRound":43},{"id":"BK-081","make":"Kawasaki","model":"Versys 1100 SE","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":17829,"engineCC":1099,"engineType":"inline 4","topSpeed":144,"power":119,"mpg":40,"stats":{"topSpeed":77,"power":68,"engine":70,"economy":11,"value":25},"allRound":50},{"id":"BK-082","make":"Kawasaki","model":"Ninja 1100SX SE","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":14329,"engineCC":1099,"engineType":"inline 4","topSpeed":149,"power":124,"mpg":41,"stats":{"topSpeed":75,"power":69,"engine":81,"economy":15,"value":51},"allRound":58},{"id":"BK-083","make":"Kawasaki","model":"Z1100 SE","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":12879,"engineCC":1099,"engineType":"inline 4","topSpeed":145,"power":134,"mpg":39,"stats":{"topSpeed":70,"power":75,"engine":81,"economy":7,"value":61},"allRound":59},{"id":"BK-084","make":"Kawasaki","model":"Ninja H2 SX SE","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":26029,"engineCC":998,"engineType":"inline 4","topSpeed":186,"power":197,"mpg":39,"stats":{"topSpeed":90,"power":89,"engine":55,"economy":16,"value":12},"allRound":52},{"id":"BK-085","make":"Kawasaki","model":"Ninja ZX-10RR","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":24979,"engineCC":998,"engineType":"inline 4","topSpeed":180,"power":189,"mpg":44,"stats":{"topSpeed":85,"power":85,"engine":55,"economy":40,"value":22},"allRound":57},{"id":"BK-086","make":"Kawasaki","model":"Z H2","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":17729,"engineCC":998,"engineType":"inline 4","topSpeed":175,"power":197,"mpg":34,"stats":{"topSpeed":83,"power":89,"engine":55,"economy":3,"value":44},"allRound":55},{"id":"BK-087","make":"Kawasaki","model":"Z900RS SE","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":13129,"engineCC":948,"engineType":"inline 4","topSpeed":140,"power":114,"mpg":56,"stats":{"topSpeed":62,"power":54,"engine":62,"economy":64,"value":68},"allRound":62},{"id":"BK-088","make":"Kawasaki","model":"Z900","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":9379,"engineCC":948,"engineType":"inline 4","topSpeed":145,"power":123,"mpg":52,"stats":{"topSpeed":70,"power":68,"engine":62,"economy":54,"value":95},"allRound":70},{"id":"BK-089","make":"Kawasaki","model":"Versys 650","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":8229,"engineCC":649,"engineType":"twin","topSpeed":115,"power":62,"mpg":64,"stats":{"topSpeed":18,"power":13,"engine":14,"economy":84,"value":58},"allRound":37},{"id":"BK-090","make":"Kawasaki","model":"Z650RS","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":8079,"engineCC":649,"engineType":"twin","topSpeed":130,"power":67,"mpg":65,"stats":{"topSpeed":38,"power":18,"engine":18,"economy":85,"value":81},"allRound":48},{"id":"BK-091","make":"Kawasaki","model":"Vulcan S","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":7379,"engineCC":649,"engineType":"twin","topSpeed":115,"power":61,"mpg":63,"stats":{"topSpeed":32,"power":24,"engine":26,"economy":72,"value":59},"allRound":43},{"id":"BK-092","make":"Kawasaki","model":"Ninja 650","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":7679,"engineCC":649,"engineType":"twin","topSpeed":130,"power":67,"mpg":70,"stats":{"topSpeed":38,"power":18,"engine":18,"economy":92,"value":88},"allRound":51},{"id":"BK-093","make":"Kawasaki","model":"Z650","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":7279,"engineCC":649,"engineType":"twin","topSpeed":130,"power":67,"mpg":70,"stats":{"topSpeed":38,"power":18,"engine":18,"economy":92,"value":91},"allRound":51},{"id":"BK-094","make":"Kawasaki","model":"Ninja 7 Hybrid","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":7644,"engineCC":451,"engineType":"twin","topSpeed":115,"power":58,"mpg":85,"stats":{"topSpeed":17,"power":12,"engine":10,"economy":99,"value":69},"allRound":41},{"id":"BK-095","make":"Kawasaki","model":"KLE500 SE","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":6744,"engineCC":451,"engineType":"twin","topSpeed":95,"power":46,"mpg":71,"stats":{"topSpeed":8,"power":13,"engine":12,"economy":93,"value":65},"allRound":38},{"id":"BK-096","make":"Kawasaki","model":"ZX-4RR","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":8913,"engineCC":399,"engineType":"four","topSpeed":130,"power":76,"mpg":50,"stats":{"topSpeed":38,"power":24,"engine":6,"economy":44,"value":26},"allRound":28},{"id":"BK-097","make":"Kove","model":"800X Pro","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":8499,"engineCC":799,"engineType":"twin","topSpeed":130,"power":81,"mpg":51,"stats":{"topSpeed":56,"power":42,"engine":46,"economy":45,"value":74},"allRound":53},{"id":"BK-098","make":"KTM","model":"1390 Super Duke R Evo","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":19499,"engineCC":1350,"engineType":"V-twin","topSpeed":165,"power":178,"mpg":42,"stats":{"topSpeed":77,"power":79,"engine":91,"economy":32,"value":52},"allRound":66},{"id":"BK-099","make":"KTM","model":"1390 Super Duke S Evo","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":18699,"engineCC":1350,"engineType":"V-twin","topSpeed":155,"power":170,"mpg":41,"stats":{"topSpeed":66,"power":75,"engine":91,"economy":27,"value":50},"allRound":62},{"id":"BK-100","make":"KTM","model":"1290 Super Duke GT","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":16099,"engineCC":1301,"engineType":"V-twin","topSpeed":160,"power":175,"mpg":39,"stats":{"topSpeed":71,"power":76,"engine":86,"economy":16,"value":66},"allRound":63},{"id":"BK-101","make":"KTM","model":"990 RC R","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":13499,"engineCC":947,"engineType":"twin","topSpeed":160,"power":128,"mpg":60,"stats":{"topSpeed":81,"power":73,"engine":58,"economy":74,"value":80},"allRound":73},{"id":"BK-102","make":"KTM","model":"990 Duke R","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":14299,"engineCC":947,"engineType":"twin","topSpeed":145,"power":126,"mpg":47,"stats":{"topSpeed":70,"power":70,"engine":58,"economy":33,"value":47},"allRound":56},{"id":"BK-103","make":"KTM","model":"990 Duke","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":10999,"engineCC":947,"engineType":"twin","topSpeed":145,"power":121,"mpg":60,"stats":{"topSpeed":70,"power":66,"engine":58,"economy":74,"value":92},"allRound":72},{"id":"BK-104","make":"KTM","model":"890 SMT","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":10499,"engineCC":889,"engineType":"twin","topSpeed":130,"power":103,"mpg":63,"stats":{"topSpeed":57,"power":57,"engine":50,"economy":78,"value":84},"allRound":65},{"id":"BK-105","make":"KTM","model":"790 Duke","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":6999,"engineCC":799,"engineType":"twin","topSpeed":135,"power":94,"mpg":53,"stats":{"topSpeed":50,"power":40,"engine":40,"economy":58,"value":97},"allRound":57},{"id":"BK-106","make":"KTM","model":"390 Adventure R","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":6199,"engineCC":399,"engineType":"single","topSpeed":105,"power":44,"mpg":60,"stats":{"topSpeed":16,"power":13,"engine":10,"economy":66,"value":46},"allRound":30},{"id":"BK-107","make":"KTM","model":"390 Enduro R","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":6699,"engineCC":399,"engineType":"single","topSpeed":105,"power":44,"mpg":60,"stats":{"topSpeed":16,"power":13,"engine":10,"economy":66,"value":39},"allRound":29},{"id":"BK-108","make":"KTM","model":"390 SMC R","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":6699,"engineCC":399,"engineType":"single","topSpeed":105,"power":44,"mpg":60,"stats":{"topSpeed":15,"power":10,"engine":8,"economy":71,"value":38},"allRound":28},{"id":"BK-109","make":"Langen","model":"Two Stroke","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":32580,"engineCC":249,"engineType":"V-twin","topSpeed":130,"power":74,"mpg":40,"stats":{"topSpeed":57,"power":28,"engine":2,"economy":11,"value":2},"allRound":20},{"id":"BK-112","make":"Morbidelli","model":"C1002V","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":8799,"engineCC":997,"engineType":"twin","topSpeed":120,"power":94,"mpg":52,"stats":{"topSpeed":37,"power":55,"engine":66,"economy":49,"value":82},"allRound":58},{"id":"BK-113","make":"Morbidelli","model":"T1002V","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":8299,"engineCC":997,"engineType":"twin","topSpeed":120,"power":89,"mpg":60,"stats":{"topSpeed":37,"power":46,"engine":66,"economy":66,"value":90},"allRound":61},{"id":"BK-114","make":"Moto Guzzi","model":"V100 Mandello S","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":16795,"engineCC":1042,"engineType":"V-twin","topSpeed":135,"power":108,"mpg":50,"stats":{"topSpeed":57,"power":53,"engine":64,"economy":43,"value":32},"allRound":50},{"id":"BK-115","make":"Moto Guzzi","model":"Stelvio","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":14895,"engineCC":1042,"engineType":"V-twin","topSpeed":135,"power":113,"mpg":50,"stats":{"topSpeed":57,"power":58,"engine":64,"economy":43,"value":49},"allRound":54},{"id":"BK-116","make":"Moto Guzzi","model":"V85 TT","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":12195,"engineCC":853,"engineType":"V-twin","topSpeed":120,"power":79,"mpg":50,"stats":{"topSpeed":42,"power":41,"engine":51,"economy":34,"value":16},"allRound":37},{"id":"BK-117","make":"Moto Guzzi","model":"V85 Strada","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":11395,"engineCC":853,"engineType":"V-twin","topSpeed":120,"power":79,"mpg":50,"stats":{"topSpeed":42,"power":41,"engine":51,"economy":34,"value":22},"allRound":38},{"id":"BK-118","make":"Moto Guzzi","model":"V7 Sport","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":9745,"engineCC":853,"engineType":"V-twin","topSpeed":115,"power":66,"mpg":58,"stats":{"topSpeed":32,"power":30,"engine":51,"economy":55,"value":34},"allRound":40},{"id":"BK-119","make":"MV Agusta","model":"Enduro Veloce","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":17400,"engineCC":931,"engineType":"inline 3","topSpeed":149,"power":122,"mpg":40,"stats":{"topSpeed":85,"power":76,"engine":62,"economy":9,"value":22},"allRound":51},{"id":"BK-120","make":"MV Agusta","model":"Brutale RR Ottantesimo","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":15750,"engineCC":801,"engineType":"inline 3","topSpeed":151,"power":138,"mpg":48,"stats":{"topSpeed":65,"power":60,"engine":34,"economy":52,"value":48},"allRound":52},{"id":"BK-121","make":"MV Agusta","model":"Superveloce 800","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":17500,"engineCC":798,"engineType":"inline 3","topSpeed":160,"power":146,"mpg":41,"stats":{"topSpeed":71,"power":65,"engine":29,"economy":27,"value":29},"allRound":44},{"id":"BK-122","make":"MV Agusta","model":"Dragster 800 RR SCS","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":16600,"engineCC":798,"engineType":"inline 3","topSpeed":150,"power":138,"mpg":45,"stats":{"topSpeed":63,"power":60,"engine":29,"economy":45,"value":36},"allRound":47},{"id":"BK-123","make":"MV Agusta","model":"Turismo Veloce R","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":14000,"engineCC":798,"engineType":"inline 3","topSpeed":136,"power":110,"mpg":48,"stats":{"topSpeed":64,"power":55,"engine":32,"economy":32,"value":34},"allRound":43},{"id":"BK-124","make":"QJMotor","model":"SRK 921","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":6999,"engineCC":921,"engineType":"inline 4","topSpeed":145,"power":122,"mpg":34,"stats":{"topSpeed":59,"power":54,"engine":47,"economy":3,"value":98},"allRound":52},{"id":"BK-125","make":"QJMotor","model":"SVT 650X","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":6299,"engineCC":645,"engineType":"V-twin","topSpeed":125,"power":75,"mpg":50,"stats":{"topSpeed":44,"power":30,"engine":18,"economy":45,"value":71},"allRound":42},{"id":"BK-126","make":"QJMotor","model":"SRV 600V4","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":5999,"engineCC":561,"engineType":"V4","topSpeed":115,"power":67,"mpg":50,"stats":{"topSpeed":25,"power":24,"engine":16,"economy":45,"value":52},"allRound":32},{"id":"BK-127","make":"Rieju","model":"Aventura Rally 307","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":4599,"engineCC":294,"engineType":"single","topSpeed":80,"power":25,"mpg":49,"stats":{"topSpeed":5,"power":3,"engine":4,"economy":35,"value":9},"allRound":11},{"id":"BK-128","make":"Royal Enfield","model":"Bear 650","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":6899,"engineCC":648,"engineType":"twin","topSpeed":110,"power":47,"mpg":60,"stats":{"topSpeed":23,"power":22,"engine":22,"economy":64,"value":48},"allRound":36},{"id":"BK-129","make":"Royal Enfield","model":"Interceptor","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":6599,"engineCC":648,"engineType":"twin","topSpeed":110,"power":44,"mpg":60,"stats":{"topSpeed":23,"power":17,"engine":22,"economy":64,"value":50},"allRound":35},{"id":"BK-130","make":"Royal Enfield","model":"Himalayan 450","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":5750,"engineCC":452,"engineType":"single","topSpeed":90,"power":40,"mpg":78,"stats":{"topSpeed":8,"power":9,"engine":17,"economy":97,"value":79},"allRound":42},{"id":"BK-131","make":"Royal Enfield","model":"Guerrilla 450","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":4850,"engineCC":452,"engineType":"single","topSpeed":100,"power":39,"mpg":83,"stats":{"topSpeed":10,"power":5,"engine":14,"economy":98,"value":96},"allRound":45},{"id":"BK-132","make":"Royal Enfield","model":"Classic 350","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":4469,"engineCC":349,"engineType":"single","topSpeed":72,"power":19,"mpg":79,"stats":{"topSpeed":2,"power":2,"engine":7,"economy":96,"value":82},"allRound":38},{"id":"BK-133","make":"Royal Enfield","model":"Meteor","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":4059,"engineCC":349,"engineType":"single","topSpeed":72,"power":19,"mpg":79,"stats":{"topSpeed":2,"power":2,"engine":7,"economy":96,"value":91},"allRound":40},{"id":"BK-134","make":"Royal Enfield","model":"HNTR 350","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":3899,"engineCC":349,"engineType":"single","topSpeed":76,"power":20,"mpg":66,"stats":{"topSpeed":4,"power":4,"engine":7,"economy":83,"value":87},"allRound":37},{"id":"BK-136","make":"Suzuki","model":"Hayabusa","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":18699,"engineCC":1340,"engineType":"inline 4","topSpeed":186,"power":187,"mpg":42,"stats":{"topSpeed":90,"power":83,"engine":88,"economy":32,"value":59},"allRound":70},{"id":"BK-137","make":"Suzuki","model":"V-Strom 1050RE","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":13499,"engineCC":1037,"engineType":"V-twin","topSpeed":137,"power":99,"mpg":62,"stats":{"topSpeed":68,"power":45,"engine":62,"economy":78,"value":77},"allRound":66},{"id":"BK-138","make":"Suzuki","model":"GSX-S1000GX+","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":12999,"engineCC":999,"engineType":"inline 4","topSpeed":145,"power":150,"mpg":46,"stats":{"topSpeed":70,"power":83,"engine":68,"economy":30,"value":70},"allRound":64},{"id":"BK-139","make":"Suzuki","model":"GSX-S1000GT+","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":11999,"engineCC":999,"engineType":"inline 4","topSpeed":165,"power":150,"mpg":46,"stats":{"topSpeed":88,"power":83,"engine":68,"economy":30,"value":85},"allRound":71},{"id":"BK-140","make":"Triumph","model":"Rocket 3 Storm GT","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":24395,"engineCC":2458,"engineType":"inline 3","topSpeed":138,"power":165,"mpg":35,"stats":{"topSpeed":50,"power":70,"engine":98,"economy":8,"value":17},"allRound":49},{"id":"BK-141","make":"Triumph","model":"Rocket 3 Storm R","type":"Hyper / Extreme","primary":"#C8FF3D","secondary":"#2D1B69","price":23695,"engineCC":2458,"engineType":"inline 3","topSpeed":138,"power":165,"mpg":35,"stats":{"topSpeed":50,"power":70,"engine":98,"economy":8,"value":20},"allRound":49},{"id":"BK-142","make":"Triumph","model":"Speed Twin 1200 RS","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":14695,"engineCC":1200,"engineType":"twin","topSpeed":130,"power":96,"mpg":60,"stats":{"topSpeed":57,"power":60,"engine":87,"economy":64,"value":51},"allRound":64},{"id":"BK-143","make":"Triumph","model":"Scrambler 1200 XE","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":13895,"engineCC":1200,"engineType":"twin","topSpeed":130,"power":89,"mpg":66,"stats":{"topSpeed":56,"power":46,"engine":86,"economy":84,"value":65},"allRound":67},{"id":"BK-144","make":"Triumph","model":"Speedmaster","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":13795,"engineCC":1200,"engineType":"twin","topSpeed":115,"power":77,"mpg":64,"stats":{"topSpeed":18,"power":24,"engine":82,"economy":84,"value":50},"allRound":52},{"id":"BK-145","make":"Triumph","model":"Bonneville Bobber","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":13795,"engineCC":1200,"engineType":"twin","topSpeed":120,"power":77,"mpg":64,"stats":{"topSpeed":27,"power":24,"engine":82,"economy":84,"value":55},"allRound":54},{"id":"BK-146","make":"Triumph","model":"Bonneville T120","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":12195,"engineCC":1200,"engineType":"twin","topSpeed":120,"power":79,"mpg":64,"stats":{"topSpeed":27,"power":27,"engine":82,"economy":84,"value":73},"allRound":59},{"id":"BK-147","make":"Triumph","model":"Tiger 1200 Rally Explorer","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":19695,"engineCC":1160,"engineType":"inline 3","topSpeed":140,"power":148,"mpg":43,"stats":{"topSpeed":73,"power":84,"engine":76,"economy":21,"value":27},"allRound":56},{"id":"BK-148","make":"Triumph","model":"Speed Triple 1200 RX","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":18995,"engineCC":1160,"engineType":"inline 3","topSpeed":165,"power":180,"mpg":51,"stats":{"topSpeed":88,"power":93,"engine":86,"economy":50,"value":45},"allRound":72},{"id":"BK-149","make":"Triumph","model":"Tiger 1200 Rally Pro","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":18295,"engineCC":1160,"engineType":"inline 3","topSpeed":140,"power":148,"mpg":55,"stats":{"topSpeed":73,"power":84,"engine":76,"economy":57,"value":52},"allRound":68},{"id":"BK-150","make":"Triumph","model":"Speed Triple 1200 RS","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":17695,"engineCC":1160,"engineType":"inline 3","topSpeed":165,"power":180,"mpg":51,"stats":{"topSpeed":88,"power":93,"engine":86,"economy":50,"value":58},"allRound":75},{"id":"BK-151","make":"Triumph","model":"Scrambler 900","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":10395,"engineCC":900,"engineType":"twin","topSpeed":115,"power":64,"mpg":70,"stats":{"topSpeed":26,"power":25,"engine":60,"economy":90,"value":62},"allRound":53},{"id":"BK-152","make":"Triumph","model":"Bonneville T100","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":9695,"engineCC":900,"engineType":"twin","topSpeed":115,"power":64,"mpg":60,"stats":{"topSpeed":32,"power":28,"engine":63,"economy":64,"value":53},"allRound":48},{"id":"BK-153","make":"Triumph","model":"Speed Twin 900","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":9495,"engineCC":900,"engineType":"twin","topSpeed":115,"power":64,"mpg":60,"stats":{"topSpeed":32,"power":28,"engine":63,"economy":64,"value":55},"allRound":48},{"id":"BK-154","make":"Triumph","model":"Tiger 900 Rally Pro","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":14695,"engineCC":888,"engineType":"inline 3","topSpeed":130,"power":106,"mpg":60,"stats":{"topSpeed":45,"power":50,"engine":39,"economy":71,"value":40},"allRound":49},{"id":"BK-155","make":"Triumph","model":"Tiger 900 GT Pro","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":14095,"engineCC":888,"engineType":"inline 3","topSpeed":130,"power":106,"mpg":60,"stats":{"topSpeed":45,"power":50,"engine":39,"economy":71,"value":46},"allRound":50},{"id":"BK-156","make":"Triumph","model":"Tiger Sport 800","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":10995,"engineCC":798,"engineType":"inline 3","topSpeed":130,"power":113,"mpg":58,"stats":{"topSpeed":45,"power":58,"engine":32,"economy":63,"value":74},"allRound":54},{"id":"BK-157","make":"Triumph","model":"Tiger Sport 800","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":9195,"engineCC":798,"engineType":"inline 3","topSpeed":140,"power":113,"mpg":60,"stats":{"topSpeed":73,"power":58,"engine":32,"economy":71,"value":96},"allRound":66},{"id":"BK-158","make":"Triumph","model":"Street Triple 765 RX","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":12895,"engineCC":765,"engineType":"inline 3","topSpeed":145,"power":119,"mpg":43,"stats":{"topSpeed":70,"power":63,"engine":35,"economy":21,"value":38},"allRound":45},{"id":"BK-159","make":"Triumph","model":"Street Triple 765 RS","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":11995,"engineCC":765,"engineType":"inline 3","topSpeed":145,"power":128,"mpg":53,"stats":{"topSpeed":70,"power":73,"engine":35,"economy":58,"value":73},"allRound":62},{"id":"BK-160","make":"Triumph","model":"Tiger Sport 660","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":9295,"engineCC":660,"engineType":"inline 3","topSpeed":135,"power":94,"mpg":58,"stats":{"topSpeed":57,"power":39,"engine":20,"economy":63,"value":85},"allRound":53},{"id":"BK-161","make":"Triumph","model":"Daytona 660","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":8995,"engineCC":660,"engineType":"inline 3","topSpeed":135,"power":94,"mpg":58,"stats":{"topSpeed":50,"power":40,"engine":27,"economy":68,"value":83},"allRound":54},{"id":"BK-162","make":"Triumph","model":"Trident 660","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":8095,"engineCC":660,"engineType":"inline 3","topSpeed":129,"power":94,"mpg":58,"stats":{"topSpeed":49,"power":49,"engine":28,"economy":64,"value":86},"allRound":55},{"id":"BK-163","make":"Triumph","model":"Scrambler 400 XC","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":6545,"engineCC":398,"engineType":"single","topSpeed":100,"power":40,"mpg":74,"stats":{"topSpeed":11,"power":9,"engine":7,"economy":95,"value":60},"allRound":36},{"id":"BK-164","make":"Triumph","model":"Thruxton 400","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":5895,"engineCC":398,"engineType":"single","topSpeed":100,"power":41,"mpg":78,"stats":{"topSpeed":13,"power":12,"engine":10,"economy":94,"value":70},"allRound":40},{"id":"BK-165","make":"Triumph","model":"Speed 400","type":"Classic","primary":"#FC6C26","secondary":"#FFF4D6","price":6245,"engineCC":398,"engineType":"single","topSpeed":100,"power":40,"mpg":80,"stats":{"topSpeed":13,"power":11,"engine":10,"economy":98,"value":65},"allRound":39},{"id":"BK-166","make":"Voge","model":"DS900X","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":8799,"engineCC":895,"engineType":"twin","topSpeed":125,"power":94,"mpg":60,"stats":{"topSpeed":45,"power":55,"engine":58,"economy":66,"value":88},"allRound":62},{"id":"BK-167","make":"Voge","model":"DS800X Rally","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":7299,"engineCC":798,"engineType":"twin","topSpeed":125,"power":94,"mpg":50,"stats":{"topSpeed":45,"power":55,"engine":42,"economy":40,"value":85},"allRound":53},{"id":"BK-168","make":"Voge","model":"DS625X","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":6299,"engineCC":581,"engineType":"twin","topSpeed":115,"power":63,"mpg":65,"stats":{"topSpeed":26,"power":23,"engine":20,"economy":78,"value":83},"allRound":46},{"id":"BK-169","make":"Voge","model":"R625","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":8299,"engineCC":581,"engineType":"twin","topSpeed":115,"power":63,"mpg":42,"stats":{"topSpeed":26,"power":23,"engine":20,"economy":16,"value":6},"allRound":18},{"id":"BK-170","make":"Yamaha","model":"Tracer 9 GT+","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":16608,"engineCC":890,"engineType":"inline 3","topSpeed":135,"power":117,"mpg":49,"stats":{"topSpeed":57,"power":64,"engine":46,"economy":37,"value":24},"allRound":46},{"id":"BK-171","make":"Yamaha","model":"Tracer 9 GT","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":13958,"engineCC":890,"engineType":"inline 3","topSpeed":135,"power":117,"mpg":62,"stats":{"topSpeed":57,"power":64,"engine":46,"economy":78,"value":66},"allRound":62},{"id":"BK-172","make":"Yamaha","model":"XSR900 GP","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":12904,"engineCC":890,"engineType":"inline 3","topSpeed":135,"power":117,"mpg":60,"stats":{"topSpeed":50,"power":58,"engine":49,"economy":74,"value":66},"allRound":59},{"id":"BK-173","make":"Yamaha","model":"R9","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":12600,"engineCC":890,"engineType":"inline 3","topSpeed":135,"power":117,"mpg":50,"stats":{"topSpeed":50,"power":58,"engine":49,"economy":44,"value":54},"allRound":51},{"id":"BK-174","make":"Yamaha","model":"MT-09 SP","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":11614,"engineCC":890,"engineType":"inline 3","topSpeed":130,"power":117,"mpg":45,"stats":{"topSpeed":38,"power":58,"engine":49,"economy":27,"value":43},"allRound":43},{"id":"BK-175","make":"Yamaha","model":"XSR900","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":11104,"engineCC":890,"engineType":"inline 3","topSpeed":130,"power":107,"mpg":49,"stats":{"topSpeed":38,"power":50,"engine":49,"economy":40,"value":57},"allRound":47},{"id":"BK-176","make":"Yamaha","model":"MT-09","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":9814,"engineCC":890,"engineType":"inline 3","topSpeed":130,"power":117,"mpg":49,"stats":{"topSpeed":57,"power":70,"engine":53,"economy":40,"value":76},"allRound":59},{"id":"BK-177","make":"Yamaha","model":"T\u00e9n\u00e9r\u00e9 700 World Raid","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":11924,"engineCC":689,"engineType":"twin","topSpeed":115,"power":72,"mpg":66,"stats":{"topSpeed":26,"power":30,"engine":34,"economy":84,"value":29},"allRound":41},{"id":"BK-178","make":"Yamaha","model":"Tracer 7 GT","type":"Touring","primary":"#B8F7E4","secondary":"#25272C","price":10208,"engineCC":689,"engineType":"twin","topSpeed":125,"power":72,"mpg":49,"stats":{"topSpeed":35,"power":19,"engine":23,"economy":37,"value":23},"allRound":27},{"id":"BK-179","make":"Yamaha","model":"T\u00e9n\u00e9r\u00e9 700","type":"Adventure","primary":"#CFFF74","secondary":"#2F3A1D","price":10108,"engineCC":689,"engineType":"twin","topSpeed":120,"power":72,"mpg":66,"stats":{"topSpeed":37,"power":30,"engine":34,"economy":84,"value":50},"allRound":47},{"id":"BK-180","make":"Yamaha","model":"R7","type":"Sport","primary":"#E46CFF","secondary":"#2E0F35","price":9504,"engineCC":689,"engineType":"twin","topSpeed":130,"power":72,"mpg":56,"stats":{"topSpeed":38,"power":21,"engine":29,"economy":64,"value":50},"allRound":40},{"id":"BK-181","make":"Yamaha","model":"MT-07","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":7408,"engineCC":689,"engineType":"twin","topSpeed":122,"power":74,"mpg":48,"stats":{"topSpeed":41,"power":28,"engine":33,"economy":35,"value":50},"allRound":37},{"id":"BK-182","make":"Zontes","model":"ZT703-F","type":"Naked / Street","primary":"#5B3DF5","secondary":"#E8DEFF","price":7199,"engineCC":699,"engineType":"triple","topSpeed":110,"power":94,"mpg":48,"stats":{"topSpeed":19,"power":49,"engine":36,"economy":35,"value":58},"allRound":39}];
+// <ENGINE>
+const STATS=['topSpeed','power','engine','economy','value'];
+const STAT_META={
+  topSpeed:{label:'TOP SPEED',name:'top speed'},
+  power:{label:'POWER',name:'power'},
+  engine:{label:'ENGINE',name:'engine size'},
+  economy:{label:'ECONOMY',name:'economy'},
+  value:{label:'VALUE',name:'value'}
+};
+let RNG=Math.random;
+const pickRandom=a=>a[Math.floor(RNG()*a.length)];
+function shuffle(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(RNG()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
+function spec(b,k){
+  if(k==='topSpeed')return b.topSpeed+' mph';
+  if(k==='power')return b.power+' bhp';
+  if(k==='engine')return b.engineCC.toLocaleString('en-GB')+' cc';
+  if(k==='economy')return b.mpg+' mpg';
+  return '£'+Math.round(b.price).toLocaleString('en-GB');
+}
+const DIST={};STATS.forEach(k=>DIST[k]=BIKES.map(b=>b.stats[k]).sort((x,y)=>x-y));
+function pct(k,v,from=0){
+  const a=DIST[k],start=Math.floor(a.length*from);let lt=0,eq=0;
+  for(let i=start;i<a.length;i++){if(a[i]<v)lt++;else if(a[i]===v)eq++}
+  return (lt+eq/2)/(a.length-start);
+}
+BIKES.forEach(b=>{b.flex=STATS.reduce((s,k)=>s+pct(k,b.stats[k]),0)/STATS.length});
+const sign=(a,b,k)=>Math.sign(a.stats[k]-b.stats[k]);
+
+/* Quick Match: the AI holds a small hand and, once you name a stat, plays its best card for it */
+const AI_HAND={easy:1,medium:2,hard:3};
+function dealAiHand(pool,level){return shuffle(pool).slice(0,AI_HAND[level])}
+function aiPickForStat(hand,stat){
+  const top=Math.max(...hand.map(b=>b.stats[stat]));
+  return pickRandom(hand.filter(b=>b.stats[stat]===top));
+}
+
+/* Duel: AI decisions */
+const TUNE={atk:{spec:0.35,exp:2},def:{spec:0.35,from:0.5}};
+function aiChooseAttack(hand,level){
+  const opts=[];
+  hand.forEach((b,i)=>STATS.forEach(k=>opts.push({i,k,p:pct(k,b.stats[k]),flex:b.flex})));
+  if(level==='easy')return pickRandom(opts);
+  if(level==='medium'){
+    opts.sort((x,y)=>y.p-x.p);
+    return pickRandom(opts.slice(0,Math.max(3,Math.ceil(opts.length*0.2))));
+  }
+  let best=null,bs=-9;
+  for(const o of opts){
+    const s=Math.pow(o.p,TUNE.atk.exp)-TUNE.atk.spec*o.flex+RNG()*0.02;
+    if(s>bs){bs=s;best=o}
+  }
+  return best;
+}
+function aiChooseDefense(hand,stat,level){
+  if(level==='easy')return Math.floor(RNG()*hand.length);
+  const byValue=hand.map((b,i)=>i).sort((x,y)=>hand[y].stats[stat]-hand[x].stats[stat]);
+  if(level==='medium')return RNG()<0.65?byValue[0]:Math.floor(RNG()*hand.length);
+  let best=0,bs=-9;
+  hand.forEach((b,i)=>{
+    const s=pct(stat,b.stats[stat],TUNE.def.from)-TUNE.def.spec*b.flex+RNG()*0.02;
+    if(s>bs){bs=s;best=i}
+  });
+  return best;
+}
+// </ENGINE>
+
+
+/* ---------- shared UI ---------- */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=v=>Number.isInteger(v)?v:v.toFixed(1);
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const later=(fn,ms)=>setTimeout(fn,ms);
+const LEVEL_COPY={
+  quick:{easy:'Holds 1 card',medium:'Holds 2 cards and plays the better one',hard:'Holds 3 cards and plays the best one'},
+  duel:{easy:'Plays cards at random',medium:'Attacks and defends with strong cards',hard:'Plans which cards to spend'}
+};
+const S={mode:'quick',level:'easy',target:5};
+try{Object.assign(S,JSON.parse(localStorage.getItem('motocardz.settings')||'{}'))}catch(e){}
+if(!['quick','duel'].includes(S.mode))S.mode='quick';
+if(!['easy','medium','hard'].includes(S.level))S.level='easy';
+if(![3,5,7].includes(+S.target))S.target=5;S.target=+S.target;
+const save=()=>{try{localStorage.setItem('motocardz.settings',JSON.stringify(S))}catch(e){}};
+
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
+function pips(el,results,slots){
+  const out=results.map(r=>`<span class="pip ${r}" title="${{w:'Won',l:'Lost',d:'Draw'}[r]}"></span>`);
+  while(out.length<slots)out.push('<span class="pip"></span>');
+  el.innerHTML=out.join('');el.setAttribute('aria-label','Round results');
+}
+function cardHTML(b,o={}){
+  const tag=o.act?'button':'div';
+  const rows=STATS.map(k=>{
+    const cls=['stat'];
+    if(o.act)cls.push('act');
+    if(o.hit===k)cls.push('hit');
+    if(o.sel===k)cls.push('sel');
+    if(o.target){cls.push(o.target===k?'target':'dim')}
+    return `<${tag} class="${cls.join(' ')}" data-stat="${k}"${o.act?' type="button"':''}><span class="lab"><span class="label">${STAT_META[k].label}</span><span class="spec">${esc(spec(b,k))}</span></span><span class="value">${fmt(b.stats[k])}</span></${tag}>`;
+  }).join('');
+  return `<div class="card-head" style="--c1:${b.primary};--c2:${b.secondary}"><div class="card-type">${esc(b.type)}</div><div class="card-name">${esc(b.make)}<br>${esc(b.model)}</div></div><div class="card-body"><div class="bike-meta"><span>${esc(cap(b.engineType))}</span><span>${esc(b.id)}</span></div><div class="stats">${rows}</div></div>`;
+}
+function settle(a,b,stat){const r=sign(a,b,stat);return r>0?'win':r<0?'lose':'draw'}
+function outcomeCopy(pb,ab,stat){
+  return `${pb.make} ${pb.model} scored ${fmt(pb.stats[stat])} (${spec(pb,stat)}) against the AI's ${ab.make} ${ab.model} on ${fmt(ab.stats[stat])} (${spec(ab,stat)}) for ${STAT_META[stat].name}.`;
+}
+function showEnd(o){
+  $('endCard').className='end-card '+o.tone;
+  $('endTitle').textContent=o.title;$('endScore').textContent=o.score;$('endCopy').textContent=o.copy;
+  $('end').hidden=false;$('rematch').focus();
+}
+
+/* ---------- Quick match ---------- */
+let Q=null;
+function qStart(){
+  Q={score:{p:0,a:0},results:[],round:0,used:new Set(),locked:false,over:false,player:null,hand:[],ai:null};
+  show('quick');qNext();
+}
+function qNext(){
+  Q.round++;Q.locked=false;Q.ai=null;
+  let avail=BIKES.filter(b=>!Q.used.has(b.id));
+  if(avail.length<8){Q.used.clear();avail=BIKES.slice()}
+  Q.player=pickRandom(avail);
+  Q.hand=dealAiHand(avail.filter(b=>b!==Q.player),S.level);
+  Q.used.add(Q.player.id);Q.hand.forEach(b=>Q.used.add(b.id));
+  $('qResult').className='result';
+  $('qRound').textContent=`Round ${Q.round} · first to ${S.target}`;
+  $('qScore').textContent=`You ${Q.score.p} – ${Q.score.a} AI`;
+  $('qPrompt').textContent='Choose one stat from your card.';
+  pips($('qPips'),Q.results,0);
+  $('qPlayer').className='card player';
+  $('qPlayer').innerHTML=cardHTML(Q.player,{act:true});
+  const n=Q.hand.length;
+  $('qAi').className='card ai';
+  $('qAi').innerHTML=`<div class="back" style="min-height:330px"><div class="mark">MOTO<br>CARDZ</div><div class="held">AI holds ${n} card${n>1?'s':''}</div></div>`;
+}
+function qPlay(stat){
+  if(!Q||Q.locked)return;Q.locked=true;
+  Q.ai=aiPickForStat(Q.hand,stat);
+  const out=settle(Q.player,Q.ai,stat);
+  if(out==='win'){Q.score.p++}else if(out==='lose'){Q.score.a++}
+  Q.results.push(out==='win'?'w':out==='lose'?'l':'d');
+  Q.over=Q.score.p>=S.target||Q.score.a>=S.target;
+  $('qPlayer').className='card player '+(out==='win'?'won':out==='lose'?'lost':'');
+  $('qPlayer').innerHTML=cardHTML(Q.player,{hit:stat});
+  $('qAi').className='card ai flip-in '+(out==='lose'?'won':out==='win'?'lost':'');
+  $('qAi').innerHTML=cardHTML(Q.ai,{hit:stat});
+  $('qScore').textContent=`You ${Q.score.p} – ${Q.score.a} AI`;
+  pips($('qPips'),Q.results,0);
+  $('qPrompt').textContent=`You chose ${STAT_META[stat].name}.`+(Q.hand.length>1?` The AI played the best of its ${Q.hand.length} cards.`:'');
+  const r=$('qResult');r.className='result show '+out;
+  $('qResultTitle').textContent=out==='win'?'Round won':out==='lose'?'Round lost':'Draw';
+  $('qResultCopy').textContent=outcomeCopy(Q.player,Q.ai,stat);
+  $('qNext').textContent=Q.over?'See result':'Next round';
+  $('qNext').focus({preventScroll:true});
+}
+function qEnd(){
+  const won=Q.score.p>Q.score.a;
+  showEnd({tone:won?'win':'lose',title:won?'You win the match':'The AI wins the match',score:`${Q.score.p} – ${Q.score.a}`,
+    copy:`Quick match, first to ${S.target}, AI on ${cap(S.level)}. ${Q.results.length} rounds played.`});
+}
+$('qPlayer').addEventListener('click',e=>{const s=e.target.closest('.stat');if(s)qPlay(s.dataset.stat)});
+$('qNext').onclick=()=>{if(Q.over)qEnd();else qNext()};
+
+/* ---------- Duel ---------- */
+let D=null,SID=0;
+const HAND=5,WIN_AT=3;
+function dStart(){
+  const deck=shuffle(BIKES);
+  D={sid:++SID,hands:{p:deck.slice(0,HAND),a:deck.slice(HAND,HAND*2)},reserve:deck.slice(HAND*2),score:{p:0,a:0},results:[],round:0,
+     attacker:RNG()<.5?'p':'a',phase:'',sel:null,pCard:null,aCard:null,stat:null,sudden:false,over:false,outcome:null};
+  show('duel');dNextRound();
+}
+function dLater(fn,ms){const sid=D.sid;later(()=>{if(D&&D.sid===sid)fn()},ms)}
+function dNextRound(){
+  D.round++;D.pCard=D.aCard=D.stat=D.sel=D.outcome=null;
+  if(D.attacker==='p'){D.phase='pAttack';dRender()}
+  else{D.phase='aChoose';dRender();dLater(dAiAttack,900)}
+}
+function dAiAttack(){
+  const o=aiChooseAttack(D.hands.a,S.level);
+  D.aCard=D.hands.a.splice(o.i,1)[0];D.stat=o.k;D.phase='pDefend';dRender();
+  if(D.hands.p.length===1){D.sel={i:0};dLater(dConfirm,1200)}
+}
+function dConfirm(){
+  if(!D||!D.sel)return;
+  if(D.phase==='pAttack'){
+    if(!D.sel.k)return;
+    D.pCard=D.hands.p.splice(D.sel.i,1)[0];D.stat=D.sel.k;D.sel=null;D.phase='aDefend';dRender();
+    dLater(()=>{const j=aiChooseDefense(D.hands.a,D.stat,S.level);D.aCard=D.hands.a.splice(j,1)[0];dResolve()},1000);
+  }else if(D.phase==='pDefend'){
+    D.pCard=D.hands.p.splice(D.sel.i,1)[0];D.sel=null;D.phase='aDefend';dRender();
+    dLater(dResolve,600);
+  }
+}
+function dResolve(){
+  D.phase='reveal';
+  const out=settle(D.pCard,D.aCard,D.stat);D.outcome=out;
+  if(out==='win')D.score.p++;else if(out==='lose')D.score.a++;
+  D.results.push(out==='win'?'w':out==='lose'?'l':'d');
+  D.over=D.score.p>=WIN_AT||D.score.a>=WIN_AT||(!D.sudden&&D.round>=HAND&&D.score.p!==D.score.a)||(D.sudden&&out!=='draw');
+  dRender();
+}
+function dContinue(){
+  if(D.over)return dEnd();
+  D.attacker=D.attacker==='p'?'a':'p';
+  if(!D.sudden&&D.round>=HAND)D.sudden=true;
+  if(D.sudden){D.hands.p=[D.reserve.pop()];D.hands.a=[D.reserve.pop()]}
+  dNextRound();
+}
+function dEnd(){
+  const won=D.score.p>D.score.a;
+  showEnd({tone:won?'win':'lose',title:won?'You win the duel':'The AI wins the duel',score:`${D.score.p} – ${D.score.a}`,
+    copy:`Duel, AI on ${cap(S.level)}. `+(D.sudden?'Decided in sudden death.':`Decided over ${D.results.length} rounds.`)});
+}
+function dPrompt(){
+  const l=STAT_META[D.stat]?STAT_META[D.stat].label:'';
+  switch(D.phase){
+    case 'pAttack':return D.hands.p.length===1?'Your attack. Tap a stat on your last card.':'Your attack. Pick a card, then choose the stat to fight on.';
+    case 'aChoose':return 'The AI is choosing a card and a stat…';
+    case 'pDefend':return D.hands.p.length===1?`The AI attacks on ${l}. You have one card left, so it plays automatically.`:`The AI attacks on ${l}. Pick a card to defend.`;
+    case 'aDefend':return D.attacker==='p'?'The AI is choosing a defender…':'Revealing…';
+    case 'reveal':return `Contested stat: ${STAT_META[D.stat].name}.`;
+  }
+  return '';
+}
+function dRender(){
+  const label=D.sudden?'Sudden death':`Round ${D.round} of ${HAND}`;
+  $('dRound').textContent=`${label} · ${D.attacker==='p'?'You attack':'AI attacks'}`;
+  $('dScore').textContent=`You ${D.score.p} – ${D.score.a} AI`;
+  pips($('dPips'),D.results,D.sudden?D.results.length:HAND);
+  $('foeLabel').textContent=`AI hand: ${D.hands.a.length} card${D.hands.a.length===1?'':'s'}`;
+  $('foeCards').innerHTML=D.hands.a.map(()=>'<span class="foe-card"></span>').join('');
+  $('dPrompt').textContent=dPrompt();
+
+  // arena
+  const rev=D.phase==='reveal';
+  const pv=rev?(D.outcome==='win'?'won':D.outcome==='lose'?'lost':''):'';
+  const av=rev?(D.outcome==='lose'?'won':D.outcome==='win'?'lost':''):'';
+  $('dYou').innerHTML=D.pCard?`<article class="card mini ${pv}">${cardHTML(D.pCard,{hit:rev?D.stat:null})}</article>`:'<div class="slot-empty">Your card</div>';
+  if(rev){$('dFoe').innerHTML=`<article class="card mini flip-in ${av}">${cardHTML(D.aCard,{hit:D.stat})}</article>`}
+  else if(D.aCard||D.phase==='aDefend'||D.phase==='aChoose'){
+    const tag=D.phase==='aChoose'?'Choosing…':D.attacker==='a'?`Attacking on ${STAT_META[D.stat].label}`:`Defending on ${STAT_META[D.stat].label}`;
+    $('dFoe').innerHTML=`<article class="card mini"><div class="back"><div class="mark">MOTO<br>CARDZ</div><div class="badge">${tag}</div></div></article>`;
+  }else $('dFoe').innerHTML='<div class="slot-empty">AI card</div>';
+
+  // result
+  const r=$('dResult');
+  if(rev){
+    r.className='result show '+D.outcome;
+    $('dResultTitle').textContent=D.outcome==='win'?'Round won':D.outcome==='lose'?'Round lost':'Draw';
+    let copy=outcomeCopy(D.pCard,D.aCard,D.stat);
+    if(D.over)copy+=' '+(D.score.p>D.score.a?'That wins the duel.':'That loses the duel.');
+    else if(!D.sudden&&D.round>=HAND)copy+=' Scores are level, so sudden death is next: one fresh card each.';
+    else copy+=` Next: ${D.attacker==='p'?'the AI attacks':'you attack'}.`;
+    $('dResultCopy').textContent=copy;
+    $('dNext').textContent=D.over?'See result':'Next round';
+    $('dNext').focus({preventScroll:true});
+  }else r.className='result';
+
+  // hand
+  const hand=$('dHand'),sx=hand.scrollLeft;
+  const att=D.phase==='pAttack',def=D.phase==='pDefend'&&D.hands.p.length>1;
+  hand.innerHTML=D.hands.p.map((b,i)=>{
+    const selected=D.sel&&D.sel.i===i;
+    const cls=['card','mini'];if(selected)cls.push('selected');if(def)cls.push('defendable');
+    const attrs=def?` role="button" tabindex="0" aria-label="Defend with ${esc(b.make)} ${esc(b.model)}"`:'';
+    return `<article class="${cls.join(' ')}" data-i="${i}"${attrs}>${cardHTML(b,{act:att,sel:selected?D.sel.k:null,target:def||(D.phase==='pDefend'&&selected)?D.stat:null})}</article>`;
+  }).join('');
+  hand.scrollLeft=sx;
+  $('handTitle').textContent=D.hands.p.length?'Your hand':'Your hand is empty';
+
+  // confirm bar
+  const cf=$('dConfirm');
+  if(D.sel&&(att&&D.sel.k||def)){
+    const b=D.hands.p[D.sel.i];
+    cf.hidden=false;
+    $('dConfirmText').textContent=att?`Attack with ${b.make} ${b.model} on ${STAT_META[D.sel.k].name} (${fmt(b.stats[D.sel.k])})?`:`Defend with ${b.make} ${b.model} (${STAT_META[D.stat].name} ${fmt(b.stats[D.stat])})?`;
+    $('dGo').textContent=att?'Play card':'Defend';
+  }else cf.hidden=true;
+}
+$('dHand').addEventListener('click',e=>{
+  if(!D)return;
+  const card=e.target.closest('.card');if(!card)return;
+  const i=+card.dataset.i;
+  if(D.phase==='pAttack'){
+    const s=e.target.closest('.stat');if(!s)return;
+    D.sel={i,k:s.dataset.stat};dRender();
+  }else if(D.phase==='pDefend'&&D.hands.p.length>1){D.sel={i};dRender()}
+});
+$('dHand').addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&D&&D.phase==='pDefend'&&D.hands.p.length>1){
+    const card=e.target.closest('.card');if(card){e.preventDefault();D.sel={i:+card.dataset.i};dRender();$('dGo').focus()}
+  }
+});
+$('dGo').onclick=dConfirm;
+$('dCancel').onclick=()=>{if(D){D.sel=null;dRender()}};
+$('dNext').onclick=()=>{if(D)dContinue()};
+
+/* ---------- menu + settings ---------- */
+function toMenu(){Q=null;D=null;SID++;$('end').hidden=true;show('home')}
+document.querySelectorAll('[data-menu]').forEach(b=>b.onclick=toMenu);
+$('endMenu').onclick=toMenu;
+$('rematch').onclick=()=>{$('end').hidden=true;S.mode==='quick'?qStart():dStart()};
+$('start').onclick=()=>{save();S.mode==='quick'?qStart():dStart()};
+
+function syncSettings(){
+  document.querySelectorAll('#modeOpts .opt').forEach(o=>o.classList.toggle('selected',o.dataset.v===S.mode));
+  document.querySelectorAll('#levelOpts .opt').forEach(o=>{o.classList.toggle('selected',o.dataset.v===S.level);o.querySelector('small').textContent=LEVEL_COPY[S.mode][o.dataset.v]});
+  document.querySelectorAll('#targetOpts .opt').forEach(o=>o.classList.toggle('selected',+o.dataset.v===S.target));
+  $('targetSetting').hidden=S.mode!=='quick';
+  $('modeNote').textContent=S.mode==='quick'
+    ?`The AI holds a hidden hand. You name a stat on your card, then it plays its best card for that stat. First to ${S.target} round wins takes the match.`
+    :'Each side holds five cards, and each card is played once. The attacker picks a card and a stat, then the defender answers with one of theirs. Win three rounds to win the duel. If it ends level, sudden death decides it.';
+  $('aiPill').textContent='AI: '+cap(S.level);
+}
+[['modeOpts','mode'],['levelOpts','level'],['targetOpts','target']].forEach(([id,key])=>{
+  $(id).addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;S[key]=key==='target'?+o.dataset.v:o.dataset.v;save();syncSettings()});
+});
+$('countPill').textContent=BIKES.length+' bikes';
+$('lede').textContent=`${BIKES.length} real motorcycle cards. Five balanced game stats. Beat the AI one round at a time.`;
+syncSettings();
+
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script></body></html>
