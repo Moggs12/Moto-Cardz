@@ -17,7 +17,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Modern Apple-inspired premium UI direction agreed
 - [x] Graphite, Almond White, Electric Indigo and supporting palette selected
 - [x] MotoCardz logo concept sheet generated and preferred direction chosen
-- [ ] Finalise logo assets and exact brand spelling/lockups
+- [~] Logo direction approved: Option 1 motorcycle silhouette + wordmark, Option 4 matching app icon; export/asset refinement still pending
 - [ ] Apply logo, favicon and app icon to published game
 - [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
 - [ ] Review UI on mobile and desktop
@@ -45,7 +45,7 @@ https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Next proposed release
 V2.1.0 / Build 001 — Dark Premium palette live and user-approved; next: logo and header refinement
-1. Final logo assets
+1. Prepare individual assets from approved Option 1 logo and Option 4 icon; preview header before deployment
 2. UI theme and card backs
 3. App icon and favicon
 4. Mobile/desktop testing
