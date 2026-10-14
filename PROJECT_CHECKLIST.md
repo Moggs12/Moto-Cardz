@@ -18,7 +18,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Graphite, Almond White, Electric Indigo and supporting palette selected
 - [x] MotoCardz logo concept sheet generated and preferred direction chosen
 - [~] Option 1 motorcycle logo and Option 4 app icon approved; header, homepage and gameplay visual mockups approved; individual production assets still pending
-- [~] V2.1.1 / Build 002 header with compact vector motorcycle mark and version badge committed; live visual review pending; original concept art still requires final asset export; favicon/app icon later
+- [~] V2.1.1 / Build 002 reviewed on iPhone: colours approved, vector bike judged too simplistic; V2.1.2 / Build 003 centred high-impact logo/header committed for user review; final illustrated asset and app icon still pending
 - [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
 - [ ] Review UI on mobile and desktop
 
@@ -44,7 +44,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Next proposed release
-V2.1.1 / Build 002 — Compact logo/header committed, pending user visual approval and live check
+V2.1.2 / Build 003 — Centred logo/header committed, awaiting live user approval; dramatic hero image is a later separate step
 1. Prepare individual assets from approved Option 1 logo and Option 4 icon; preview header before deployment
 2. UI theme and card backs
 3. App icon and favicon
