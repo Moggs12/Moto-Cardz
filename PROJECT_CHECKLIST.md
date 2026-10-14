@@ -17,8 +17,8 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Modern Apple-inspired premium UI direction agreed
 - [x] Graphite, Almond White, Electric Indigo and supporting palette selected
 - [x] MotoCardz logo concept sheet generated and preferred direction chosen
-- [~] Logo direction approved: Option 1 motorcycle silhouette + wordmark, Option 4 matching app icon; export/asset refinement still pending
-- [ ] Apply logo, favicon and app icon to published game
+- [~] Option 1 motorcycle logo and Option 4 app icon approved; header, homepage and gameplay visual mockups approved; individual production assets still pending
+- [ ] Apply approved logo and header first (next incremental release); favicon and app icon in later release
 - [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
 - [ ] Review UI on mobile and desktop
 
