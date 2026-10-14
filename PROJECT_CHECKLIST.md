@@ -9,8 +9,8 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Normalised stat/scoring approach chosen
 - [x] Quick match and duel gameplay implemented in published V2
 - [x] Easy / Medium / Hard AI controls implemented
-- [ ] Verify latest published build number and align all files to explicit version/build convention
-- [ ] Verify full 178-bike deck is loaded in the published build
+- [~] Main game identifies as Full Data V2 but has no explicit build number; add version/build display
+- [x] Verify 178 unique bike IDs are present in main game code (live Pages cache still to check)
 
 ## 2. Brand and visual design
 - [x] Retro trading-card direction with modern neon/category colours agreed
