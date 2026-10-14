@@ -145,12 +145,22 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
   .arena{grid-template-columns:1fr 34px 1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Build 003: centred, high-impact brand lockup; gameplay unchanged */
+.app>header{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 12px;padding:14px 8px 12px;border-bottom:1px solid rgba(155,122,255,.22);text-align:center}
+.brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-weight:950;font-style:italic;letter-spacing:-.065em;font-size:clamp(35px,8vw,62px);line-height:1.05;white-space:nowrap;text-shadow:0 4px 22px rgba(91,61,245,.22)}
+.brand-bike{width:clamp(160px,40vw,240px);height:auto;max-height:110px;object-fit:contain;filter:drop-shadow(0 3px 13px rgba(91,61,245,.34))}
+.brand-name{display:block;color:#FFFAF3}.brand-name span{color:#9B7AFF}
+.brand-tagline{font-size:10px;font-weight:750;letter-spacing:.28em;color:#D9CEE9;font-style:normal;margin-top:7px;line-height:1.3}
+.app>header .hud{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:7px}
+.app>header .pill{font-size:11px;padding:7px 11px}
+@media(max-width:420px){.app>header{padding-top:10px}.brand{font-size:clamp(32px,9vw,42px)}.brand-bike{width:175px}.app>header .pill{font-size:10px;padding:6px 9px}}
 </style></head>
 <body><div class="app">
-<header><div class="brand"><img class="brand-bike" src="assets/motocardz-header-bike.svg" alt="" width="106" height="48">MOTO<span>CARDZ</span></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.1</div></div></header>
+<header><div class="brand"><img class="brand-bike" src="assets/motocardz-header-bike.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.2</div></div></header>
 
 <section id="home" class="screen active"><div class="hero"><div class="hero-inner">
-  <div class="eyebrow">Full data · V2.1.1 / Build 002</div>
+  <div class="eyebrow">Full data · V2.1.2 / Build 003</div>
   <h1>Pick a stat.<br>Take the win.</h1>
   <p class="lede" id="lede"></p>
   <div class="setting"><div class="setting-title">Mode</div>
