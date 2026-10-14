@@ -19,7 +19,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] MotoCardz logo concept sheet generated and preferred direction chosen
 - [ ] Finalise logo assets and exact brand spelling/lockups
 - [ ] Apply logo, favicon and app icon to published game
-- [~] Dark Premium Option A palette applied incrementally to main game; typography/panels still to review
+- [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
 - [ ] Review UI on mobile and desktop
 
 ## 3. Motorcycle cards and images
@@ -40,8 +40,11 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [ ] Explore additional card packs (cars, animals, countries etc.)
 - [ ] Consider user-created decks
 
+## Live URL
+https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
+
 ## Next proposed release
-V2.1.0 / Build 001 — Dark Premium palette committed to main; live Pages verification pending
+V2.1.0 / Build 001 — Dark Premium palette live and user-approved; next: logo and header refinement
 1. Final logo assets
 2. UI theme and card backs
 3. App icon and favicon
