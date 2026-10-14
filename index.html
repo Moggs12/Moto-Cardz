@@ -2,7 +2,7 @@
 <html lang="en-GB"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111216">
+<meta name="theme-color" content="#25272C">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Moto Cardz">
@@ -11,10 +11,10 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>
-:root{--bg:#0b0c0f;--panel:#15171c;--panel2:#1d2027;--text:#f7f7f2;--muted:#9ca0aa;--accent:#c8ff3d;--danger:#ff5c72;--line:rgba(255,255,255,.09)}
+:root{--bg:#25272C;--panel:#353740;--panel2:#353740;--text:#FFFAF3;--muted:#B8B5C3;--accent:#5B3DF5;--danger:#ff5c72;--line:rgba(255,255,255,.09)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{margin:0;background:radial-gradient(circle at 20% 0%,#25212f 0,#0b0c0f 38%),#0b0c0f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;min-height:100dvh}
+body{margin:0;background:radial-gradient(circle at 20% 0%,#363044 0,#25272C 38%),#25272C;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;min-height:100dvh}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .app{max-width:1080px;margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom))}
@@ -37,10 +37,10 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 .opt{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;padding:13px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:14px;text-align:left;cursor:pointer}
 .opt strong{display:block;font-size:14px}
 .opt small{display:block;color:var(--muted);margin-top:3px;font-size:11px;line-height:1.35}
-.opt.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:rgba(200,255,61,.08)}
+.opt.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:rgba(91,61,245,.14)}
 .mode-note{max-width:620px;margin:14px auto 0;text-align:left;color:var(--muted);font-size:13px;line-height:1.5}
 
-.btn{border:0;border-radius:16px;padding:14px 20px;font-weight:900;cursor:pointer;transition:.18s transform,.18s opacity;background:var(--accent);color:#111}
+.btn{border:0;border-radius:16px;padding:14px 20px;font-weight:900;cursor:pointer;transition:.18s transform,.18s opacity;background:var(--accent);color:#fff}
 .btn:hover{transform:translateY(-1px)}
 .btn.secondary{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
 
@@ -67,13 +67,13 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 .stat .spec{font-size:12px;color:var(--muted);white-space:nowrap}
 .stat .value{font-size:24px;font-weight:950;line-height:1}
 .stat.act{cursor:pointer}
-.stat.act:hover{border-color:rgba(200,255,61,.5)}
-.stat.sel{background:rgba(200,255,61,.14);border-color:var(--accent)}
+.stat.act:hover{border-color:rgba(91,61,245,.5)}
+.stat.sel{background:rgba(91,61,245,.14);border-color:var(--accent)}
 .stat.target{border-color:var(--accent);border-style:dashed}
 .stat.dim{opacity:.4}
 .stat.hit{background:rgba(255,255,255,.1);border-color:#fff}
 .card.won{box-shadow:0 0 0 2px var(--accent),0 18px 50px rgba(0,0,0,.35)}
-.card.won .stat.hit{background:rgba(200,255,61,.16);border-color:var(--accent)}
+.card.won .stat.hit{background:rgba(91,61,245,.16);border-color:var(--accent)}
 .card.lost{box-shadow:0 0 0 2px var(--danger),0 18px 50px rgba(0,0,0,.35)}
 .card.lost .stat.hit{background:rgba(255,92,114,.16);border-color:var(--danger)}
 .card.mini{border-radius:16px}
@@ -98,7 +98,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 
 /* quick match */
 .battle{display:grid;grid-template-columns:1fr 80px 1fr;gap:14px;align-items:center}
-.player .stat.act:hover{border-color:rgba(200,255,61,.5)}
+.player .stat.act:hover{border-color:rgba(91,61,245,.5)}
 .vs{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111;font-weight:1000;font-size:15px;margin:auto;box-shadow:0 10px 35px rgba(255,255,255,.12)}
 
 /* duel */
@@ -120,7 +120,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 /* results + overlay */
 .result{margin-top:16px;margin-bottom:14px;border-radius:18px;padding:16px;background:rgba(255,255,255,.06);border:1px solid var(--line);display:none}
 .result.show{display:block}
-.result.win{border-color:rgba(200,255,61,.4)}.result.lose{border-color:rgba(255,92,114,.4)}.result.draw{border-color:rgba(255,255,255,.25)}
+.result.win{border-color:rgba(91,61,245,.4)}.result.lose{border-color:rgba(255,92,114,.4)}.result.draw{border-color:rgba(255,255,255,.25)}
 .result-title{font-size:22px;font-weight:950}
 .result-copy{color:var(--muted);margin-top:4px;font-size:13px;line-height:1.5}
 .actions{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
@@ -150,7 +150,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 <header><div class="brand">MOTO <span>CARDZ</span></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div></div></header>
 
 <section id="home" class="screen active"><div class="hero"><div class="hero-inner">
-  <div class="eyebrow">Full data V2</div>
+  <div class="eyebrow">Full data · V2.1.0 / Build 001</div>
   <h1>Pick a stat.<br>Take the win.</h1>
   <p class="lede" id="lede"></p>
   <div class="setting"><div class="setting-title">Mode</div>
