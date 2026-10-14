@@ -9,7 +9,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Normalised stat/scoring approach chosen
 - [x] Quick match and duel gameplay implemented in published V2
 - [x] Easy / Medium / Hard AI controls implemented
-- [~] Main game identifies as Full Data V2 but has no explicit build number; add version/build display
+- [x] Added visible V2.1.0 / Build 001 identifier to main game
 - [x] Verify 178 unique bike IDs are present in main game code (live Pages cache still to check)
 
 ## 2. Brand and visual design
@@ -19,7 +19,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] MotoCardz logo concept sheet generated and preferred direction chosen
 - [ ] Finalise logo assets and exact brand spelling/lockups
 - [ ] Apply logo, favicon and app icon to published game
-- [ ] Apply premium UI palette, typography, buttons and panels
+- [~] Dark Premium Option A palette applied incrementally to main game; typography/panels still to review
 - [ ] Review UI on mobile and desktop
 
 ## 3. Motorcycle cards and images
@@ -41,7 +41,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [ ] Consider user-created decks
 
 ## Next proposed release
-V2.1 — Brand & UI Refresh (proposed, not yet deployed)
+V2.1.0 / Build 001 — Dark Premium palette committed to main; live Pages verification pending
 1. Final logo assets
 2. UI theme and card backs
 3. App icon and favicon
