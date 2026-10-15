@@ -20,7 +20,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [~] Option 1 motorcycle logo and Option 4 app icon approved; header, homepage and gameplay visual mockups approved; individual production assets still pending
 - [~] V2.1.3 / Build 004: more detailed scalable sportbike logo asset added and referenced by the centred header; committed to main, awaiting live visual approval; app icon remains pending
 - [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
-- [~] Build 006 Hero 1 homepage mobile/desktop visual review pending after code release
+- [x] Build 006 Hero 1 homepage visual direction approved by user (2026-10-15); desktop and gameplay checks remain outstanding
 
 ## 3. Motorcycle cards and images
 - [x] Sample card design direction approved
@@ -44,7 +44,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Next proposed release
-V2.1.5 / Build 006 — Hero 1 photorealistic upgrade (Build 005.1 refinement), matching the user-approved mockup. Cropped and optimised exact approved Hero 1 artwork, no stylistic alterations. Logo remains centred; headline beneath the photograph; compact information strip and controls. Commit verified, live mobile review pending. Gameplay/data unchanged.
+V2.1.5 / Build 006 — Hero 1 photorealistic upgrade (Build 005.1 refinement), matching the user-approved mockup. Cropped and optimised exact approved Hero 1 artwork, no stylistic alterations. Logo remains centred; headline beneath the photograph; compact information strip and controls. GitHub Pages deployment successful, user likes the visual result; gameplay regression and desktop tests pending. Gameplay/data unchanged.
 1. Prepare individual assets from approved Option 1 logo and Option 4 icon; preview header before deployment
 2. UI theme and card backs
 3. App icon and favicon
@@ -62,7 +62,7 @@ Notes:
 - [x] Self-hosted illustrated purple-lit hero SVG added (not a photographic image or exact image-generation mockup).
 - [x] Home-only layout updates: brand presence, hero headline, compact facts, setting spacing.
 - [x] V2.1.4 / Build 005 labels and service-worker cache bump.
-- [ ] Confirm deployed GitHub Pages version and visual fit on iPhone.
+- [x] GitHub Pages deployment confirmed successful; user approved updated homepage appearance.
 - [ ] Test Quick Match, Duel, AI levels and first-to controls following visual update.
 - [ ] Compare against approved mockup; refine hero art if photographic realism is still desired.
 
@@ -71,6 +71,8 @@ Notes:
 - [x] Cropped and compressed exact Hero 1 source photo into standalone AVIF (no recolouring or artwork changes).
 - [x] Changed homepage only: photo frame, separate smaller headline, logo hierarchy and compact layout.
 - [x] Updated displayed build identifier, offline PWA cache and checklist.
-- [ ] User visual acceptance on iPhone and desktop.
+- [x] User positive visual review of Build 006 homepage (2026-10-15).
+- [ ] Desktop and smaller-screen layout checks.
 - [ ] Regression checks: Quick Match, Duel, Easy/Medium/Hard, first-to selector.
-- [ ] Verify GitHub Pages served version and photo asset (including offline cache).
+- [x] GitHub Pages workflow deployment succeeded for Build 006.
+- [ ] Verify offline/PWA image caching on device.
