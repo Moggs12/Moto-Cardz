@@ -1,5 +1,5 @@
 # Moto Cardz — Master Project Checklist
-Updated: 2026-10-14
+Updated: 2026-10-15
 Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 
 ## 1. Foundations
@@ -20,7 +20,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [~] Option 1 motorcycle logo and Option 4 app icon approved; header, homepage and gameplay visual mockups approved; individual production assets still pending
 - [~] V2.1.3 / Build 004: more detailed scalable sportbike logo asset added and referenced by the centred header; committed to main, awaiting live visual approval; app icon remains pending
 - [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
-- [ ] Review UI on mobile and desktop
+- [~] Build 005 mobile and desktop visual review pending after code release
 
 ## 3. Motorcycle cards and images
 - [x] Sample card design direction approved
@@ -44,7 +44,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Next proposed release
-V2.1.3 / Build 004 — Enhanced motorcycle logo committed; live visual approval pending. Build 005: hero motorcycle image, separately approved before deployment.
+V2.1.4 / Build 005 — Cinematic homepage redesign committed to main: self-hosted purple-lit motorcycle illustration, enlarged home logo, compact home badges, reduced tagline, home control spacing; live visual review pending. Gameplay/data untouched.
 1. Prepare individual assets from approved Option 1 logo and Option 4 icon; preview header before deployment
 2. UI theme and card backs
 3. App icon and favicon
@@ -56,3 +56,12 @@ Notes:
 - Keep every meaningful release labelled Vx.y.z / Build NNN.
 - Do not mark mockups or planned changes as deployed.
 - This file is the project source of truth; update it as decisions and work change.
+
+## Build 005 release notes (2026-10-15)
+- [x] User approved major homepage visual revamp and requested deployment.
+- [x] Self-hosted illustrated purple-lit hero SVG added (not a photographic image or exact image-generation mockup).
+- [x] Home-only layout updates: brand presence, hero headline, compact facts, setting spacing.
+- [x] V2.1.4 / Build 005 labels and service-worker cache bump.
+- [ ] Confirm deployed GitHub Pages version and visual fit on iPhone.
+- [ ] Test Quick Match, Duel, AI levels and first-to controls following visual update.
+- [ ] Compare against approved mockup; refine hero art if photographic realism is still desired.
