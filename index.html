@@ -183,23 +183,59 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 #home .btn#start{min-width:min(100%,310px);background:linear-gradient(135deg,#7541FA,#5123DD);box-shadow:0 8px 28px rgba(85,37,215,.32)}
 @media(max-width:480px){.hero-stage{height:340px;border-radius:17px}.hero-photo{object-position:53% center}#home .opts.c3.levels{grid-template-columns:repeat(3,minmax(0,1fr))}#home .opts.c3.levels .opt{padding:12px 8px}#home .opts.c3.levels small{font-size:10px}#home .hero p.lede{max-width:92%}.app:has(#home.active) .brand-bike{width:210px}}
 @media(max-width:355px){#home .opts.c3.levels{grid-template-columns:1fr}#home h1{font-size:29px}.hero-stage{height:315px}}
+
+/* Hero 1 photo upgrade — Build 006 (V2.1.5). No image effects or artwork edits. */
+.app:has(#home.active)>header { padding:10px 8px 5px; margin-bottom:0; border-bottom:0; }
+.app:has(#home.active) .brand { font-size:clamp(34px,8.6vw,66px); gap:0; text-shadow:0 3px 16px rgba(91,61,245,.20); }
+.app:has(#home.active) .brand-bike { width:clamp(136px,34vw,224px); max-height:94px; filter:none; }
+.app:has(#home.active) .brand-tagline { font-size:clamp(8px,1.7vw,10px); letter-spacing:.20em; margin-top:4px; }
+#home .hero { padding-bottom:25px; }
+#home .hero-inner { max-width:650px; }
+#home .eyebrow { margin:7px 0 9px; font-size:9px; letter-spacing:.17em; }
+#home .hero-stage { position:relative; display:block; width:100%; max-width:510px; aspect-ratio:760/782; height:auto; margin:0 auto; padding:0; border-radius:20px; overflow:hidden; background:#0A0912; border:1px solid rgba(162,125,222,.54); box-shadow:0 16px 45px rgba(21,9,46,.28); }
+#home .hero-photo { position:static; display:block; width:100%; height:100%; aspect-ratio:760/782; object-fit:cover; object-position:center; filter:none; opacity:1; }
+#home .hero-stage::before, #home .hero-stage::after { content:none; display:none; }
+#home .hero-message { position:static; inset:auto; display:block; margin:14px auto 6px; padding:0; }
+#home h1 { font-size:clamp(29px,6.8vw,53px); line-height:1.06; margin:0 0 10px; letter-spacing:-.045em; text-shadow:none; }
+#home h1 span { color:#AA84FF; }
+#home .hero p.lede { max-width:95%; font-size:clamp(12px,1.9vw,15px); line-height:1.5; margin:0 auto 8px; }
+#home .hero-facts { margin:15px auto 14px; max-width:590px; }
+#home .setting { margin:14px auto 0; }
+#home .opts.c3.levels { grid-template-columns:repeat(3,minmax(0,1fr)); }
+#home .opts.c3.levels .opt { min-width:0; align-items:center; text-align:center; }
+#home .opts.c3.levels .opt strong { font-size:13px; }
+#home .opts.c3.levels .opt small { font-size:10px; }
+#home .setting .opt { min-height:67px; }
+#home .mode-note { font-size:12px; }
+@media(max-width:480px) {
+ .app:has(#home.active)>header { padding-top:6px; }
+ .app:has(#home.active) .brand { font-size:clamp(30px,9vw,42px); }
+ .app:has(#home.active) .brand-bike { width:clamp(125px,37vw,170px); }
+ #home .hero-stage { height:auto; width:100%; border-radius:16px; }
+ #home .hero-message { margin:12px auto 4px; }
+ #home .setting { margin-top:13px; }
+ #home .opts.c3.levels { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media(max-width:355px) {
+ #home .opts.c3.levels { grid-template-columns:1fr; }
+}
 </style></head>
 <body><div class="app">
-<header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.4</div></div></header>
+<header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.5</div></div></header>
 
 <section id="home" class="screen active"><div class="hero"><div class="hero-inner">
-  <div class="eyebrow">V2.1.4 / BUILD 005</div>
+  <div class="eyebrow">V2.1.5 / BUILD 006</div>
   <div class="hero-stage">
-    <img class="hero-photo" src="assets/motocardz-hero-build005.svg" alt="Illustrated sport motorcycle with electric purple light and drifting smoke" loading="eager" fetchpriority="high">
-    <div class="hero-message">
-      <h1>Pick a stat.<br><span>Take the win.</span></h1>
-      <p class="lede" id="lede"></p>
-    </div>
+    <img class="hero-photo" src="assets/motocardz-hero1-v006.avif" width="760" height="782" alt="Realistic black superbike surrounded by purple smoke" loading="eager" decoding="async" fetchpriority="high">
+  </div>
+  <div class="hero-message">
+    <h1>Pick a stat.<br><span>Take the win.</span></h1>
+    <p class="lede" id="lede"></p>
   </div>
   <div class="hero-facts" aria-label="Game features">
     <div class="hero-fact"><strong>178</strong><small>Motorcycles</small></div>
     <div class="hero-fact"><strong>3</strong><small>AI levels</small></div>
-    <div class="hero-fact"><strong>V2.1.4</strong><small>Build 005</small></div>
+    <div class="hero-fact"><strong>V2.1.5</strong><small>Build 006</small></div>
   </div>
   <div class="setting"><div class="setting-title">Mode</div>
     <div class="opts c2" id="modeOpts">
