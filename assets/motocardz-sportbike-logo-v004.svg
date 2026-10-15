@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 195" role="img" aria-label="MotoCardz sport motorcycle logo">
+<defs><linearGradient id="p" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#B69CFF"/><stop offset=".55" stop-color="#733CFC"/><stop offset="1" stop-color="#4620B7"/></linearGradient><linearGradient id="w" x1="0" y1="0" x2="1" y2=".9"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6DCF8"/></linearGradient></defs>
+<g stroke-linejoin="round" stroke-linecap="round">
+<!-- Speed streaks, kept behind the bike -->
+<path d="M15 106 109 92 84 102 31 111ZM0 127l114-13-17 10L8 137ZM28 146l68-10-12 9-42 11Z" fill="url(#p)"/>
+<path d="M38 88 118 79 102 88 55 94Z" fill="#986BFF"/>
+<!-- Rear wheel: concentric metallic/indigo arcs -->
+<circle cx="120" cy="143" r="39" fill="#141326" stroke="#8F67FF" stroke-width="9"/>
+<circle cx="120" cy="143" r="30" fill="none" stroke="#FFFAF3" stroke-width="9" stroke-dasharray="157 32" transform="rotate(-33 120 143)"/>
+<circle cx="120" cy="143" r="18" fill="#29233A" stroke="#8F67FF" stroke-width="6"/>
+<circle cx="120" cy="143" r="7" fill="#D4C7FF"/>
+<!-- Front wheel -->
+<circle cx="337" cy="143" r="42" fill="#141326" stroke="#D1BFFF" stroke-width="8"/>
+<circle cx="337" cy="143" r="31" fill="none" stroke="#FFFAF3" stroke-width="10" stroke-dasharray="164 30" transform="rotate(-35 337 143)"/>
+<circle cx="337" cy="143" r="17" fill="#29233A" stroke="#8154FF" stroke-width="6"/>
+<circle cx="337" cy="143" r="7" fill="#E9E0FF"/>
+<!-- Sculpted lower fairing and frame -->
+<path d="M127 117 171 99 232 108 291 88 324 111 308 143 245 159 188 151 153 139Z" fill="#221A38" stroke="#C9B7FF" stroke-width="3"/>
+<path d="m151 131 67 6 55-23-28 34-58 5Z" fill="url(#p)"/>
+<path d="m171 114 63-17 44 12-31 19-80 5Z" fill="#FFFAF3"/>
+<path d="m207 137 29 4-14 9-32-4Z" fill="#21162F"/>
+<!-- Seat and top bodywork, aggressive swooping sportbike outline -->
+<path d="M80 92 131 78 167 91 189 79 237 82 263 65 306 70 340 92 326 111 291 102 256 108 226 100 184 115 147 101 115 102Z" fill="url(#w)"/>
+<path d="M76 91 126 83 161 95 147 102 109 100Z" fill="#6F37F2"/>
+<path d="M172 95 196 75 234 77 262 89 223 90 195 104Z" fill="#241D39"/>
+<path d="m206 78 20-20 38 8 15 18-43-5Z" fill="#FFFAF3"/>
+<!-- Front cowl / windshield / nose -->
+<path d="m260 66 27-37 24 5 30 37 22 16-17 13-26-18-27-3Z" fill="url(#p)"/>
+<path d="m294 34 21-16 27 31 13 29-18-5-21-28Z" fill="#FFFAF3"/>
+<path d="m337 77 37 12-22 12-26-15Z" fill="#FFFAF3"/>
+<path d="m345 88 15 5-9 4Z" fill="#261637"/>
+<!-- Flowing highlight trims -->
+<path d="M128 91 159 102 187 99 218 88 269 98 301 90" fill="none" stroke="#8D56FE" stroke-width="6"/>
+<path d="M270 102 291 116 312 114" fill="none" stroke="#FFFAF3" stroke-width="5"/>
+<path d="M290 112 337 143" fill="none" stroke="#8C63FF" stroke-width="6"/>
+<path d="M105 108 120 143 169 131" fill="none" stroke="#AA89FF" stroke-width="5"/>
+<!-- Ground-speed tail -->
+<path d="m65 173 127-6 42 8-162 3Zm194 1 91-4 25 8-100-1Z" fill="#8152F7" opacity=".8"/>
+</g></svg>
