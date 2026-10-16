@@ -81,10 +81,16 @@ for(const level of ['easy','medium','hard'])test(`Duel: ${level} attack, defence
  }
  await expect(page.locator('#end')).toBeVisible();await page.locator('#endMenu').click();await expect(page.locator('#home')).toHaveClass(/active/);
 });
-test('offline: the complete pack and gameplay work after service worker installation',async({page,context})=>{
+test('offline: the complete pack and gameplay work with the origin disconnected',async({page})=>{
  await page.goto('/');await page.evaluate(async()=>{const reg=await navigator.serviceWorker.ready;if(reg.installing)await new Promise(resolve=>reg.installing.addEventListener('statechange',()=>reg.active&&resolve()));});
  await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
  const missing=await page.evaluate(async()=>{const cache=await caches.open('moto-cardz-v2.1.8-build009');const out=[];for(const path of new Set(Object.values(ART)))if(!await cache.match(new URL(path,location.href).href))out.push(path);return out});expect(missing).toEqual([]);
- await context.setOffline(true);await page.reload();await page.locator('#start').click();await page.locator('#qPlayer img').evaluate(im=>im.decode());await fit(page,'#qPlayer img');await page.locator('#qPlayer .stat').first().click();await expect(page.locator('#qResult')).toHaveClass(/show/);
- await context.setOffline(false);
+ // Real origin outage avoids Playwright WebKit's setOffline/service-worker bug (#42775).
+ // The Node probe is a negative control: it has no service worker or browser cache.
+ const off=await fetch('http://127.0.0.1:4174/offline',{method:'POST'});expect(off.ok).toBe(true);
+ try{
+  let networkFailed=false;try{await fetch('http://127.0.0.1:4173/index.html',{signal:AbortSignal.timeout(3000)})}catch{networkFailed=true}expect(networkFailed).toBe(true);
+  const response=await page.reload();expect(response.status()).toBe(200);expect(response.fromServiceWorker()).toBe(true);
+  await page.locator('#start').click();await page.locator('#qPlayer img').evaluate(im=>im.decode());await fit(page,'#qPlayer img');await page.locator('#qPlayer .stat').first().click();await expect(page.locator('#qResult')).toHaveClass(/show/);
+ }finally{const on=await fetch('http://127.0.0.1:4174/online',{method:'POST'});expect(on.ok).toBe(true)}
 });

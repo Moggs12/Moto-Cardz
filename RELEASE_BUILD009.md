@@ -31,6 +31,8 @@ All original categories and scoring remain unchanged. Artwork follows the actual
 
 GitHub workflow logs and the downloadable `browser-review` artifact are the authority for results. Build 009 must pass the complete suite before merging; the early layout preflight checks alone do not constitute release approval.
 
+Offline browser checks stop the real loopback origin server, prove a no-service-worker Node network probe fails, and require the reloaded page to return HTTP 200 from the service worker before playing. This avoids the pinned Playwright WebKit offline-emulation defect documented in https://github.com/microsoft/playwright/issues/42775. It proves cached operation during an origin outage, not every physical device's airplane-mode or installation behaviour. Chromium also passed the original browser-offline-emulation checks in the first full run. Physical-device installation and airplane-mode checks remain a manual follow-up.
+
 ## Release and rollback
 
 `main` is the live branch. Build 009 is developed on `build/009-full-deck`. `release/build008` preserves the preceding deployed release, including its code and ten pilot illustrations. Release tags are created only after the full main-branch quality job succeeds.
