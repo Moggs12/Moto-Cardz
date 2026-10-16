@@ -184,7 +184,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 @media(max-width:480px){.hero-stage{height:340px;border-radius:17px}.hero-photo{object-position:53% center}#home .opts.c3.levels{grid-template-columns:repeat(3,minmax(0,1fr))}#home .opts.c3.levels .opt{padding:12px 8px}#home .opts.c3.levels small{font-size:10px}#home .hero p.lede{max-width:92%}.app:has(#home.active) .brand-bike{width:210px}}
 @media(max-width:355px){#home .opts.c3.levels{grid-template-columns:1fr}#home h1{font-size:29px}.hero-stage{height:315px}}
 
-/* Hero 1 photo upgrade — Build 006 (V2.1.6). No image effects or artwork edits. */
+/* Hero 1 photo upgrade — Build 006 (V2.1.5). No image effects or artwork edits. */
 .app:has(#home.active)>header { padding:10px 8px 5px; margin-bottom:0; border-bottom:0; }
 .app:has(#home.active) .brand { font-size:clamp(34px,8.6vw,66px); gap:0; text-shadow:0 3px 16px rgba(91,61,245,.20); }
 .app:has(#home.active) .brand-bike { width:clamp(136px,34vw,224px); max-height:94px; filter:none; }
@@ -230,9 +230,10 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 .battle .card-head,.arena .card-head{min-height:100px;padding:12px}
 .card-name .make{display:block;font-size:.7em;line-height:1.2;margin-bottom:3px;letter-spacing:0}
 .card-name .model{display:block;overflow-wrap:anywhere}
-.bike-art{height:140px;display:grid;place-items:center;background:#25272C;overflow:hidden;border-bottom:1px solid var(--line)}
-.bike-art img{display:block;width:100%;height:100%;object-fit:contain}
-.bike-art.pending{color:var(--muted);font-size:10px;letter-spacing:.04em;gap:6px;align-content:center}
+/* Build 008: remove intrinsic grid sizing so artwork always fits its panel. */
+.bike-art{position:relative;width:100%;min-width:0;height:140px;display:block;background:#25272C;overflow:hidden;border-bottom:1px solid var(--line)}
+.bike-art img{position:absolute;inset:0;display:block;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%;padding:4px 6px;object-fit:contain;object-position:center}
+.bike-art.pending{display:grid;place-items:center;color:var(--muted);font-size:10px;letter-spacing:.04em;gap:6px;align-content:center}
 .bike-art.pending strong{font-style:italic;color:#E8DEFF;font-size:14px}
 .mini .bike-art{height:90px}
 .battle .back{min-height:100%;padding:18px 8px}
@@ -257,7 +258,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 .text-link{background:transparent;border:0;border-bottom:1px solid #9B7AFF;color:#E8DEFF;font:inherit;padding:3px 0;cursor:pointer}
 .pilot-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:760px;margin:0 auto}
 .pilot-tile{margin:0;border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid var(--line);min-width:0}
-.pilot-tile img{display:block;width:100%;aspect-ratio:2/1;object-fit:contain;background:#25272C}
+.pilot-tile .bike-art{height:auto;aspect-ratio:2/1}
 .pilot-tile figcaption{padding:10px;font-size:12px;line-height:1.4}.pilot-tile strong{display:block;color:#FFFAF3}.pilot-tile small{color:var(--muted)}
 .app:has(#quick.active)>header,.app:has(#duel.active)>header,.app:has(#gallery.active)>header{padding:4px 0 10px;gap:0}
 .app:has(#quick.active) .brand-bike,.app:has(#duel.active) .brand-bike,.app:has(#gallery.active) .brand-bike{display:none}
@@ -296,10 +297,10 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 
 </style></head>
 <body><div class="app">
-<header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.6</div></div></header>
+<header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.7</div></div></header>
 
 <section id="home" class="screen active"><div class="hero"><div class="hero-inner">
-  <div class="eyebrow">V2.1.6 / BUILD 007</div>
+  <div class="eyebrow">V2.1.7 / BUILD 008</div>
   <div class="hero-stage">
     <img class="hero-photo" src="assets/motocardz-hero1-v006.avif" width="760" height="782" alt="Realistic black superbike surrounded by purple smoke" loading="eager" decoding="async" fetchpriority="high">
   </div>
@@ -310,7 +311,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
   <div class="hero-facts" aria-label="Game features">
     <div class="hero-fact"><strong>178</strong><small>Motorcycles</small></div>
     <div class="hero-fact"><strong>3</strong><small>AI levels</small></div>
-    <div class="hero-fact"><strong>V2.1.6</strong><small>Build 007</small></div>
+    <div class="hero-fact"><strong>V2.1.7</strong><small>Build 008</small></div>
   </div>
   <div class="setting"><div class="setting-title">Deck</div>
     <div class="opts c2" id="deckOpts">
@@ -362,7 +363,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
   <div class="confirm" id="dConfirm" hidden><p id="dConfirmText"></p><div class="actions"><button class="btn secondary" id="dCancel">Change</button><button class="btn" id="dGo">Play card</button></div></div>
 </section>
 <section id="gallery" class="screen" aria-labelledby="galleryTitle">
-  <div class="game-top"><div><div class="round">BUILD 007 · ARTWORK PREVIEW</div><h2 id="galleryTitle">The pilot ten</h2></div><button class="btn secondary" data-menu>Back</button></div>
+  <div class="game-top"><div><div class="round">BUILD 008 · ARTWORK PREVIEW</div><h2 id="galleryTitle">The pilot ten</h2></div><button class="btn secondary" data-menu>Back</button></div>
   <p class="notice">Model-inspired AI illustrations. The same studio lighting, framing and graphite background across all ten. Game scores and specifications are unchanged.</p>
   <div class="pilot-gallery" id="pilotGallery"></div>
 </section>
@@ -696,7 +697,7 @@ $('rematch').onclick=()=>{$('end').hidden=true;S.mode==='quick'?qStart():dStart(
 $('start').onclick=()=>{save();S.mode==='quick'?qStart():dStart()};
 
 $('viewPilot').onclick=()=>{
-  $('pilotGallery').innerHTML=PILOT_BIKES.map(b=>`<figure class="pilot-tile"><img src="${ART[b.id]}" alt="AI illustration of ${esc(b.make)} ${esc(b.model)}" width="600" height="400" loading="lazy"><figcaption><strong>${esc(b.make)} ${esc(b.model)}</strong><small>${esc(b.type)}</small></figcaption></figure>`).join('');
+  $('pilotGallery').innerHTML=PILOT_BIKES.map(b=>`<figure class="pilot-tile">${artworkHTML(b)}<figcaption><strong>${esc(b.make)} ${esc(b.model)}</strong><small>${esc(b.type)}</small></figcaption></figure>`).join('');
   show('gallery');
 };
 function syncSettings(){

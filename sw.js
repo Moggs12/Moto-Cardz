@@ -1,6 +1,6 @@
 // Moto Cardz service worker: caches the app shell so the game works offline.
 // Bump CACHE whenever any shipped file changes so players get the update.
-const CACHE = 'moto-cardz-v2.1.6-build007';
+const CACHE = 'moto-cardz-v2.1.7-build008';
 const SHELL = [
   './',
   './index.html',
