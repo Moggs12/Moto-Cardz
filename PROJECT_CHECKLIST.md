@@ -10,7 +10,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Quick match and duel gameplay implemented in published V2
 - [x] Easy / Medium / Hard AI controls implemented
 - [x] Added visible V2.1.0 / Build 001 identifier to main game
-- [x] Verify 178 unique bike IDs are present in main game code (live Pages cache still to check)
+- [x] Verify 178 unique bike IDs and full-deck artwork mappings in the released game
 
 ## 2. Brand and visual design
 - [x] Retro trading-card direction with modern neon/category colours agreed
@@ -26,14 +26,16 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Sample card design direction approved
 - [x] Build 007: ten consistent AI motorcycle illustrations integrated and deployed
 - [x] Deploy 10 pilot images; all ten live image URLs return HTTP 200 and match the release assets (device gameplay review pending)
-- [~] Build 007: consistent image treatment and aspect-ratio handling implemented; user approved initial artwork samples; in-game device review pending
-- [~] Build 009: complete 178-bike artwork rollout and final consistency review; full phone/desktop QA before publication
+- [x] Whole-bike contain fitting and aspect-ratio handling verified in phone/desktop Chromium and WebKit views
+- [x] Build 009: all 178 cards illustrated with 176 distinct images; 166 new images independently reviewed and ten approved pilot images retained
 
 ## 4. Gameplay and quality
 - [ ] Validate complete scoring balance with head-to-head simulations and document findings
-- [x] Automated regression tests: Quick Match, Duel and all AI difficulties across pilot/full decks; 360 matches passed (device review pending)
-- [ ] Test performance, responsive layout and accessibility
-- [ ] Test installable PWA / icons and caching
+- [x] 20 gameplay, asset and provenance checks passed: 360 matches, all AI levels, repeated sudden-death ties, settings migration and unchanged source scores
+- [x] 40 browser checks passed at 320px/390px phone and 1280px/1440px desktop sizes in Chromium and WebKit; both modes, all levels, artwork/name fit, menu/rematch, gallery/search
+- [x] Full pack cached and service-worker reload/gameplay verified with the actual origin disconnected, including a failed no-cache network control
+- [ ] Physical phone/desktop performance and full accessibility audit
+- [ ] Physical-device PWA installation and airplane-mode checks (browser automation is not a substitute)
 
 ## 5. Future roadmap
 - [ ] Explore online multiplayer
@@ -44,18 +46,17 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Current release
-V2.1.7 / Build 008 — fix artwork clipping by removing intrinsic grid sizing and constraining images to their panels. Cards and gallery share one image renderer. The ten pilot illustrations, full dataset and approved hero asset are unchanged. GitHub Pages deployment succeeded on 2026-10-16; live HTML and service worker match Build 008.
+V2.1.8 / Build 009 — complete 178-bike illustrated pack, one responsive app, side-by-side comparisons on phone and desktop, desktop five-card Duel hand, searchable full gallery and complete artwork cache. The approved hero and original game scores are unchanged.
 
-Build 009 / V2.1.8 is in development on `build/009-full-deck`. One responsive app (not separate phone and desktop apps), side-by-side comparison at both sizes, complete-deck gallery and offline artwork cache. Prior deployed checkpoint: `release/build008`. Publication is held until all artwork and full quality checks pass.
+Developed on `build/009-full-deck`, merged to live `main` through PR #4. GitHub Pages deployment and the full main-branch quality workflow succeeded on 2026-10-16. All 20 gameplay/asset checks and all 40 browser checks passed before and after merging. See `RELEASE_BUILD009.md` for verification limits, provenance and rollback.
 
-1. All 19 existing automated gameplay and asset checks passed.
-2. Published HTML and Build 008 cache version verified.
-3. User to confirm whole-bike fit on the affected mobile screen; browser/device checks remain pending.
+Previous deployed checkpoint: `release/build008`. Immutable version tags are managed by the successful main quality workflow. Manual physical-device installation/airplane-mode checks remain open; no claim of manufacturer-certified exact-year artwork is made.
 
 Notes:
 - Keep every meaningful release labelled Vx.y.z / Build NNN.
 - Do not mark mockups or planned changes as deployed.
 - This file is the project source of truth; update it as decisions and work change.
+- Historical notes below reflect each earlier release's state; current verification is recorded above.
 
 ## Build 005 release notes (2026-10-15)
 - [x] User approved major homepage visual revamp and requested deployment.
@@ -94,4 +95,15 @@ Notes:
 - [x] Use the same image panel in the pilot gallery; preserve full bike and aspect ratio.
 - [x] Add a small inset around illustrations; retain compact side-by-side layouts.
 - [x] Bump visible build/version and offline cache identifier.
-- [x] GitHub Pages deployment succeeded; live HTML and service worker match Build 008.\n- [ ] User confirmation of whole-bike fit on the affected device.
+- [x] GitHub Pages deployment succeeded; live HTML and service worker match Build 008.
+- [ ] User confirmation of whole-bike fit on the affected device.
+
+## Build 009 / V2.1.8 — complete illustrated pack (2026-10-16)
+- [x] 176 distinct 600 × 400 illustrations cover every one of the 178 cards; duplicate model entries retain separate scores/specifications.
+- [x] Independent visual review and SHA-256 provenance for all 166 new images.
+- [x] Full deck is the default, including migrated ten-bike-pilot settings.
+- [x] One responsive app: compact side-by-side phone cards, roomier desktop home/comparisons and five-column Duel hand.
+- [x] 20 automated checks and 40 browser checks passed; screenshots visually reviewed.
+- [x] PR #4 merged, Pages deployed, main quality workflow succeeded.
+- [x] Prior release preserved; rollback instructions documented without rewriting history.
+- [ ] User physical-device installation and airplane-mode verification.

@@ -1,5 +1,6 @@
 node_modules/
 qa/artwork/
+qa/artwork-independent-review.json
 playwright-report/
 qa/browser-results/
 *.log

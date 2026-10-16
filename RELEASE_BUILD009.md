@@ -23,13 +23,19 @@ All original categories and scoring remain unchanged. Artwork follows the actual
 
 ## Verification
 
+Release results: all 20 gameplay/asset/provenance checks and all 40 browser checks passed on the development branch and again after PR #4 merged to `main`. The 166 new unique images passed independent visual review with recorded hashes. GitHub Pages deployment succeeded on 2026-10-16.
+
+- Branch quality run: https://github.com/Moggs12/Moto-Cardz/actions/runs/38966411112
+- Main quality run: https://github.com/Moggs12/Moto-Cardz/actions/runs/38966938811
+- Pages deployment: https://github.com/Moggs12/Moto-Cardz/actions/runs/38966937984
+
 - Automated gameplay: 360 complete matches spanning every AI level, Quick Match first-to 3/5/7, and Duel.
 - Repeated sudden-death ties beyond the original reserve, hidden opponent cards, score locking, menu cancellation, search and saved-setting migration.
 - Original dataset checksum and one artwork mapping for every card.
 - Asset and offline shell checks: 178 mappings, 176 unique valid 600 × 400 WebP images, compact total size, and all files included in the service worker.
 - Browser checks run in GitHub Actions using preinstalled Chromium and WebKit: 320px and 390px phone views, 1280px and 1440px desktops, complete-bike image fitting, card alignment, all model names, gallery/search, both game modes at every AI level, menu/rematch and offline play.
 
-GitHub workflow logs and the downloadable `browser-review` artifact are the authority for results. Build 009 must pass the complete suite before merging; the early layout preflight checks alone do not constitute release approval.
+GitHub workflow logs and the downloadable `browser-review` artifact are the authority for results. The full suite passed before merging; the early layout preflight checks alone were not treated as release approval.
 
 Offline browser checks stop the real loopback origin server, prove a no-service-worker Node network probe fails, and require the reloaded page to return HTTP 200 from the service worker before playing. This avoids the pinned Playwright WebKit offline-emulation defect documented in https://github.com/microsoft/playwright/issues/42775. It proves cached operation during an origin outage, not every physical device's airplane-mode or installation behaviour. Chromium also passed the original browser-offline-emulation checks in the first full run. Physical-device installation and airplane-mode checks remain a manual follow-up.
 
