@@ -43,12 +43,12 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 ## Live URL
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
-## Next proposed release
-V2.1.6 / Build 007 — ten illustrated pilot bikes, side-by-side comparisons in Quick Match and Duel, pilot/full-deck selector and artwork gallery. Review branch `build/007-pilot-artwork`; NOT deployed. Live Pages remains Build 006.
+## Current release
+V2.1.6 / Build 007 — ten illustrated pilot bikes, side-by-side comparisons in Quick Match and Duel, pilot/full-deck selector and artwork gallery. User approved merging to `main` and deploying on 2026-10-16. Deployment state is recorded in GitHub Actions.
 
 1. Automated game and asset checks passed: 19 tests, including 360 complete matches.
 2. Review mobile/desktop rendering and on-device PWA behaviour.
-3. Resolve review feedback before any deployment.
+3. Complete live device acceptance checks and address feedback.
 
 Notes:
 - Keep every meaningful release labelled Vx.y.z / Build NNN.
@@ -84,4 +84,5 @@ Notes:
 - [x] Corrected existing offline icon paths; precache all ten pilot images.
 - [x] Automated gameplay coverage across both decks, both modes and all AI levels.
 - [ ] Browser/mobile visual approval and device offline verification.
-- [ ] Deploy after review. Current live release remains Build 006.
+- [x] User approved Build 007 deployment after reviewing artwork and automated test results.
+- [ ] Confirm GitHub Pages deployment and all ten image URLs.

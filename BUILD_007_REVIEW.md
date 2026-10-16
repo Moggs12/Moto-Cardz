@@ -1,6 +1,6 @@
 # Moto Cardz V2.1.6 / Build 007
 
-Review branch: `build/007-pilot-artwork`. Not deployed. Live GitHub Pages stays on Build 006.
+Release branch: `main`. The user approved merging and deploying Build 007 on 2026-10-16 after reviewing the pilot illustrations. Deployment status is recorded in GitHub Actions.
 
 ## Changes
 
@@ -40,9 +40,9 @@ Run `node --test tests/build007.test.cjs` from this directory. The tests execute
 - Repeated sudden-death ties, menu exit with pending AI callbacks, original dataset checksum.
 - Local existence of every precached resource and manifest icon; ten valid compact WebP assets.
 
-## Before deployment
+## Device acceptance checks
 
-Browser rendering and device PWA checks remain pending. This environment does not expose the supported browser QA capability. Do not treat CSS inspection or DOM-harness tests as visual sign-off.
+Browser rendering and device PWA checks remain pending. Automated tests and artwork inspection passed; the user approved deployment with these device checks still outstanding. This environment does not expose the supported browser QA capability.
 
 1. Review at 320, 375, 390, 430, 768 and 1280 CSS pixels: both comparison cards fit, long model names stay within their headers, and stat rows line up.
 2. Play Quick Match with first-to 3, 5 and 7. Play Duel attacking and defending at every AI level, including keyboard selection and confirmation.
