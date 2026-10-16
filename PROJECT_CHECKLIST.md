@@ -44,10 +44,10 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Current release
-V2.1.7 / Build 008 — fix artwork clipping by removing intrinsic grid sizing and constraining images to their panels. Cards and gallery share one image renderer. The ten pilot illustrations, full dataset and approved hero asset are unchanged. Deployment verification pending.
+V2.1.7 / Build 008 — fix artwork clipping by removing intrinsic grid sizing and constraining images to their panels. Cards and gallery share one image renderer. The ten pilot illustrations, full dataset and approved hero asset are unchanged. GitHub Pages deployment succeeded on 2026-10-16; live HTML and service worker match Build 008.
 
-1. Run existing automated gameplay and asset checks.
-2. Verify published HTML and cache version after deployment.
+1. All 19 existing automated gameplay and asset checks passed.
+2. Published HTML and Build 008 cache version verified.
 3. User to confirm whole-bike fit on the affected mobile screen; browser/device checks remain pending.
 
 Notes:
@@ -92,4 +92,4 @@ Notes:
 - [x] Use the same image panel in the pilot gallery; preserve full bike and aspect ratio.
 - [x] Add a small inset around illustrations; retain compact side-by-side layouts.
 - [x] Bump visible build/version and offline cache identifier.
-- [ ] Verify live deployment and user confirmation on the affected device.
+- [x] GitHub Pages deployment succeeded; live HTML and service worker match Build 008.\n- [ ] User confirmation of whole-bike fit on the affected device.
