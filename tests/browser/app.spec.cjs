@@ -34,7 +34,7 @@ test('layout: side-by-side cards, whole Harley image and readable aligned stats'
  expect(Math.abs(boxes[0].y-boxes[1].y)).toBeLessThan(2);expect(boxes[1].x).toBeGreaterThan(boxes[0].x+boxes[0].width);expect(boxes[0].width).toBeGreaterThan(130);
  await photo(page,info,'quick-before-reveal');
  await page.evaluate(()=>{Q.hand=[BIKES.find(b=>b.id==='BK-014')]});
- await page.locator('#qPlayer [data-stat="power"]').click();await page.locator('#qAi img').evaluate(im=>im.decode());await fit(page,'.battle .bike-art img');
+ await page.locator('#qPlayer [data-stat="power"]').click();await page.locator('#qAi img').evaluate(im=>im.decode());await page.locator('#qAi').evaluate(n=>Promise.all(n.getAnimations().map(a=>a.finished)));await fit(page,'.battle .bike-art img');
  const rows=await page.locator('.battle>.card').evaluateAll(nodes=>nodes.map(n=>[...n.querySelectorAll('.stat')].map(e=>e.getBoundingClientRect().y)));
  rows[0].forEach((y,i)=>expect(Math.abs(y-rows[1][i])).toBeLessThan(2));await noOverflow(page);await photo(page,info,'quick-revealed');
 });
