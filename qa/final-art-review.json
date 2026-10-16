@@ -1,0 +1,1021 @@
+{
+  "build": "009",
+  "reviewer": "independent-final-art-review",
+  "status": "passed_all_166_new_unique_assets",
+  "scope": "Independent visual review of labelled 300x200 contact sheets; BK-053 additionally inspected at native 600x400. Broad model-inspired silhouette, full motorcycle framing, front wheel on image left and studio consistency; not a manufacturer-certified exact-year or trim audit. Ten newly completed delta assets also inspected in native-size paired sheets. Corrected BK-052, BK-089 and BK-143 inspected at native size; V-twin Nightster, twin Versys and high-exhaust XE silhouettes pass. Six more completed Triumph/Yamaha assets inspected in native-size paired sheets. Corrected single-cylinder Scrambler 400 XC and Thruxton 400 inspected in native-size paired sheets. Final BK-179 inspected at native size, correct four-projector tower and narrow standard tank.",
+  "reviewed_count": 166,
+  "criteria": [
+    "front wheel image left",
+    "both complete wheels and entire motorcycle inside canvas",
+    "broad model-specific silhouette, no gross mismatches",
+    "consistent dark graphite studio with cool purple-blue light",
+    "no added floating labels, cards, people or watermark"
+  ],
+  "findings": [],
+  "resolved_prior_findings": [
+    {
+      "id": "BK-142",
+      "result": "Corrected low silencers rather than high scrambler exhaust; complete bike passes."
+    }
+  ],
+  "pending_ids": [],
+  "reviewed_assets": [
+    {
+      "id": "BK-001",
+      "path": "assets/deck-v009/BK-001.webp",
+      "sha256": "50b17319a593ae9108c8770723d7fbddba182e7241187aaeb1ce57e40be29ad0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-002",
+      "path": "assets/deck-v009/BK-002.webp",
+      "sha256": "cc8e6a114529f79e3a39ab7ad6dd121fe840bac8d5e0015e9defa4fabfa114e1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-003",
+      "path": "assets/deck-v009/BK-003.webp",
+      "sha256": "e8eb9ea3fa5cf8f6d9dc8a2fab317f14cf4a1df94a7757368b5b03a4c04b6485",
+      "result": "pass"
+    },
+    {
+      "id": "BK-004",
+      "path": "assets/deck-v009/BK-004.webp",
+      "sha256": "110c95022b383aef11d8b8155cf82436e5d7880f2addf3f407cb97af9701d83a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-005",
+      "path": "assets/deck-v009/BK-005.webp",
+      "sha256": "fbbf367f50e3648daad28802ac94f5e222136d278e0d241220a7a1c722797939",
+      "result": "pass"
+    },
+    {
+      "id": "BK-006",
+      "path": "assets/deck-v009/BK-006.webp",
+      "sha256": "82b58c5b0aac2999c89f6069e6a490b0e4c7d0e8a7bff8cb194a3e6eae5aceba",
+      "result": "pass"
+    },
+    {
+      "id": "BK-007",
+      "path": "assets/deck-v009/BK-007.webp",
+      "sha256": "b7f37ded83727128c5ca757bc19d5b0c7d3fb5e48d8eb8f0c878718a92bc49c0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-008",
+      "path": "assets/deck-v009/BK-008.webp",
+      "sha256": "ef206011b78ffd41f2351df82165ccbb8fc7ed52338d40d1ce43e785a371fb82",
+      "result": "pass"
+    },
+    {
+      "id": "BK-009",
+      "path": "assets/deck-v009/BK-009.webp",
+      "sha256": "67900537c5b77d8f1871dea0d7b2eeaef040253e12545340b519a5412dabe816",
+      "result": "pass"
+    },
+    {
+      "id": "BK-010",
+      "path": "assets/deck-v009/BK-010.webp",
+      "sha256": "7210a65d03b8f8b4bed9bb93fc9ed400454f3a7118201f886e1332ef557e3d1a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-011",
+      "path": "assets/deck-v009/BK-011.webp",
+      "sha256": "6dad13a8d1d62c4a716825b2ab7d2ad23822c870f7f3fa61b270f9ae64aad027",
+      "result": "pass"
+    },
+    {
+      "id": "BK-012",
+      "path": "assets/deck-v009/BK-012.webp",
+      "sha256": "63450d36dcc7443ce74678f10cf15028be0f16d7f05ea610e1fdcd92802043a1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-013",
+      "path": "assets/deck-v009/BK-013.webp",
+      "sha256": "49a35a4cd7f57e135039f4da94fb4adb9d9d3a32837914ee58c3eddafb1695ab",
+      "result": "pass"
+    },
+    {
+      "id": "BK-015",
+      "path": "assets/deck-v009/BK-015.webp",
+      "sha256": "88e1d259414745f0d98bfc7ad4b5f866527d0d2b6ff191a1e210849c8f2bbae1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-016",
+      "path": "assets/deck-v009/BK-016.webp",
+      "sha256": "cb8d3d8b25199ceb58be086f4e1accf7f46161ee79feda166065e0c481fc2481",
+      "result": "pass"
+    },
+    {
+      "id": "BK-017",
+      "path": "assets/deck-v009/BK-017.webp",
+      "sha256": "ba7cb26f74f74fedaddfe35cb771b99ae22bbf9a8fd05d688265f21b94163fad",
+      "result": "pass"
+    },
+    {
+      "id": "BK-018",
+      "path": "assets/deck-v009/BK-018.webp",
+      "sha256": "ea1e2daacd72ec94145c23f4d0dfea60ba133b8c830ac9d2213e2cd56adddecf",
+      "result": "pass"
+    },
+    {
+      "id": "BK-019",
+      "path": "assets/deck-v009/BK-019.webp",
+      "sha256": "9076e87f9438d3f26396fe72a49fa858daa6e5723a17bdba2644fbd4165ca6c0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-020",
+      "path": "assets/deck-v009/BK-020.webp",
+      "sha256": "19f46bf99cb19a8c0cdf2abb82145e944cd1687a33765b2da55faefa7614fb16",
+      "result": "pass"
+    },
+    {
+      "id": "BK-021",
+      "path": "assets/deck-v009/BK-021.webp",
+      "sha256": "c8fd0c45632c99d57bcb7efe1a9c9f6d0c71c18700af6d24ab00c06c78ca9a0b",
+      "result": "pass"
+    },
+    {
+      "id": "BK-022",
+      "path": "assets/deck-v009/BK-022.webp",
+      "sha256": "d1abca3688fcb02bfa7bf33a8d559fcf55d93b949062f375d15ba859a8858920",
+      "result": "pass"
+    },
+    {
+      "id": "BK-023",
+      "path": "assets/deck-v009/BK-023.webp",
+      "sha256": "fdd1a6e937d11cf04cc525c776279768b6aa3bc3fadcd6478db88af80befc52d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-024",
+      "path": "assets/deck-v009/BK-024.webp",
+      "sha256": "9815252069bf6f9c82fe84cc4c3c40da5f25244a65a3b8b34446af906faaf91b",
+      "result": "pass"
+    },
+    {
+      "id": "BK-025",
+      "path": "assets/deck-v009/BK-025.webp",
+      "sha256": "501bc409c39428be6dcf7ac52aa0eb59741b9afe24ee2089bd30d4a6c76c2998",
+      "result": "pass"
+    },
+    {
+      "id": "BK-026",
+      "path": "assets/deck-v009/BK-026.webp",
+      "sha256": "efa43dc465cc3da864cb70753dbcb8432a8f7dffd5b1439ae122ee54d0c3d7a3",
+      "result": "pass"
+    },
+    {
+      "id": "BK-027",
+      "path": "assets/deck-v009/BK-027.webp",
+      "sha256": "d2f254110c93e1303e5b4f18fe340bd5164fca21b9cc6aed52eebbbc9b401256",
+      "result": "pass"
+    },
+    {
+      "id": "BK-028",
+      "path": "assets/deck-v009/BK-028.webp",
+      "sha256": "bcb43630386f14f29a44e010da649ba4775b3f67e1e61aa26115fe94b2e51745",
+      "result": "pass"
+    },
+    {
+      "id": "BK-029",
+      "path": "assets/deck-v009/BK-029.webp",
+      "sha256": "28bd3d5c78637eb8d943f765877c78631f6ee0c6d13e197658c416fd3bc3da7d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-030",
+      "path": "assets/deck-v009/BK-030.webp",
+      "sha256": "481adea9e437986a2b2da7ed2ce9f260ec7cb806f692632c64e948840d3f510d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-031",
+      "path": "assets/deck-v009/BK-031.webp",
+      "sha256": "5eb0016f35f9d2d61850b1744ee0a78c24fffe479541364d5fe977df833d288c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-032",
+      "path": "assets/deck-v009/BK-032.webp",
+      "sha256": "3ef5ce9f5917409f707117e66147d682f5d1595d31b3037d07e4d038d5a56ab4",
+      "result": "pass"
+    },
+    {
+      "id": "BK-033",
+      "path": "assets/deck-v009/BK-033.webp",
+      "sha256": "d69828781ad85659bc2b044f50e7a74c1caecfb7108c47e1e9faab91b25acb0a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-034",
+      "path": "assets/deck-v009/BK-034.webp",
+      "sha256": "ef693c591159ba32c099d1f6f9b58331f1788e2d0b63ed2b0ac074a8327ae3f1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-036",
+      "path": "assets/deck-v009/BK-036.webp",
+      "sha256": "ee075c2a33b916ff8d10d92b14177ed5f13de4d785adec504f63cd0b0024a461",
+      "result": "pass"
+    },
+    {
+      "id": "BK-037",
+      "path": "assets/deck-v009/BK-037.webp",
+      "sha256": "8766aff42f2219141fe5586408f781e7e433b03f5c9eb07371abcf8687aa6ae1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-039",
+      "path": "assets/deck-v009/BK-039.webp",
+      "sha256": "42d89055311e0134b4bfa9bf9380e77879e14b32cf4ceb9c61313de2a6bf2342",
+      "result": "pass"
+    },
+    {
+      "id": "BK-040",
+      "path": "assets/deck-v009/BK-040.webp",
+      "sha256": "f796f538fcdf9c08f58e77a57904cfff0e1fc8a9e57e8b4025bc5a240b5350f0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-041",
+      "path": "assets/deck-v009/BK-041.webp",
+      "sha256": "6021be780ef80d5591a00393a86ebd5d10897ca1eedcbe0d3144c15cd4ee078c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-042",
+      "path": "assets/deck-v009/BK-042.webp",
+      "sha256": "319d9d12b00227f5a279349ad7ede8b710a9b639c9ae90561ddb7b24b36442b7",
+      "result": "pass"
+    },
+    {
+      "id": "BK-043",
+      "path": "assets/deck-v009/BK-043.webp",
+      "sha256": "8e8142056e65858384a8e5f6c81fd5e6db9e83db65961fcd06808c649791e70e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-044",
+      "path": "assets/deck-v009/BK-044.webp",
+      "sha256": "f015074c79823e43558504549f467ac6a3e33914c22512137329c4ded19bade4",
+      "result": "pass"
+    },
+    {
+      "id": "BK-045",
+      "path": "assets/deck-v009/BK-045.webp",
+      "sha256": "518c693416235c9744b41c1fc14130f19575d5452ea9643809fe00128b9e6b9e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-046",
+      "path": "assets/deck-v009/BK-046.webp",
+      "sha256": "7f933d6c570209a7c43427d861037584ba5b06b4a30153eaf6b4fd46946dc527",
+      "result": "pass"
+    },
+    {
+      "id": "BK-047",
+      "path": "assets/deck-v009/BK-047.webp",
+      "sha256": "c9ec164ff8e599152f29ca428e1811338444c7f9510786f617759b94ac0f6b41",
+      "result": "pass"
+    },
+    {
+      "id": "BK-048",
+      "path": "assets/deck-v009/BK-048.webp",
+      "sha256": "01595591d5a0fae7c7706c0adcb27a43ca2c01a97e4ba70db4810a96e3f4ab4e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-049",
+      "path": "assets/deck-v009/BK-049.webp",
+      "sha256": "6143dd3ea2a84a07515ccbea8977aed83f2dbdabaf9c915781bd4e0c0be74a48",
+      "result": "pass"
+    },
+    {
+      "id": "BK-050",
+      "path": "assets/deck-v009/BK-050.webp",
+      "sha256": "ce4f4a4ecfd2af47c14eea06f8cd07b77b991dc74c484976892b1edf10478cc0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-052",
+      "path": "assets/deck-v009/BK-052.webp",
+      "sha256": "d3e17adae7364a0393c7d0ae3b391a3e131710f75cd8d28235d75dd7e2895919",
+      "result": "pass"
+    },
+    {
+      "id": "BK-053",
+      "path": "assets/deck-v009/BK-053.webp",
+      "sha256": "fc4222c222f535c90f1214732ed1d2a9eb033f0404c6491472ab66e9649ecc71",
+      "result": "pass"
+    },
+    {
+      "id": "BK-055",
+      "path": "assets/deck-v009/BK-055.webp",
+      "sha256": "9235139276a74918c8dc739056e4c5d4a890f065cef4850617e424a87da35b15",
+      "result": "pass"
+    },
+    {
+      "id": "BK-056",
+      "path": "assets/deck-v009/BK-056.webp",
+      "sha256": "249f505d9946c95b5700232bd557ec2067c0cbb49bdefeda764a643e6967a09c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-057",
+      "path": "assets/deck-v009/BK-057.webp",
+      "sha256": "961b05a3bd8b9fd4a237015088c2f71bf7cf39e84e961195cef4643d0b709359",
+      "result": "pass"
+    },
+    {
+      "id": "BK-058",
+      "path": "assets/deck-v009/BK-058.webp",
+      "sha256": "d5b58e55d25d45f01c1317fff259185d6c364af1a10d74466f8d54788d2e016e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-059",
+      "path": "assets/deck-v009/BK-059.webp",
+      "sha256": "2a26d960609d540561d7fca72a2e4d7315d94d0e27d05bd7e0154fbc50ee62c2",
+      "result": "pass"
+    },
+    {
+      "id": "BK-060",
+      "path": "assets/deck-v009/BK-060.webp",
+      "sha256": "2760a35c182f8a2c6f24a23904fcffa938d4e104aacd2996eef7aa215a38cdab",
+      "result": "pass"
+    },
+    {
+      "id": "BK-061",
+      "path": "assets/deck-v009/BK-061.webp",
+      "sha256": "f66204129e4c41e9a7e95949735c1532a50b616998b3ba94797684683f6ccb00",
+      "result": "pass"
+    },
+    {
+      "id": "BK-062",
+      "path": "assets/deck-v009/BK-062.webp",
+      "sha256": "50af4ec0e0838d68f9ddd9ff2851852ddb618aa315bf91e41f6b0d475d0fa1c2",
+      "result": "pass"
+    },
+    {
+      "id": "BK-063",
+      "path": "assets/deck-v009/BK-063.webp",
+      "sha256": "385a12f6cc8b36efa40ed8007dafb33c054df6167fe9e45a173c059abbad1a22",
+      "result": "pass"
+    },
+    {
+      "id": "BK-064",
+      "path": "assets/deck-v009/BK-064.webp",
+      "sha256": "082efc7121fe73f1ac967c2c302628d52af47084825bfa431835b27c141cbed8",
+      "result": "pass"
+    },
+    {
+      "id": "BK-065",
+      "path": "assets/deck-v009/BK-065.webp",
+      "sha256": "df3c5b21448496a4f16b234b9b6f35d5edb69d47894cc67123c378711d7f2140",
+      "result": "pass"
+    },
+    {
+      "id": "BK-066",
+      "path": "assets/deck-v009/BK-066.webp",
+      "sha256": "e6aa2d53b6b6d5d49055dc3e8a77a78c4df1a6e67c6a9eda6ee645624c3c2765",
+      "result": "pass"
+    },
+    {
+      "id": "BK-067",
+      "path": "assets/deck-v009/BK-067.webp",
+      "sha256": "2988eafb0bc8003bc7db73e3d280308876ef21d7250a49aff6ff3a5927db73f5",
+      "result": "pass"
+    },
+    {
+      "id": "BK-068",
+      "path": "assets/deck-v009/BK-068.webp",
+      "sha256": "4d3c07d70ca2fdca09396b9c103f7cfed6171de3c8b2a588140368d48866e792",
+      "result": "pass"
+    },
+    {
+      "id": "BK-069",
+      "path": "assets/deck-v009/BK-069.webp",
+      "sha256": "4472c13366fddb52e863ea22972c05b27b2d36513fd092314c5fbe34c165a9ab",
+      "result": "pass"
+    },
+    {
+      "id": "BK-070",
+      "path": "assets/deck-v009/BK-070.webp",
+      "sha256": "ec9d605fad8d82b35b01d2780097afa00785265ee495f66269a5dce7af5db8e6",
+      "result": "pass"
+    },
+    {
+      "id": "BK-072",
+      "path": "assets/deck-v009/BK-072.webp",
+      "sha256": "9dd13da938dbb87d44ade6b21bd0f90c5c1e65ad99861af5bcfb797a504742a2",
+      "result": "pass"
+    },
+    {
+      "id": "BK-073",
+      "path": "assets/deck-v009/BK-073.webp",
+      "sha256": "1936ab8498e7caf523c3a53d5ae153b86243e2aa3279ca94288f5868f2e3454e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-074",
+      "path": "assets/deck-v009/BK-074.webp",
+      "sha256": "f0bd1c9895cf5e904ed1f6f22c840062c08e8b4959376fc46430d3e91d3af913",
+      "result": "pass"
+    },
+    {
+      "id": "BK-075",
+      "path": "assets/deck-v009/BK-075.webp",
+      "sha256": "b79e06d016e0894525b2d03722e722b9d64c3e2a6272e160edaa24a17e650589",
+      "result": "pass"
+    },
+    {
+      "id": "BK-076",
+      "path": "assets/deck-v009/BK-076.webp",
+      "sha256": "4fd55a55312da900346ec2d36593bfe463606f3a31ea1b2c6587c854199fa47d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-077",
+      "path": "assets/deck-v009/BK-077.webp",
+      "sha256": "7e41aca4680491e4673e77e0349a802a86377efece221a25da7d3e23f83b0e56",
+      "result": "pass"
+    },
+    {
+      "id": "BK-078",
+      "path": "assets/deck-v009/BK-078.webp",
+      "sha256": "131fd2952329effddf960c03fa3e18ff2b8cc0aa2baaef5db9f537a64cb8450e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-079",
+      "path": "assets/deck-v009/BK-079.webp",
+      "sha256": "b4c3a1e7484d182bf99149b625ec4eddf9c15b396b1478dbc71c98370b19125a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-080",
+      "path": "assets/deck-v009/BK-080.webp",
+      "sha256": "5c3dce5b65a72dbdbe941b5f87fd6fb04393c491e58884fe7587775ea0ef7ad5",
+      "result": "pass"
+    },
+    {
+      "id": "BK-081",
+      "path": "assets/deck-v009/BK-081.webp",
+      "sha256": "45c0d51cc4ab858a0b3f783de74fd62978057d8d6ab32fd9301ce0c1927d5727",
+      "result": "pass"
+    },
+    {
+      "id": "BK-082",
+      "path": "assets/deck-v009/BK-082.webp",
+      "sha256": "7710de2745487b21ada0bbe4244408670d29cea2bb52351e53dd8756e1c82ea1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-083",
+      "path": "assets/deck-v009/BK-083.webp",
+      "sha256": "ce471d7de03a27b3534bd7eb06ade9728af3e0d6f0af8e102aaf75105a9db0c5",
+      "result": "pass"
+    },
+    {
+      "id": "BK-084",
+      "path": "assets/deck-v009/BK-084.webp",
+      "sha256": "010f49db58166846987035339e3bf518bc856b7b4cb41e9ee89d7dff924f4d0a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-085",
+      "path": "assets/deck-v009/BK-085.webp",
+      "sha256": "3d0f2e298b03ffe872c017a864f1415317da35efe922ce1df89c128648ac270c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-086",
+      "path": "assets/deck-v009/BK-086.webp",
+      "sha256": "b233e9291904068fd2ce391a4e7acc998a1b726be358df1341246f4aa0e1b8d0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-087",
+      "path": "assets/deck-v009/BK-087.webp",
+      "sha256": "beaf4ba8f5254c283ccbcef7b716d0f6417a3a0501149d0bf9a335ca710dcfc5",
+      "result": "pass"
+    },
+    {
+      "id": "BK-088",
+      "path": "assets/deck-v009/BK-088.webp",
+      "sha256": "71ba168f788026ae957a2434041eaa8f8fed36b51623e11389946a37da52fc16",
+      "result": "pass"
+    },
+    {
+      "id": "BK-089",
+      "path": "assets/deck-v009/BK-089.webp",
+      "sha256": "553d5531eddfe4921bd1a886927026aeacdda1ba99dcc2ecaa930691e22ad08a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-090",
+      "path": "assets/deck-v009/BK-090.webp",
+      "sha256": "515d1933fd81de21426a01658f8d9f6e92bfb2d5415315e7ba8075a2fd7548dc",
+      "result": "pass"
+    },
+    {
+      "id": "BK-091",
+      "path": "assets/deck-v009/BK-091.webp",
+      "sha256": "bd47ff3dcf39e8b210729439d42095b222c05de17c3bc62f29ceb0438f899cbe",
+      "result": "pass"
+    },
+    {
+      "id": "BK-093",
+      "path": "assets/deck-v009/BK-093.webp",
+      "sha256": "2fd236e26aafc2682c41a86dab38e01dcc187eae5f0c6ddaff1ad05062d4e60d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-094",
+      "path": "assets/deck-v009/BK-094.webp",
+      "sha256": "9bd0c5095b0dfeb8398f4235ec6755e1a41c198863df1620e0ad6ca1410b6db8",
+      "result": "pass"
+    },
+    {
+      "id": "BK-095",
+      "path": "assets/deck-v009/BK-095.webp",
+      "sha256": "60a1076c6573afaf5307a48b5fc755b4b594beb3ad46e4948bf86d1bf710294a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-096",
+      "path": "assets/deck-v009/BK-096.webp",
+      "sha256": "b107935ec8e222d8f3da3107fe0f75d55d5572400ff5b3c3620977d3671985a9",
+      "result": "pass"
+    },
+    {
+      "id": "BK-097",
+      "path": "assets/deck-v009/BK-097.webp",
+      "sha256": "53dd42ab5bd1629fdba151910f052f601e15125f5ec777e11e2b4473dbffd868",
+      "result": "pass"
+    },
+    {
+      "id": "BK-098",
+      "path": "assets/deck-v009/BK-098.webp",
+      "sha256": "66441c99f592d801ed12b860c751e9420ad24286b4f5de5a051f5403a972fcc7",
+      "result": "pass"
+    },
+    {
+      "id": "BK-099",
+      "path": "assets/deck-v009/BK-099.webp",
+      "sha256": "4ad27d296c3833b349f8ddce08eaa7ddbbd7f8afad1444f807fd197486df5895",
+      "result": "pass"
+    },
+    {
+      "id": "BK-100",
+      "path": "assets/deck-v009/BK-100.webp",
+      "sha256": "4ca3fcb0330e60efa5d8e6808c36ea820205b79cac647f64669e54cd524b6408",
+      "result": "pass"
+    },
+    {
+      "id": "BK-101",
+      "path": "assets/deck-v009/BK-101.webp",
+      "sha256": "76ee415b9a7b141637d4d034473f70c14b1e2b1d274da8ed95525fbafc28a648",
+      "result": "pass"
+    },
+    {
+      "id": "BK-102",
+      "path": "assets/deck-v009/BK-102.webp",
+      "sha256": "8948c14feddc4ef55d0c9580d5fa1e38ba09d499a7164f68e2895e705cfa4496",
+      "result": "pass"
+    },
+    {
+      "id": "BK-103",
+      "path": "assets/deck-v009/BK-103.webp",
+      "sha256": "77831838fadc2357c4a5b62ca7445caec93c8fa596342413e707665b7b34e0af",
+      "result": "pass"
+    },
+    {
+      "id": "BK-104",
+      "path": "assets/deck-v009/BK-104.webp",
+      "sha256": "46b033118adbc8c5e10edafb35fb2d768b0b5d36f9379016978e114160916a35",
+      "result": "pass"
+    },
+    {
+      "id": "BK-105",
+      "path": "assets/deck-v009/BK-105.webp",
+      "sha256": "5efdd4e532c19aa815353d974a16bf3123d61a5e03b25c453ac20705f1c697e8",
+      "result": "pass"
+    },
+    {
+      "id": "BK-106",
+      "path": "assets/deck-v009/BK-106.webp",
+      "sha256": "4cf2396d91614cce13317b3679aa3989f5a926de4644672f2d9b83c47a9610a6",
+      "result": "pass"
+    },
+    {
+      "id": "BK-107",
+      "path": "assets/deck-v009/BK-107.webp",
+      "sha256": "74187c8526e3cd359ae2441d1580d3be2515b439d6c43217525899bf5c0a537c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-108",
+      "path": "assets/deck-v009/BK-108.webp",
+      "sha256": "f206be6e49f8983a19987d75de8914854383f742bb3f498181bbacbea46a35b2",
+      "result": "pass"
+    },
+    {
+      "id": "BK-109",
+      "path": "assets/deck-v009/BK-109.webp",
+      "sha256": "03bae64401017d23220dea7c91c970ac34f825cbf8904a4609c457641f3ac1c6",
+      "result": "pass"
+    },
+    {
+      "id": "BK-112",
+      "path": "assets/deck-v009/BK-112.webp",
+      "sha256": "832cb1fb250d589b05bcabba7cc88cd41c285f5d05d2c1471273699089db78d4",
+      "result": "pass"
+    },
+    {
+      "id": "BK-113",
+      "path": "assets/deck-v009/BK-113.webp",
+      "sha256": "843c4a972f8843844b18eabbc7407ed395aa3fe24f5edadc29ddd3eb5d35e33c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-114",
+      "path": "assets/deck-v009/BK-114.webp",
+      "sha256": "df3198148762453728363bd55087e50756a9348b065bfcc86a76ba30e898133c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-115",
+      "path": "assets/deck-v009/BK-115.webp",
+      "sha256": "a9d0436eac990bf4d2f90f258eaf6198cb907d52a96f807a149cdab9f50b2455",
+      "result": "pass"
+    },
+    {
+      "id": "BK-116",
+      "path": "assets/deck-v009/BK-116.webp",
+      "sha256": "d6d240ffaf340db6aeb356aa1867ed20069164ca057860d6474ee6595cfca147",
+      "result": "pass"
+    },
+    {
+      "id": "BK-117",
+      "path": "assets/deck-v009/BK-117.webp",
+      "sha256": "023b3bf961ff07e5c9a8211abc18dd05dd2713e8e4a806e3bee66c866540bab0",
+      "result": "pass"
+    },
+    {
+      "id": "BK-118",
+      "path": "assets/deck-v009/BK-118.webp",
+      "sha256": "4ff4862dbcebece75c67db7cb8a74580f63ef734a12309454a9b24cea1c4b420",
+      "result": "pass"
+    },
+    {
+      "id": "BK-119",
+      "path": "assets/deck-v009/BK-119.webp",
+      "sha256": "6ae3d63896e152dd85593dbad1ed7e714443da1945c0f75ccab6ef9bae811c9d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-120",
+      "path": "assets/deck-v009/BK-120.webp",
+      "sha256": "b8081d91d4023f4bddf03a9bff9fcd38631322dbd4515fd46ed5f3956d4ddfa1",
+      "result": "pass"
+    },
+    {
+      "id": "BK-121",
+      "path": "assets/deck-v009/BK-121.webp",
+      "sha256": "361dec4295c21bb2094d2844c076962c8eff42e468b555a01b1171b0c9934ad9",
+      "result": "pass"
+    },
+    {
+      "id": "BK-123",
+      "path": "assets/deck-v009/BK-123.webp",
+      "sha256": "287f8635fbc1e2634432357ccd7a6316c87d905e99b4432793110357d33b9319",
+      "result": "pass"
+    },
+    {
+      "id": "BK-124",
+      "path": "assets/deck-v009/BK-124.webp",
+      "sha256": "027baff0d006d3d9eec8b9fc8262ecf6bd9c40f01d152e72b0aeb80bfbdd0993",
+      "result": "pass"
+    },
+    {
+      "id": "BK-125",
+      "path": "assets/deck-v009/BK-125.webp",
+      "sha256": "a4c9c0a290932d1b140459991b18242bb2e9409ebd0439f9e3242234a51dc788",
+      "result": "pass"
+    },
+    {
+      "id": "BK-126",
+      "path": "assets/deck-v009/BK-126.webp",
+      "sha256": "39d66b4249ab69b9430b0bd5c16981eb822abc0bd751cd59e71b27c621c4f44d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-127",
+      "path": "assets/deck-v009/BK-127.webp",
+      "sha256": "903e79bdde751f9b725b29ea365bef833f043add1caf6b012fb57d5e5362d158",
+      "result": "pass"
+    },
+    {
+      "id": "BK-128",
+      "path": "assets/deck-v009/BK-128.webp",
+      "sha256": "575e09aa64e72e2caa10137d70c233aba16102d64b88e7f69fdb22f48c25a571",
+      "result": "pass"
+    },
+    {
+      "id": "BK-129",
+      "path": "assets/deck-v009/BK-129.webp",
+      "sha256": "e301f78e260e309a43fca519b449916854973375831d21a40256ab3c794fdd0c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-130",
+      "path": "assets/deck-v009/BK-130.webp",
+      "sha256": "239203c31db6899b6948615e0a12a440d7315748087eb981c86bc2004a37235e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-131",
+      "path": "assets/deck-v009/BK-131.webp",
+      "sha256": "9fd1babb4d1dd5bda64cae8f4d19f0c0dd6d50a272258c947ac0f79f89717003",
+      "result": "pass"
+    },
+    {
+      "id": "BK-133",
+      "path": "assets/deck-v009/BK-133.webp",
+      "sha256": "8f91822c438749044b4fe39ddc505168431c883deea0200a9abd594795ce2b9f",
+      "result": "pass"
+    },
+    {
+      "id": "BK-134",
+      "path": "assets/deck-v009/BK-134.webp",
+      "sha256": "c3b8c4073689d8f817d8323751b3c9c7464bda8e90629ec63f06bb504ecc28a4",
+      "result": "pass"
+    },
+    {
+      "id": "BK-137",
+      "path": "assets/deck-v009/BK-137.webp",
+      "sha256": "cccc907c898b837d6ac3fb5edabf1a02b208ef7e37c7b5395a482406835f7d12",
+      "result": "pass"
+    },
+    {
+      "id": "BK-138",
+      "path": "assets/deck-v009/BK-138.webp",
+      "sha256": "a41e4bb0353b377a764970d71963d28849d728292a3b16080202925d0cf6436b",
+      "result": "pass"
+    },
+    {
+      "id": "BK-139",
+      "path": "assets/deck-v009/BK-139.webp",
+      "sha256": "df3f801e85ff28d62803cdf0ccd72f34e2f3ad6a03a9cc68f25b2e364a7f11e3",
+      "result": "pass"
+    },
+    {
+      "id": "BK-140",
+      "path": "assets/deck-v009/BK-140.webp",
+      "sha256": "aebe1f7161c45e93ac5783d9861b6d4f6357030c652f83f52415b82caa51510f",
+      "result": "pass"
+    },
+    {
+      "id": "BK-141",
+      "path": "assets/deck-v009/BK-141.webp",
+      "sha256": "6c19bc6004f89c7155c126f836b7dcfdcd1e1b3e632faa1113175b12615c5e79",
+      "result": "pass"
+    },
+    {
+      "id": "BK-142",
+      "path": "assets/deck-v009/BK-142.webp",
+      "sha256": "0db4217d42ed4654524136cd015d1fefce33c8a7d52ee5638e5e721012d52a10",
+      "result": "pass"
+    },
+    {
+      "id": "BK-143",
+      "path": "assets/deck-v009/BK-143.webp",
+      "sha256": "806ba975e616ceae245f330e276b3a5fc3cd32e6a1cbc5b81551aeca74ac555f",
+      "result": "pass"
+    },
+    {
+      "id": "BK-144",
+      "path": "assets/deck-v009/BK-144.webp",
+      "sha256": "75178eef02d454039746734d6a73213c523128b0f2280891f8135398b4114244",
+      "result": "pass"
+    },
+    {
+      "id": "BK-145",
+      "path": "assets/deck-v009/BK-145.webp",
+      "sha256": "7b46209ed15daf581487672c354d2038273fc0bde9f881a35dca487fcf031fda",
+      "result": "pass"
+    },
+    {
+      "id": "BK-146",
+      "path": "assets/deck-v009/BK-146.webp",
+      "sha256": "008748a38c8ba57a81b4436049fde71e0e1e19b5fdde850477e6120f1c8e613d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-147",
+      "path": "assets/deck-v009/BK-147.webp",
+      "sha256": "4c6c64b3e9ab104c6d0650c0051615d6d0c8655231829ade1579a4c3ce63aa1b",
+      "result": "pass"
+    },
+    {
+      "id": "BK-148",
+      "path": "assets/deck-v009/BK-148.webp",
+      "sha256": "0f8da876a32aa4eb10f9c4b29635451e9788ee257d3b925989abdb36f4013f68",
+      "result": "pass"
+    },
+    {
+      "id": "BK-149",
+      "path": "assets/deck-v009/BK-149.webp",
+      "sha256": "c44c4ea0fa891037ef6cc3cd5d4420ccd83121b7a16ab5e2fec89a77b25ede5a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-150",
+      "path": "assets/deck-v009/BK-150.webp",
+      "sha256": "65f72e9cde73e97d5f2f406d1ed1cd40ec0ce05b7fb1139ae4300ccabe760281",
+      "result": "pass"
+    },
+    {
+      "id": "BK-151",
+      "path": "assets/deck-v009/BK-151.webp",
+      "sha256": "a6f93e21bca517a80caf67baf8c4ea2300942d9b4195ebdb5e7d9a486c1d2ca6",
+      "result": "pass"
+    },
+    {
+      "id": "BK-152",
+      "path": "assets/deck-v009/BK-152.webp",
+      "sha256": "2498092279fdbc3a57c91f170a45a32a76c2e497377d370972486d14b5263f1a",
+      "result": "pass"
+    },
+    {
+      "id": "BK-153",
+      "path": "assets/deck-v009/BK-153.webp",
+      "sha256": "f15b7ee9483868087621331e98b3df842ec4ae68e8cd7c42e15511d9b7b2d8e3",
+      "result": "pass"
+    },
+    {
+      "id": "BK-154",
+      "path": "assets/deck-v009/BK-154.webp",
+      "sha256": "058d895456cf14552389e9478a1470cadfe0601eefde8a4554e6db4b2206f4d5",
+      "result": "pass"
+    },
+    {
+      "id": "BK-155",
+      "path": "assets/deck-v009/BK-155.webp",
+      "sha256": "a6007bf976e1177847bf7da36596c97dd8d23584b068d45a0169c7bd1fef542b",
+      "result": "pass"
+    },
+    {
+      "id": "BK-156",
+      "path": "assets/deck-v009/BK-156.webp",
+      "sha256": "de8a8fbf05739023b7c241c35546fc2e78fb960d5f3247d0434db3ce4b47ef00",
+      "result": "pass"
+    },
+    {
+      "id": "BK-158",
+      "path": "assets/deck-v009/BK-158.webp",
+      "sha256": "68af2df19d53a4c62d02943602fb5abd8e78caa5a1568b55bd305450fb634b3c",
+      "result": "pass"
+    },
+    {
+      "id": "BK-159",
+      "path": "assets/deck-v009/BK-159.webp",
+      "sha256": "8682bd0cfdd7907025162969a37fa9e7d30df2e9299c36c84dda10890efd794f",
+      "result": "pass"
+    },
+    {
+      "id": "BK-160",
+      "path": "assets/deck-v009/BK-160.webp",
+      "sha256": "adaa84a920b75414598672d7aeaaa7f45b9da7102e4088bf9b33e460d27561b9",
+      "result": "pass"
+    },
+    {
+      "id": "BK-161",
+      "path": "assets/deck-v009/BK-161.webp",
+      "sha256": "9e70b7b036e1144677b0ec9bb4a627cb3a9a38b2b5add6baed85c0cadc2b8e17",
+      "result": "pass"
+    },
+    {
+      "id": "BK-162",
+      "path": "assets/deck-v009/BK-162.webp",
+      "sha256": "76cbc45ec2cf5c28b0d0c81170bbfb9e48f55c23ea56b0da01069adfa56338ed",
+      "result": "pass"
+    },
+    {
+      "id": "BK-163",
+      "path": "assets/deck-v009/BK-163.webp",
+      "sha256": "8bf7b4e3d593c71c6e91486a96fe197c6ff15c6063e610e4340ee50950ec3d58",
+      "result": "pass"
+    },
+    {
+      "id": "BK-164",
+      "path": "assets/deck-v009/BK-164.webp",
+      "sha256": "227173e4956cef82131ad1a9ff3d1892bbb0fdf2de1ae30244c7e28f406336a5",
+      "result": "pass"
+    },
+    {
+      "id": "BK-166",
+      "path": "assets/deck-v009/BK-166.webp",
+      "sha256": "8ffe3da07124173aaefebb670897bccdcecb8b38476e2f8ca9fee4b790de0e39",
+      "result": "pass"
+    },
+    {
+      "id": "BK-167",
+      "path": "assets/deck-v009/BK-167.webp",
+      "sha256": "9692478af733c91c0bacc260196d7bc683e029f78cc66c9927817c5f6438e020",
+      "result": "pass"
+    },
+    {
+      "id": "BK-168",
+      "path": "assets/deck-v009/BK-168.webp",
+      "sha256": "fb900eea95bcd857c1f65f91146b9aacab34ea6cd281734d0a48f6a8efb40c0d",
+      "result": "pass"
+    },
+    {
+      "id": "BK-169",
+      "path": "assets/deck-v009/BK-169.webp",
+      "sha256": "0a1da1fd7d84d84b1d1de58692772a642a5c4e88325918fb35b61686df65b8a9",
+      "result": "pass"
+    },
+    {
+      "id": "BK-170",
+      "path": "assets/deck-v009/BK-170.webp",
+      "sha256": "e68483e1aecc386bcb8202fbe7c23de6ef4ee0a226709eb9e445c56ce9b8a68e",
+      "result": "pass"
+    },
+    {
+      "id": "BK-171",
+      "path": "assets/deck-v009/BK-171.webp",
+      "sha256": "8b390e50e7d36e045fbb755af1698ec4c416b7dbdbc100d543b4ee1aed9027c7",
+      "result": "pass"
+    },
+    {
+      "id": "BK-172",
+      "path": "assets/deck-v009/BK-172.webp",
+      "sha256": "a3ad8be332bda7ff5b40b4da533cfff553c93769115d709cdf7f549c41bd4106",
+      "result": "pass"
+    },
+    {
+      "id": "BK-173",
+      "path": "assets/deck-v009/BK-173.webp",
+      "sha256": "d7b6a501014f5e4ef3b56b2718d63e45a49a22d61af92ad75db58b85e74f35bf",
+      "result": "pass"
+    },
+    {
+      "id": "BK-174",
+      "path": "assets/deck-v009/BK-174.webp",
+      "sha256": "cb6b60299d95c21fd3c94063a3d4cf438e51adfb48c77146f4dff847ed12d8b3",
+      "result": "pass"
+    },
+    {
+      "id": "BK-175",
+      "path": "assets/deck-v009/BK-175.webp",
+      "sha256": "e5348b38ff76c01f9c162d0d0223a7fd0b5e59a9fe6637695e59be3459e408e7",
+      "result": "pass"
+    },
+    {
+      "id": "BK-176",
+      "path": "assets/deck-v009/BK-176.webp",
+      "sha256": "0a03d015cbba4ad6f78a64f5cc18342c02d08fda92f9fd61bf089986e5d5ff5f",
+      "result": "pass"
+    },
+    {
+      "id": "BK-177",
+      "path": "assets/deck-v009/BK-177.webp",
+      "sha256": "c279b86dba8c1b69765d9c98394b8731e5bcdb724776afd87d58e8e43f6647cf",
+      "result": "pass"
+    },
+    {
+      "id": "BK-178",
+      "path": "assets/deck-v009/BK-178.webp",
+      "sha256": "ae3279c646b7b28f7614b00d5c430e2c5ee510bd62d9662a571d4462a5d0ac60",
+      "result": "pass"
+    },
+    {
+      "id": "BK-179",
+      "path": "assets/deck-v009/BK-179.webp",
+      "sha256": "c86ad086c605d63a6ccc6498efd4a30571a39142bc4f6f3af9624b88e9128bee",
+      "result": "pass"
+    },
+    {
+      "id": "BK-180",
+      "path": "assets/deck-v009/BK-180.webp",
+      "sha256": "ff206b02f4cbc2f14290dddfadba0c83cec8cffaa67825e66326011c0ead1d03",
+      "result": "pass"
+    },
+    {
+      "id": "BK-182",
+      "path": "assets/deck-v009/BK-182.webp",
+      "sha256": "fc03ac438a7a11a454b9a14c8cc76c53626c79166cf30a4790ed3743f8c9f8fd",
+      "result": "pass"
+    }
+  ],
+  "hash_validation": "All reviewed SHA-256 hashes match final asset files; exact coverage of all 166 new unique images, excluding retained pilot assets."
+}

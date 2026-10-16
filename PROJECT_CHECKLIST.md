@@ -27,7 +27,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Build 007: ten consistent AI motorcycle illustrations integrated and deployed
 - [x] Deploy 10 pilot images; all ten live image URLs return HTTP 200 and match the release assets (device gameplay review pending)
 - [~] Build 007: consistent image treatment and aspect-ratio handling implemented; user approved initial artwork samples; in-game device review pending
-- [ ] Roll out artwork to 178-bike deck
+- [~] Build 009: complete 178-bike artwork rollout and final consistency review; full phone/desktop QA before publication
 
 ## 4. Gameplay and quality
 - [ ] Validate complete scoring balance with head-to-head simulations and document findings
@@ -45,6 +45,8 @@ https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Current release
 V2.1.7 / Build 008 — fix artwork clipping by removing intrinsic grid sizing and constraining images to their panels. Cards and gallery share one image renderer. The ten pilot illustrations, full dataset and approved hero asset are unchanged. GitHub Pages deployment succeeded on 2026-10-16; live HTML and service worker match Build 008.
+
+Build 009 / V2.1.8 is in development on `build/009-full-deck`. One responsive app (not separate phone and desktop apps), side-by-side comparison at both sizes, complete-deck gallery and offline artwork cache. Prior deployed checkpoint: `release/build008`. Publication is held until all artwork and full quality checks pass.
 
 1. All 19 existing automated gameplay and asset checks passed.
 2. Published HTML and Build 008 cache version verified.

@@ -1,0 +1,5 @@
+node_modules/
+qa/artwork/
+playwright-report/
+qa/browser-results/
+*.log

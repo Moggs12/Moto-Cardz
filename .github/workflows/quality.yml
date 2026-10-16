@@ -1,0 +1,64 @@
+name: Full-deck quality checks
+on:
+  push:
+    branches: [main, 'build/**']
+    paths: ['index.html', 'sw.js', 'tests/**', 'playwright.config.cjs', 'package*.json', '.github/workflows/quality.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  gameplay-and-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: npm test
+  browser:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: browser-review
+          path: |
+            playwright-report/
+            qa/browser-results/
+          retention-days: 14
+
+  release-checkpoint:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [gameplay-and-assets, browser]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('node:fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            async function checkpoint(tag, sha) {
+              try {
+                await github.rest.git.getRef({...context.repo, ref: 'tags/' + tag});
+                core.info('Existing checkpoint preserved: ' + tag);
+              } catch (error) {
+                if (error.status !== 404) throw error;
+                await github.rest.git.createRef({...context.repo, ref: 'refs/tags/' + tag, sha});
+                core.info('Created checkpoint: ' + tag);
+              }
+            }
+            await checkpoint('v2.1.7-build008', 'c4041b7345040e0d0c1c48463317ca9e1852d96b');
+            await checkpoint('v' + pkg.version + '-build' + pkg.motocardzBuild, context.sha);

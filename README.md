@@ -1,10 +1,10 @@
-# Moto Cardz V2.1.7 / Build 008
+# Moto Cardz V2.1.8 / Build 009
 
 178-bike playable prototype using the agreed game scores. The four electric bikes are excluded. Every card now shows the real spec (mph, bhp, cc, mpg, £) under each 0–99 game score.
 
-Build 008 fixes artwork clipping in the cards and gallery by constraining each image to its panel. It retains the ten illustrated pilot cards, a deck selector and gallery, and compact side-by-side comparisons in both modes. See [Build 007 review notes](BUILD_007_REVIEW.md) for scope, tests and outstanding device checks.
+Build 009 completes the 178-card pack with 176 distinct, consistent studio illustrations. The full deck is always available, including to returning pilot players. One responsive layout keeps comparisons side-by-side on phones and desktops, with a swipeable phone Duel hand and five hand cards across desktop. A searchable gallery and complete offline artwork cache are included. Every bike fits inside its image panel without cropping or stretching.
 
-Run `node --test tests/build007.test.cjs` to verify gameplay and local assets.
+Run `npm test` for gameplay and asset checks. GitHub Actions runs the full browser suite in Chromium and WebKit on phone and desktop viewports. See [Build 009 release notes](RELEASE_BUILD009.md) for scope, artwork provenance, verification and rollback instructions.
 
 ## Modes
 
@@ -34,6 +34,8 @@ Measured over thousands of simulated games:
 
 - 178 bikes, 176 distinct make/model pairs. The Ducati Diavel V4 and Triumph Tiger Sport 800 each appear twice with different price and MPG (and top speed for the Tiger), so they look like separate model years. Both are kept and are told apart by the price on the Value row. Adding a `year` field to those entries would make this explicit.
 - Card scores are the agreed game scores. Real specs are display-only and never affect who wins a round.
+- Illustrations are model-inspired, not verified exact-year photography. Per-image prompts, references and review notes are in `assets/deck-v009/manifest.json`.
+- BK-099 displays '1390 Super Adventure S Evo' as a documented correction to the source's '1390 Super Duke S Evo'. Original data and scores remain unchanged; see the release notes.
 
 ## Files
 
@@ -53,3 +55,7 @@ When you change any shipped file, bump `CACHE` in `sw.js` so players receive the
 - Winning the opponent's card, or a full-deck Top Trumps mode
 - Stat tie-breaks using the raw spec (equal scores are draws)
 - Model-year field for the duplicated bikes
+
+## Release history
+
+`main` is live. `release/build008` preserves the previous deployed build. Versioned release tags are created after the complete main-branch quality checks pass. Restore a checkpoint through a new tested commit and a new service-worker cache version; never rewrite release history.
