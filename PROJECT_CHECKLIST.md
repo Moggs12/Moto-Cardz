@@ -44,11 +44,11 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Current release
-V2.1.6 / Build 007 — ten illustrated pilot bikes, side-by-side comparisons in Quick Match and Duel, pilot/full-deck selector and artwork gallery. User approved merging to `main` and deploying on 2026-10-16. GitHub Pages deployment succeeded on 2026-10-16. Live HTML, service worker, hero and all ten images were fetched and verified against the release.
+V2.1.7 / Build 008 — fix artwork clipping by removing intrinsic grid sizing and constraining images to their panels. Cards and gallery share one image renderer. The ten pilot illustrations, full dataset and approved hero asset are unchanged. Deployment verification pending.
 
-1. Automated game and asset checks passed: 19 tests, including 360 complete matches.
-2. Review mobile/desktop rendering and on-device PWA behaviour.
-3. Complete live device acceptance checks and address feedback.
+1. Run existing automated gameplay and asset checks.
+2. Verify published HTML and cache version after deployment.
+3. User to confirm whole-bike fit on the affected mobile screen; browser/device checks remain pending.
 
 Notes:
 - Keep every meaningful release labelled Vx.y.z / Build NNN.
@@ -86,3 +86,10 @@ Notes:
 - [ ] Browser/mobile visual approval and device offline verification.
 - [x] User approved Build 007 deployment after reviewing artwork and automated test results.
 - [x] GitHub Pages deployment succeeded; Build 007 HTML, service worker, hero and all ten images verified live on 2026-10-16.
+
+## Build 008 / V2.1.7 — artwork fit correction (2026-10-16)
+- [x] Constrain card illustrations to the image panel independently of intrinsic image dimensions.
+- [x] Use the same image panel in the pilot gallery; preserve full bike and aspect ratio.
+- [x] Add a small inset around illustrations; retain compact side-by-side layouts.
+- [x] Bump visible build/version and offline cache identifier.
+- [ ] Verify live deployment and user confirmation on the affected device.
