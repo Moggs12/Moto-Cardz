@@ -1,5 +1,5 @@
 # Moto Cardz — Master Project Checklist
-Updated: 2026-10-15
+Updated: 2026-10-16
 Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 
 ## 1. Foundations
@@ -24,9 +24,9 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 
 ## 3. Motorcycle cards and images
 - [x] Sample card design direction approved
-- [~] Consistent AI-generated motorcycle artwork and 10-card pilot preparation (completion not verified)
+- [x] Build 007: ten consistent AI motorcycle illustrations prepared and integrated on the review branch
 - [ ] Add and test 10 pilot images in live game
-- [ ] Review consistency of image size, composition, colours and model identification
+- [~] Build 007: consistent image treatment and aspect-ratio handling implemented; user approved initial artwork samples; in-game device review pending
 - [ ] Roll out artwork to 178-bike deck
 
 ## 4. Gameplay and quality
@@ -43,14 +43,12 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 ## Live URL
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
-## Next proposed release
-V2.1.5 / Build 006 — Hero 1 photorealistic upgrade (Build 005.1 refinement), matching the user-approved mockup. Cropped and optimised exact approved Hero 1 artwork, no stylistic alterations. Logo remains centred; headline beneath the photograph; compact information strip and controls. GitHub Pages deployment successful, user likes the visual result; gameplay regression and desktop tests pending. Gameplay/data unchanged.
-1. Prepare individual assets from approved Option 1 logo and Option 4 icon; preview header before deployment
-2. UI theme and card backs
-3. App icon and favicon
-4. Mobile/desktop testing
-5. Deploy and verify build/version
-6. Incorporate the 10-image pilot when ready
+## Current release
+V2.1.6 / Build 007 — ten illustrated pilot bikes, side-by-side comparisons in Quick Match and Duel, pilot/full-deck selector and artwork gallery. User approved merging to `main` and deploying on 2026-10-16. Deployment state is recorded in GitHub Actions.
+
+1. Automated game and asset checks passed: 19 tests, including 360 complete matches.
+2. Review mobile/desktop rendering and on-device PWA behaviour.
+3. Complete live device acceptance checks and address feedback.
 
 Notes:
 - Keep every meaningful release labelled Vx.y.z / Build NNN.
@@ -76,3 +74,15 @@ Notes:
 - [ ] Regression checks: Quick Match, Duel, Easy/Medium/Hard, first-to selector.
 - [x] GitHub Pages workflow deployment succeeded for Build 006.
 - [ ] Verify offline/PWA image caching on device.
+
+## Build 007 / V2.1.6 — ten-bike visual pilot (2026-10-16)
+- [x] User requested development and testing before another deployment.
+- [x] Side-by-side Quick Match and Duel comparisons, compact game header and swipeable Duel hand.
+- [x] Illustrated ten-bike pilot selector and full 178-bike deck option.
+- [x] Pilot artwork gallery, consistent image panels and preserved aspect ratios.
+- [x] Pilot sudden-death reserve replenishment, including repeated ties.
+- [x] Corrected existing offline icon paths; precache all ten pilot images.
+- [x] Automated gameplay coverage across both decks, both modes and all AI levels.
+- [ ] Browser/mobile visual approval and device offline verification.
+- [x] User approved Build 007 deployment after reviewing artwork and automated test results.
+- [ ] Confirm GitHub Pages deployment and all ten image URLs.
