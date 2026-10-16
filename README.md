@@ -1,6 +1,10 @@
-# Moto Cardz V2
+# Moto Cardz V2.1.6 / Build 007
 
 178-bike playable prototype using the agreed game scores. The four electric bikes are excluded. Every card now shows the real spec (mph, bhp, cc, mpg, £) under each 0–99 game score.
+
+Build 007 is a review build on `build/007-pilot-artwork`, not deployed. It adds ten illustrated pilot cards, a deck selector and gallery, and compact side-by-side comparisons in both modes. See [Build 007 review notes](BUILD_007_REVIEW.md) for scope, tests and outstanding device checks.
+
+Run `node --test tests/build007.test.cjs` to verify gameplay and local assets.
 
 ## Modes
 
@@ -36,7 +40,7 @@ Measured over thousands of simulated games:
 - `index.html` — the whole game (data, logic and styles in one file)
 - `manifest.webmanifest` — install metadata
 - `sw.js` — service worker, makes the game work offline
-- `icons/` — app icons (192, 512, maskable 512, Apple touch)
+- root-level PNGs — app icons (192, 512, maskable 512, Apple touch)
 
 ## Running and installing
 
