@@ -1,0 +1,38 @@
+name: Layout and gameplay preflight
+on:
+  push:
+    branches: [main, 'build/**']
+    paths: ['index.html', 'sw.js', 'tests/**', 'playwright.config.cjs', 'package*.json', '.github/workflows/quality.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  gameplay-and-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: node --test --test-name-pattern='settings|all 178 cards|Quick Match|Duel full|repeated sudden|menu exit|original dataset' tests/game.test.cjs
+  browser:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run test:browser -- --grep layout
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: browser-review
+          path: |
+            playwright-report/
+            qa/browser-results/
+          retention-days: 14
