@@ -24,14 +24,14 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 
 ## 3. Motorcycle cards and images
 - [x] Sample card design direction approved
-- [x] Build 007: ten consistent AI motorcycle illustrations prepared and integrated on the review branch
-- [ ] Add and test 10 pilot images in live game
+- [x] Build 007: ten consistent AI motorcycle illustrations integrated and deployed
+- [x] Deploy 10 pilot images; all ten live image URLs return HTTP 200 and match the release assets (device gameplay review pending)
 - [~] Build 007: consistent image treatment and aspect-ratio handling implemented; user approved initial artwork samples; in-game device review pending
 - [ ] Roll out artwork to 178-bike deck
 
 ## 4. Gameplay and quality
 - [ ] Validate complete scoring balance with head-to-head simulations and document findings
-- [ ] Regression test Quick Match, Duel and all AI difficulties after UI changes
+- [x] Automated regression tests: Quick Match, Duel and all AI difficulties across pilot/full decks; 360 matches passed (device review pending)
 - [ ] Test performance, responsive layout and accessibility
 - [ ] Test installable PWA / icons and caching
 
@@ -44,7 +44,7 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Current release
-V2.1.6 / Build 007 — ten illustrated pilot bikes, side-by-side comparisons in Quick Match and Duel, pilot/full-deck selector and artwork gallery. User approved merging to `main` and deploying on 2026-10-16. Deployment state is recorded in GitHub Actions.
+V2.1.6 / Build 007 — ten illustrated pilot bikes, side-by-side comparisons in Quick Match and Duel, pilot/full-deck selector and artwork gallery. User approved merging to `main` and deploying on 2026-10-16. GitHub Pages deployment succeeded on 2026-10-16. Live HTML, service worker, hero and all ten images were fetched and verified against the release.
 
 1. Automated game and asset checks passed: 19 tests, including 360 complete matches.
 2. Review mobile/desktop rendering and on-device PWA behaviour.
@@ -85,4 +85,4 @@ Notes:
 - [x] Automated gameplay coverage across both decks, both modes and all AI levels.
 - [ ] Browser/mobile visual approval and device offline verification.
 - [x] User approved Build 007 deployment after reviewing artwork and automated test results.
-- [ ] Confirm GitHub Pages deployment and all ten image URLs.
+- [x] GitHub Pages deployment succeeded; Build 007 HTML, service worker, hero and all ten images verified live on 2026-10-16.
