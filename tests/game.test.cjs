@@ -107,3 +107,19 @@ test('every offline shell resource, all artwork and manifest icons exist',()=>{
  const g=game();const images=JSON.parse(g.run('JSON.stringify(Object.values(ART))'));for(const asset of images)assert(cached.includes('./'+asset),`Artwork not cached: ${asset}`);
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest'),'utf8'));for(const icon of manifest.icons)assert(fs.existsSync(path.join(root,icon.src)));
 });
+test('artwork provenance covers the complete deck and matches every reviewed release file',()=>{
+ const crypto=require('node:crypto');
+ const manifest=JSON.parse(fs.readFileSync(path.join(root,'assets/deck-v009/manifest.json'),'utf8'));
+ assert.equal(JSON.stringify(manifest).includes('/workspace/'),false,'Release provenance must not expose scratch paths');
+ assert.equal(manifest.card_count,178);assert.equal(manifest.unique_images,176);
+ assert.equal(manifest.cards.length,178);assert.equal(manifest.images.length,176);
+ const g=game();const art=JSON.parse(g.run('JSON.stringify(ART)'));
+ for(const card of manifest.cards)assert.equal(card.asset,art[card.id]);
+ for(const image of manifest.images){
+  assert.equal(image.reviewed,true,image.id);assert(image.prompt&&image.prompt.length>50,image.id);
+  const bytes=fs.readFileSync(path.join(root,image.asset));
+  assert.equal(bytes.length,image.bytes,image.id);
+  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),image.sha256,image.id);
+  assert.equal(image.width,600);assert.equal(image.height,400);
+ }
+});

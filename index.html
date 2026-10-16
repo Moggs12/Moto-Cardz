@@ -353,6 +353,17 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
  #home .btn#start{width:100%}
 }
 
+
+@media(min-width:900px){
+ .arena{max-width:760px}
+ .arena .card-head{height:96px;padding:11px 12px}
+ .arena .card-name{font-size:20px}
+ .arena .bike-art{height:125px}
+ .arena .card-body{padding:10px}
+ .arena .stat{min-height:40px;padding:5px 9px}
+ .arena .stat .label{font-size:10px}.arena .stat .spec{font-size:11px}.arena .stat .value{font-size:21px}
+}
+
 </style></head>
 <body><div class="app">
 <header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.8</div></div></header>
@@ -652,7 +663,7 @@ function dContinue(){
   D.attacker=D.attacker==='p'?'a':'p';
   if(!D.sudden&&D.round>=HAND)D.sudden=true;
   if(D.sudden){
-    // The pilot uses all ten bikes in the opening hands; reshuffle for a fresh pair.
+    // Replenish the reserve if repeated sudden-death draws exhaust the deck.
     if(D.reserve.length<2)D.reserve=shuffle(D.deck);
     D.hands.p=[D.reserve.pop()];D.hands.a=[D.reserve.pop()];
   }
