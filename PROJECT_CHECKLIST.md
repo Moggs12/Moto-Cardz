@@ -123,3 +123,13 @@ Notes:
 - [x] Dependency audit reported zero known vulnerabilities (2026-10-17); no runtime dependencies added
 - [x] Publication and tag creation are coupled to complete main QA plus same-commit successful Pages deployment; live/tag verification is part of the release handoff
 - [ ] User confirmation of the installed Build 010 icon and offline update.
+
+## Player Progression & Rewards System (idea — not yet scheduled)
+
+Treat the following as THREE CONNECTED PARTS of one progression and rewards system, not unrelated features. A single match may contribute to all three at once.
+
+1. **XP & Levels** — Steady progress through playing. Example: earn XP for completing matches, with a bonus for winning.
+2. **Daily & Weekly Challenges** — Short goals that encourage variety. Example: win using three different stats during the week.
+3. **Lifetime Trophies** — Permanent achievements to collect. Example: win your first Duel, then reach 10, 50 and 100 wins.
+
+Status: ideas bucket; game design, XP rates, trophy thresholds and implementation remain to be agreed. No gameplay changes implied.
