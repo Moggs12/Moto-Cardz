@@ -1,8 +1,8 @@
 {
   "name": "moto-cardz",
-  "version": "2.1.9",
+  "version": "2.2.0",
   "private": true,
-  "description": "Moto Cardz full 178-bike deck \u2014 Build 010",
+  "description": "Moto Cardz full 178-bike deck \u2014 Build 011",
   "scripts": {
     "test": "node --test tests/*.test.cjs",
     "test:browser": "playwright test"
@@ -10,5 +10,5 @@
   "devDependencies": {
     "@playwright/test": "1.62.1"
   },
-  "motocardzBuild": "010"
+  "motocardzBuild": "011"
 }
