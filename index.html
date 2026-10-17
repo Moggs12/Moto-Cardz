@@ -649,7 +649,7 @@ function qNext(){
   let avail=Q.deck.filter(b=>!Q.used.has(b.id));
   if(avail.length<1+AI_HAND[Q.level]){Q.used.clear();avail=Q.deck.slice()}
   Q.player=pickRandom(avail);
-  Q.hand=dealAiHand(avail.filter(b=>b!==Q.player),S.level);
+  Q.hand=dealAiHand(avail.filter(b=>b!==Q.player),Q.level);
   Q.used.add(Q.player.id);Q.hand.forEach(b=>Q.used.add(b.id));
   $('qResult').className='result';
   $('qRound').textContent=`Round ${Q.round} · first to ${Q.target}`;
