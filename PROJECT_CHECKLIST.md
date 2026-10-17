@@ -134,20 +134,22 @@ Treat the following as THREE CONNECTED PARTS of one progression and rewards syst
 
 Status: XP foundation selected for Build 011 planning; challenges and trophies remain future linked components. No gameplay code deployed by this checklist change.
 
-## Build 011 — XP rules agreed (2026-10-17; design only)
+## Build 011 / V2.2.0 — XP and Rider Hub development (2026-10-17; unmerged development branch)
 - [x] User chose XP for finishing a match, with an additional XP bonus for winning.
-- [x] Starting reward values from the selected option: +20 XP for a completed match, +30 XP victory bonus (win total 50 XP, loss total 20 XP); adjust after testing/balancing if needed.
+- [x] Completion XP +20; approved difficulty win bonuses: Easy +20, Medium +30, Hard +50 (wins 40/50/70 XP; losses 20 XP).
 - [x] Award baseline match-completion XP for all finished Quick Match/Duel matches, win or lose.
-- [ ] Difficulty-based win bonus under discussion: Easy +20, Medium +30, Hard +50, on top of +20 completion; proposed totals 40 / 50 / 70 XP for a win, 20 XP for a loss; NOT YET APPROVED.
-- [ ] Confirm difficulty is locked when match starts to prevent switching to Hard just before winning, and ensure rewards only granted once.
-- [ ] Implement one-time XP award on legitimately completed matches only; no XP for abandoning a match or re-awarding on UI redraw/reload.
+- [x] User approved difficulty-based XP values as Build 011 starting balance.
+- [x] Match-start difficulty and first-to target locked for match; persistent recent-match award ledger blocks duplicate grants.
+- [x] One-time awards wired to Quick Match/Duel terminal resolution (not modal opening); no reward for quitting an incomplete match.
 - [x] 50 player levels agreed as the initial progression cap, designed to expand later.
 - [x] Dedicated player progression/rewards page proposed and accepted in principle, opened by small trophy icon (keep main gameplay uncluttered).
-- [ ] Finalise level XP thresholds, motorcycle-themed ranks, visible progress bar, total XP and level milestones.
-- [ ] Design trophy-icon navigation and progress page with room for future Daily/Weekly Challenges and Lifetime Trophies.
-- [ ] Decide offline/local progress persistence, cross-device limitations and reset/update handling.
-- [ ] Integrate XP UI with existing game without changing the 178-bike data, card scores or artwork.
-- [ ] Add tests (win/loss, all modes/difficulties, ties, retry/quit/rapid-next, save/reload, offline).
-- [ ] Build and verify release; do not deploy until implementation and acceptance checks pass.
+- [x] Initial 50-level XP threshold curve and motorcycle rank bands implemented for testing; milestone pacing is provisional until user review.
+- [x] Home trophy icon opens separate responsive Rider Hub page with level, progress meter, total XP, matches, wins/losses and future rewards placeholders.
+- [x] Uses versioned localStorage record (device-only, no cross-device sync); safe fallback if localStorage blocked; no account/reset feature in Build 011.
+- [x] XP award appears on results modal; 178-bike source data, imagery, card scoring and gameplay modes unchanged.
+- [~] New unit and browser matrix covers rewards, persistence, level thresholds, duplicates, quit/reload, Rider Hub and both game modes; GitHub CI browser run still pending.
+- [ ] Review development-branch QA; obtain user acceptance before any merge/deployment. Live main remains Build 010.
 - [ ] Design Daily/Weekly Challenges as connected second component in a subsequent iteration.
 - [ ] Design Lifetime Trophies as connected third component in a subsequent iteration.
+
+**Build 011 implementation branch:** `build/011-xp-rider-hub` — do not merge or deploy until final CI review and explicit user approval. Last confirmed unit tests on the development branch passed; browser suite in progress.
