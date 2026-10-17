@@ -366,6 +366,13 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 
 
 /* Build 011: player progression */
+.app:has(#home.active)>header{position:relative}
+.app:has(#home.active)>header .hud{display:flex;position:absolute;right:8px;top:12px;z-index:2;gap:0;margin:0}
+.app:has(#home.active)>header .hud .pill{display:none}
+.app:has(#rider.active)>header{padding:4px 0 10px;gap:0}
+.app:has(#rider.active) .brand-bike,.app:has(#rider.active) .brand-tagline{display:none}
+.app:has(#rider.active) .brand{font-size:25px}
+
 .hub-trigger{width:38px;height:38px;display:inline-grid;place-items:center;padding:7px;border:1px solid rgba(170,132,255,.45);border-radius:12px;background:rgba(91,61,245,.15);color:#CCB6FF;cursor:pointer;flex:none}
 .hub-trigger:hover{background:rgba(91,61,245,.3)}
 .app:not(:has(#home.active)) .hub-trigger{display:none}
