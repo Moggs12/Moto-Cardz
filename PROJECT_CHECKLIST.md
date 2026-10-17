@@ -137,9 +137,15 @@ Status: XP foundation selected for Build 011 planning; challenges and trophies r
 ## Build 011 — XP rules agreed (2026-10-17; design only)
 - [x] User chose XP for finishing a match, with an additional XP bonus for winning.
 - [x] Starting reward values from the selected option: +20 XP for a completed match, +30 XP victory bonus (win total 50 XP, loss total 20 XP); adjust after testing/balancing if needed.
-- [x] Apply same base rewards to Quick Match and Duel, regardless of Easy/Medium/Hard AI.
+- [x] Award baseline match-completion XP for all finished Quick Match/Duel matches, win or lose.
+- [ ] Difficulty-based win bonus under discussion: Easy +20, Medium +30, Hard +50, on top of +20 completion; proposed totals 40 / 50 / 70 XP for a win, 20 XP for a loss; NOT YET APPROVED.
+- [ ] Confirm difficulty is locked when match starts to prevent switching to Hard just before winning, and ensure rewards only granted once.
 - [ ] Implement one-time XP award on legitimately completed matches only; no XP for abandoning a match or re-awarding on UI redraw/reload.
-- [ ] Agree level thresholds, visible progress UI, local saving and handling of progress after resets/updates.
+- [x] 50 player levels agreed as the initial progression cap, designed to expand later.
+- [x] Dedicated player progression/rewards page proposed and accepted in principle, opened by small trophy icon (keep main gameplay uncluttered).
+- [ ] Finalise level XP thresholds, motorcycle-themed ranks, visible progress bar, total XP and level milestones.
+- [ ] Design trophy-icon navigation and progress page with room for future Daily/Weekly Challenges and Lifetime Trophies.
+- [ ] Decide offline/local progress persistence, cross-device limitations and reset/update handling.
 - [ ] Integrate XP UI with existing game without changing the 178-bike data, card scores or artwork.
 - [ ] Add tests (win/loss, all modes/difficulties, ties, retry/quit/rapid-next, save/reload, offline).
 - [ ] Build and verify release; do not deploy until implementation and acceptance checks pass.
