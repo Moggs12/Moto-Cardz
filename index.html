@@ -584,6 +584,27 @@ if(!['quick','duel'].includes(S.mode))S.mode='quick';
 if(!['easy','medium','hard'].includes(S.level))S.level='easy';
 if(![3,5,7].includes(+S.target))S.target=5;S.target=+S.target;
 const save=()=>{try{localStorage.setItem('motocardz.settings',JSON.stringify(S))}catch(e){}};
+let riderStore;
+try{riderStore=MotoProgression.createStore(localStorage)}catch(e){riderStore=MotoProgression.createStore(null)}
+function recordCompletedMatch(match,mode){
+  if(!match||!match.over||match.reward)return;
+  match.reward=riderStore.awardMatch({id:match.id,mode,difficulty:match.level,won:match.score.p>match.score.a});
+}
+function renderRiderHub(){
+  const p=riderStore.snapshot(),number=n=>n.toLocaleString('en-GB');
+  $('riderLevel').textContent='Level '+p.level;
+  $('riderRank').textContent=p.rank;
+  $('riderNextLabel').textContent=p.isMaxLevel?'Maximum level reached':'Progress to Level '+(p.level+1);
+  $('riderXPLabel').textContent=p.isMaxLevel?'Level 50 / 50':number(p.xpInLevel)+' / '+number(p.xpForNextLevel)+' XP';
+  $('riderRemaining').textContent=p.isMaxLevel?'Moto Legend! You can still earn and accumulate XP.':number(p.xpUntilNext)+' XP until the next level';
+  $('riderBar').setAttribute('style','width:'+p.percent+'%');
+  $('riderMeter').setAttribute('aria-valuenow',String(p.percent));
+  $('riderTotalXP').textContent=number(p.totalXP);
+  $('riderMatches').textContent=number(p.matches);
+  $('riderWins').textContent=number(p.wins);
+  $('riderLosses').textContent=number(p.losses);
+}
+$('riderHubBtn').onclick=()=>{renderRiderHub();show('rider')};
 
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
 function pips(el,results,slots){
@@ -613,24 +634,25 @@ function outcomeCopy(pb,ab,stat){
 function showEnd(o){
   $('endCard').className='end-card '+o.tone;
   $('endTitle').textContent=o.title;$('endScore').textContent=o.score;$('endCopy').textContent=o.copy;
+  $('endXP').textContent=o.reward&&o.reward.awarded?'+'+o.reward.addedXP+' XP earned':'';
   $('end').hidden=false;$('rematch').focus();
 }
 
 /* ---------- Quick match ---------- */
 let Q=null;
 function qStart(){
-  Q={deck:activeDeck().slice(),score:{p:0,a:0},results:[],round:0,used:new Set(),locked:false,over:false,player:null,hand:[],ai:null};
+  Q={id:riderStore.newMatchId(),level:S.level,target:S.target,reward:null,deck:activeDeck().slice(),score:{p:0,a:0},results:[],round:0,used:new Set(),locked:false,over:false,player:null,hand:[],ai:null};
   show('quick');qNext();
 }
 function qNext(){
   Q.round++;Q.locked=false;Q.ai=null;
   let avail=Q.deck.filter(b=>!Q.used.has(b.id));
-  if(avail.length<1+AI_HAND[S.level]){Q.used.clear();avail=Q.deck.slice()}
+  if(avail.length<1+AI_HAND[Q.level]){Q.used.clear();avail=Q.deck.slice()}
   Q.player=pickRandom(avail);
   Q.hand=dealAiHand(avail.filter(b=>b!==Q.player),S.level);
   Q.used.add(Q.player.id);Q.hand.forEach(b=>Q.used.add(b.id));
   $('qResult').className='result';
-  $('qRound').textContent=`Round ${Q.round} · first to ${S.target}`;
+  $('qRound').textContent=`Round ${Q.round} · first to ${Q.target}`;
   $('qScore').textContent=`You ${Q.score.p} – ${Q.score.a} AI`;
   $('qPrompt').textContent='Choose one stat from your card.';
   pips($('qPips'),Q.results,0);
@@ -646,7 +668,8 @@ function qPlay(stat){
   const out=settle(Q.player,Q.ai,stat);
   if(out==='win'){Q.score.p++}else if(out==='lose'){Q.score.a++}
   Q.results.push(out==='win'?'w':out==='lose'?'l':'d');
-  Q.over=Q.score.p>=S.target||Q.score.a>=S.target;
+  Q.over=Q.score.p>=Q.target||Q.score.a>=Q.target;
+  if(Q.over)recordCompletedMatch(Q,'quick');
   $('qPlayer').className='card player '+(out==='win'?'won':out==='lose'?'lost':'');
   $('qPlayer').innerHTML=cardHTML(Q.player,{hit:stat});
   $('qAi').className='card ai flip-in '+(out==='lose'?'won':out==='win'?'lost':'');
@@ -663,7 +686,7 @@ function qPlay(stat){
 function qEnd(){
   const won=Q.score.p>Q.score.a;
   showEnd({tone:won?'win':'lose',title:won?'You win the match':'The AI wins the match',score:`${Q.score.p} – ${Q.score.a}`,
-    copy:`Quick match, first to ${S.target}, AI on ${cap(S.level)}. ${Q.results.length} rounds played.`});
+    copy:`Quick match, first to ${Q.target}, AI on ${cap(Q.level)}. ${Q.results.length} rounds played.`,reward:Q.reward});
 }
 $('qPlayer').addEventListener('click',e=>{const s=e.target.closest('.stat');if(s)qPlay(s.dataset.stat)});
 $('qNext').onclick=()=>{if(!Q||!Q.locked)return;if(Q.over)qEnd();else qNext()};
@@ -673,7 +696,7 @@ let D=null,SID=0;
 const HAND=5,WIN_AT=3;
 function dStart(){
   const sourceDeck=activeDeck().slice(),deck=shuffle(sourceDeck);
-  D={deck:sourceDeck,sid:++SID,hands:{p:deck.slice(0,HAND),a:deck.slice(HAND,HAND*2)},reserve:deck.slice(HAND*2),score:{p:0,a:0},results:[],round:0,
+  D={id:riderStore.newMatchId(),level:S.level,reward:null,deck:sourceDeck,sid:++SID,hands:{p:deck.slice(0,HAND),a:deck.slice(HAND,HAND*2)},reserve:deck.slice(HAND*2),score:{p:0,a:0},results:[],round:0,
      attacker:RNG()<.5?'p':'a',phase:'',sel:null,pCard:null,aCard:null,stat:null,sudden:false,over:false,outcome:null};
   show('duel');dNextRound();
 }
@@ -684,7 +707,7 @@ function dNextRound(){
   else{D.phase='aChoose';dRender();dLater(dAiAttack,900)}
 }
 function dAiAttack(){
-  const o=aiChooseAttack(D.hands.a,S.level);
+  const o=aiChooseAttack(D.hands.a,D.level);
   D.aCard=D.hands.a.splice(o.i,1)[0];D.stat=o.k;D.phase='pDefend';dRender();
   if(D.hands.p.length===1){D.sel={i:0};dLater(dConfirm,1200)}
 }
@@ -693,7 +716,7 @@ function dConfirm(){
   if(D.phase==='pAttack'){
     if(!D.sel.k)return;
     D.pCard=D.hands.p.splice(D.sel.i,1)[0];D.stat=D.sel.k;D.sel=null;D.phase='aDefend';dRender();
-    dLater(()=>{const j=aiChooseDefense(D.hands.a,D.stat,S.level);D.aCard=D.hands.a.splice(j,1)[0];dResolve()},1000);
+    dLater(()=>{const j=aiChooseDefense(D.hands.a,D.stat,D.level);D.aCard=D.hands.a.splice(j,1)[0];dResolve()},1000);
   }else if(D.phase==='pDefend'){
     D.pCard=D.hands.p.splice(D.sel.i,1)[0];D.sel=null;D.phase='aDefend';dRender();
     dLater(dResolve,600);
@@ -705,6 +728,7 @@ function dResolve(){
   if(out==='win')D.score.p++;else if(out==='lose')D.score.a++;
   D.results.push(out==='win'?'w':out==='lose'?'l':'d');
   D.over=D.score.p>=WIN_AT||D.score.a>=WIN_AT||(!D.sudden&&D.round>=HAND&&D.score.p!==D.score.a)||(D.sudden&&out!=='draw');
+  if(D.over)recordCompletedMatch(D,'duel');
   dRender();
 }
 function dContinue(){
@@ -722,7 +746,7 @@ function dContinue(){
 function dEnd(){
   const won=D.score.p>D.score.a;
   showEnd({tone:won?'win':'lose',title:won?'You win the duel':'The AI wins the duel',score:`${D.score.p} – ${D.score.a}`,
-    copy:`Duel, AI on ${cap(S.level)}. `+(D.sudden?'Decided in sudden death.':`Decided over ${D.results.length} rounds.`)});
+    copy:`Duel, AI on ${cap(D.level)}. `+(D.sudden?'Decided in sudden death.':`Decided over ${D.results.length} rounds.`),reward:D.reward});
 }
 function dPrompt(){
   const l=STAT_META[D.stat]?STAT_META[D.stat].label:'';
