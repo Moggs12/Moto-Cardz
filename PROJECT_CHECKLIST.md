@@ -147,9 +147,9 @@ Status: XP foundation selected for Build 011 planning; challenges and trophies r
 - [x] Home trophy icon opens separate responsive Rider Hub page with level, progress meter, total XP, matches, wins/losses and future rewards placeholders.
 - [x] Uses versioned localStorage record (device-only, no cross-device sync); safe fallback if localStorage blocked; no account/reset feature in Build 011.
 - [x] XP award appears on results modal; 178-bike source data, imagery, card scoring and gameplay modes unchanged.
-- [~] New unit and browser matrix covers rewards, persistence, level thresholds, duplicates, quit/reload, Rider Hub and both game modes; GitHub CI browser run still pending.
+- [x] Unit + cross-browser suite PASSED on code commit `782cb9f6`: rewards, persistence, level thresholds, duplicates, quit/reload, Rider Hub, complete gameplay and offline/PWA checks. CI: https://github.com/Moggs12/Moto-Cardz/actions/runs/39071410344
 - [ ] Review development-branch QA; obtain user acceptance before any merge/deployment. Live main remains Build 010.
 - [ ] Design Daily/Weekly Challenges as connected second component in a subsequent iteration.
 - [ ] Design Lifetime Trophies as connected third component in a subsequent iteration.
 
-**Build 011 implementation branch:** `build/011-xp-rider-hub` — do not merge or deploy until final CI review and explicit user approval. Last confirmed unit tests on the development branch passed; browser suite in progress.
+**Build 011 implementation branch:** `build/011-xp-rider-hub` — do not merge or deploy until final CI review and explicit user approval. Full QA (Node + cross-browser Playwright) passed on the tested code commit; waiting for the user's visual/UX review and explicit deploy approval.
