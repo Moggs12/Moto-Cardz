@@ -1,10 +1,10 @@
-# Moto Cardz V2.1.8 / Build 009
+# Moto Cardz V2.1.9 / Build 010
 
 178-bike playable prototype using the agreed game scores. The four electric bikes are excluded. Every card now shows the real spec (mph, bhp, cc, mpg, £) under each 0–99 game score.
 
-Build 009 completes the 178-card pack with 176 distinct, consistent studio illustrations. The full deck is always available, including to returning pilot players. One responsive layout keeps comparisons side-by-side on phones and desktops, with a swipeable phone Duel hand and five hand cards across desktop. A searchable gallery and complete offline artwork cache are included. Every bike fits inside its image panel without cropping or stretching.
+Build 010 adds the exact approved white motorcycle / purple-card app icon, with versioned install assets and a protected Quick Match next-round transition. It retains Build 009's 178-card pack with 176 distinct, consistent studio illustrations, side-by-side phone/desktop comparisons, searchable gallery and offline artwork cache. All original game scores, motorcycle illustrations and the approved hero remain unchanged.
 
-Run `npm test` for gameplay and asset checks. GitHub Actions runs the full browser suite in Chromium and WebKit on phone and desktop viewports. See [Build 009 release notes](RELEASE_BUILD009.md) for scope, artwork provenance, verification and rollback instructions.
+Run `npm test` for gameplay, assets, icon provenance and release-checkpoint safeguards. GitHub Actions runs the full browser suite in Chromium and WebKit on phone and desktop viewports. See [Build 010 release notes](RELEASE_BUILD010.md) for scope and rollback, and [Build 009 release notes](RELEASE_BUILD009.md) for full-deck artwork provenance.
 
 ## Modes
 
@@ -58,4 +58,4 @@ When you change any shipped file, bump `CACHE` in `sw.js` so players receive the
 
 ## Release history
 
-`main` is live. `release/build008` preserves the previous deployed build. Versioned release tags are created after the complete main-branch quality checks pass. Restore a checkpoint through a new tested commit and a new service-worker cache version; never rewrite release history.
+`main` is live. `release/build008` and `release/build009` preserve preceding deployed states. Versioned release tags are created only after the complete main-branch quality checks AND Pages deployment succeed for the same commit. Conflicting existing tags fail the workflow; they are never moved. Restore a checkpoint through a new tested commit and a new service-worker cache version; never rewrite release history.

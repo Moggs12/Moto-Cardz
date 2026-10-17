@@ -123,3 +123,33 @@ test('artwork provenance covers the complete deck and matches every reviewed rel
   assert.equal(image.width,600);assert.equal(image.height,400);
  }
 });
+test('Quick Match next transition ignores early, stale and rapid duplicate activations',()=>{
+ const g=game();g.run("$('qNext').onclick()");g.run('qStart()');
+ g.run("$('qNext').onclick()");assert.equal(g.run('Q.round'),1);
+ g.run("qPlay('power');$('qNext').onclick();$('qNext').onclick()");
+ assert.equal(g.run('Q.round'),2);assert.equal(g.run('Q.locked'),false);
+ g.run("toMenu();$('qNext').onclick()");assert.equal(g.run('Q'),null);
+});
+test('approved icon PNGs have exact provenance, correct sizes and versioned install references',()=>{
+ const crypto=require('node:crypto');const record=JSON.parse(fs.readFileSync(path.join(root,'assets/icons/build010/provenance.json'),'utf8'));
+ assert.equal(record.assets.find(x=>x.path.endsWith('/approved-icon.png')).sha256,'9e4ce41bdeb99ca4d4fd5ba8b07e4eb371cdd9c64e320185904c8c94cefc4092');
+ for(const asset of record.assets){
+  const bytes=fs.readFileSync(path.join(root,asset.path));assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+  assert.equal(bytes.readUInt32BE(16),asset.width);assert.equal(bytes.readUInt32BE(20),asset.height);
+  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),asset.sha256);assert.equal(bytes.length,asset.bytes);
+  if(!asset.path.endsWith('/approved-icon.png'))assert(bytes.equals(fs.readFileSync(path.join(root,path.basename(asset.path)))),'Legacy icon alias differs from current artwork');
+ }
+ const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest'),'utf8'));
+ assert(manifest.icons.every(x=>x.src.startsWith('assets/icons/build010/')));
+ assert(html.includes('href="assets/icons/build010/apple-touch-icon.png"'));
+ const worker=fs.readFileSync(path.join(root,'sw.js'),'utf8');
+ for(const icon of [...manifest.icons.map(x=>x.src),'assets/icons/build010/apple-touch-icon.png'])assert(worker.includes("'./"+icon+"'"));
+});
+test('release version, lockfile, visible build and offline cache stay consistent',()=>{
+ const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+ const lock=JSON.parse(fs.readFileSync(path.join(root,'package-lock.json'),'utf8'));
+ assert.equal(lock.version,pkg.version);assert.equal(lock.packages[''].version,pkg.version);
+ assert(html.includes('V'+pkg.version+' / BUILD '+pkg.motocardzBuild));
+ const worker=fs.readFileSync(path.join(root,'sw.js'),'utf8');assert(worker.includes('moto-cardz-v'+pkg.version+'-build'+pkg.motocardzBuild));
+ const workflow=fs.readFileSync(path.join(root,'.github/workflows/quality.yml'),'utf8');assert(workflow.includes("'assets/**'"));assert(workflow.includes("'manifest.webmanifest'"));
+});

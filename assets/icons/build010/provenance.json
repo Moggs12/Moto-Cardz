@@ -1,0 +1,57 @@
+{
+  "build": "010",
+  "approved_design": "White motorcycle silhouette over two purple cards, graphite tile and purple rim; attached-image approval overrides earlier option numbering.",
+  "approved_on": "2026-10-16",
+  "source_asset": "assets/icons/build010/approved-icon.png",
+  "original_render_sha256": "7a74025d88da38617cbfd28fba84739cc0d09c73aa24cf6da39d1fb7f2032964",
+  "crop_box_in_original": [
+    208,
+    65,
+    1048,
+    905
+  ],
+  "transformation": "Exact approved artwork cropped then LANCZOS resized only; no redraw, regeneration, recolouring or stretching. Maskable icon adds neutral outer safe-area padding.",
+  "maskable_art_box": [
+    76,
+    76,
+    436,
+    436
+  ],
+  "assets": [
+    {
+      "path": "assets/icons/build010/approved-icon.png",
+      "width": 840,
+      "height": 840,
+      "bytes": 703442,
+      "sha256": "9e4ce41bdeb99ca4d4fd5ba8b07e4eb371cdd9c64e320185904c8c94cefc4092"
+    },
+    {
+      "path": "assets/icons/build010/icon-192.png",
+      "width": 192,
+      "height": 192,
+      "bytes": 53151,
+      "sha256": "3aa78bb446a97be8a29f061b7c562565e1a47e4d5850f8615a9cb97d2de039cd"
+    },
+    {
+      "path": "assets/icons/build010/icon-512.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 304229,
+      "sha256": "0ff2ab73042b9db4e6037d2aeb77cd632e70da8d489ee3f19cb87493b8c1b303"
+    },
+    {
+      "path": "assets/icons/build010/apple-touch-icon.png",
+      "width": 180,
+      "height": 180,
+      "bytes": 47688,
+      "sha256": "e656251938dafbb7948e868a0efabfc67c55cea0f1d4fb4bd83dfdee029abf5e"
+    },
+    {
+      "path": "assets/icons/build010/icon-maskable-512.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 164361,
+      "sha256": "c9c26bef271f3835dbf852376687129c1c47fe2d8287be6fd82b69601158afb1"
+    }
+  ]
+}
