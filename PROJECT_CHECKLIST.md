@@ -124,7 +124,7 @@ Notes:
 - [x] Publication and tag creation are coupled to complete main QA plus same-commit successful Pages deployment; live/tag verification is part of the release handoff
 - [ ] User confirmation of the installed Build 010 icon and offline update.
 
-## Player Progression & Rewards System (idea — not yet scheduled)
+## Player Progression & Rewards System (Build 011 foundations — planning)
 
 Treat the following as THREE CONNECTED PARTS of one progression and rewards system, not unrelated features. A single match may contribute to all three at once.
 
@@ -132,4 +132,16 @@ Treat the following as THREE CONNECTED PARTS of one progression and rewards syst
 2. **Daily & Weekly Challenges** — Short goals that encourage variety. Example: win using three different stats during the week.
 3. **Lifetime Trophies** — Permanent achievements to collect. Example: win your first Duel, then reach 10, 50 and 100 wins.
 
-Status: ideas bucket; game design, XP rates, trophy thresholds and implementation remain to be agreed. No gameplay changes implied.
+Status: XP foundation selected for Build 011 planning; challenges and trophies remain future linked components. No gameplay code deployed by this checklist change.
+
+## Build 011 — XP rules agreed (2026-10-17; design only)
+- [x] User chose XP for finishing a match, with an additional XP bonus for winning.
+- [x] Starting reward values from the selected option: +20 XP for a completed match, +30 XP victory bonus (win total 50 XP, loss total 20 XP); adjust after testing/balancing if needed.
+- [x] Apply same base rewards to Quick Match and Duel, regardless of Easy/Medium/Hard AI.
+- [ ] Implement one-time XP award on legitimately completed matches only; no XP for abandoning a match or re-awarding on UI redraw/reload.
+- [ ] Agree level thresholds, visible progress UI, local saving and handling of progress after resets/updates.
+- [ ] Integrate XP UI with existing game without changing the 178-bike data, card scores or artwork.
+- [ ] Add tests (win/loss, all modes/difficulties, ties, retry/quit/rapid-next, save/reload, offline).
+- [ ] Build and verify release; do not deploy until implementation and acceptance checks pass.
+- [ ] Design Daily/Weekly Challenges as connected second component in a subsequent iteration.
+- [ ] Design Lifetime Trophies as connected third component in a subsequent iteration.
