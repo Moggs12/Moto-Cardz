@@ -84,7 +84,7 @@ for(const level of ['easy','medium','hard'])test(`Duel: ${level} attack, defence
 test('offline: the complete pack and gameplay work with the origin disconnected',async({page})=>{
  await page.goto('/');await page.evaluate(async()=>{const reg=await navigator.serviceWorker.ready;if(reg.installing)await new Promise(resolve=>reg.installing.addEventListener('statechange',()=>reg.active&&resolve()));});
  await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
- const missing=await page.evaluate(async()=>{const cache=await caches.open('moto-cardz-v2.1.8-build009');const out=[];for(const path of new Set(Object.values(ART)))if(!await cache.match(new URL(path,location.href).href))out.push(path);return out});expect(missing).toEqual([]);
+ const missing=await page.evaluate(async()=>{const cache=await caches.open('moto-cardz-v2.1.9-build010');const out=[];for(const path of new Set(Object.values(ART)))if(!await cache.match(new URL(path,location.href).href))out.push(path);return out});expect(missing).toEqual([]);
  // Real origin outage avoids Playwright WebKit's setOffline/service-worker bug (#42775).
  // The Node probe is a negative control: it has no service worker or browser cache.
  const off=await fetch('http://127.0.0.1:4174/offline',{method:'POST'});expect(off.ok).toBe(true);
@@ -93,4 +93,25 @@ test('offline: the complete pack and gameplay work with the origin disconnected'
   const response=await page.reload();expect(response.status()).toBe(200);expect(response.fromServiceWorker()).toBe(true);
   await page.locator('#start').click();await page.locator('#qPlayer img').evaluate(im=>im.decode());await fit(page,'#qPlayer img');await page.locator('#qPlayer .stat').first().click();await expect(page.locator('#qResult')).toHaveClass(/show/);
  }finally{const on=await fetch('http://127.0.0.1:4174/online',{method:'POST'});expect(on.ok).toBe(true)}
+});
+test('release: install icons decode from versioned URLs and are cached offline',async({page})=>{
+ await page.goto('/');await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
+ const result=await page.evaluate(async()=>{
+  const manifest=await(await fetch('manifest.webmanifest')).json();
+  const apple=document.querySelector('link[rel="apple-touch-icon"]').getAttribute('href');
+  const paths=[...manifest.icons.map(x=>x.src),apple],bad=[];
+  const cache=await caches.open('moto-cardz-v2.1.9-build010');
+  for(const path of paths){
+   if(!path.startsWith('assets/icons/build010/'))bad.push(path+':unversioned');
+   const im=new Image();im.src=path;try{await im.decode();if(im.naturalWidth<180||im.naturalHeight!==im.naturalWidth)bad.push(path+':size')}catch{bad.push(path+':decode')}
+   if(!await cache.match(new URL(path,location.href).href))bad.push(path+':not cached');
+  }
+  return{count:paths.length,bad};
+ });expect(result.count).toBe(4);expect(result.bad).toEqual([]);
+});
+test('Quick Match: rapid Next round activation cannot skip a round',async({page})=>{
+ await start(page);await page.locator('#qPlayer .stat').first().click();await expect(page.locator('#qResult')).toHaveClass(/show/);
+ const before=await page.evaluate(()=>Q.round);
+ await page.locator('#qNext').evaluate(n=>{n.click();n.click()});
+ expect(await page.evaluate(()=>Q.round)).toBe(before+1);await expect(page.locator('#qResult')).not.toHaveClass(/show/);
 });

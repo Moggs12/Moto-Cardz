@@ -2,7 +2,7 @@ name: Full-deck quality checks
 on:
   push:
     branches: [main, 'build/**']
-    paths: ['index.html', 'sw.js', 'tests/**', 'playwright.config.cjs', 'package*.json', '.github/workflows/quality.yml']
+    paths: ['index.html', 'sw.js', 'manifest.webmanifest', 'assets/**', 'icon*.png', 'apple-touch-icon.png', 'scripts/**', 'tests/**', 'playwright.config.cjs', 'package*.json', '.github/workflows/quality.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -43,22 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
       - uses: actions/github-script@v9
         with:
           script: |
-            const fs = require('node:fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            async function checkpoint(tag, sha) {
-              try {
-                await github.rest.git.getRef({...context.repo, ref: 'tags/' + tag});
-                core.info('Existing checkpoint preserved: ' + tag);
-              } catch (error) {
-                if (error.status !== 404) throw error;
-                await github.rest.git.createRef({...context.repo, ref: 'refs/tags/' + tag, sha});
-                core.info('Created checkpoint: ' + tag);
-              }
-            }
-            await checkpoint('v2.1.7-build008', 'c4041b7345040e0d0c1c48463317ca9e1852d96b');
-            await checkpoint('v' + pkg.version + '-build' + pkg.motocardzBuild, context.sha);
+            const checkpoint = require('./scripts/release-checkpoint.cjs');
+            await checkpoint({github, context, core});

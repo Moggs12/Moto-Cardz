@@ -1,5 +1,5 @@
 # Moto Cardz — Master Project Checklist
-Updated: 2026-10-16
+Updated: 2026-10-17
 Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 
 ## 1. Foundations
@@ -17,8 +17,8 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 - [x] Modern Apple-inspired premium UI direction agreed
 - [x] Graphite, Almond White, Electric Indigo and supporting palette selected
 - [x] MotoCardz logo concept sheet generated and preferred direction chosen
-- [~] Option 1 motorcycle logo and Option 4 app icon approved; header, homepage and gameplay visual mockups approved; individual production assets still pending
-- [~] V2.1.3 / Build 004: more detailed scalable sportbike logo asset added and referenced by the centred header; committed to main, awaiting live visual approval; app icon remains pending
+- [x] Production header logo retained; Build 010 app icon follows the exact attached-image approval from 2026-10-16, superseding earlier icon options
+- [x] V2.1.3 / Build 004 scalable sportbike header logo retained; approved Build 010 install icons exported at standard, Apple touch and maskable sizes
 - [x] Dark Premium Option A palette deployed and visually approved by user (2026-10-14); typography/panels still to review
 - [x] Build 006 Hero 1 homepage visual direction approved by user (2026-10-15); desktop and gameplay checks remain outstanding
 
@@ -31,11 +31,12 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 
 ## 4. Gameplay and quality
 - [ ] Validate complete scoring balance with head-to-head simulations and document findings
-- [x] 20 gameplay, asset and provenance checks passed: 360 matches, all AI levels, repeated sudden-death ties, settings migration and unchanged source scores
-- [x] 40 browser checks passed at 320px/390px phone and 1280px/1440px desktop sizes in Chromium and WebKit; both modes, all levels, artwork/name fit, menu/rematch, gallery/search
+- [x] 28 gameplay, asset, provenance and release-safety checks passed: 360 matches, all AI levels, repeated sudden-death ties, settings migration, unchanged scores, rapid-next guard and immutable deployment tags
+- [x] 48 browser checks passed at 320px/390px phone and 1280px/1440px desktop sizes in Chromium and WebKit; both modes, all levels, artwork/name fit, menu/rematch, gallery/search, offline icon caching and rapid-next protection
 - [x] Full pack cached and service-worker reload/gameplay verified with the actual origin disconnected, including a failed no-cache network control
 - [ ] Physical phone/desktop performance and full accessibility audit
-- [ ] Physical-device PWA installation and airplane-mode checks (browser automation is not a substitute)
+- [x] User reported Build 009 played perfectly offline on iPhone 15 Pro (2026-10-16); iOS version not supplied
+- [ ] Build 010 installed-icon and offline update confirmation on that device
 
 ## 5. Future roadmap
 - [ ] Explore online multiplayer
@@ -46,6 +47,10 @@ Legend: [x] complete, [~] in progress, [ ] planned, [!] blocked
 https://moggs12.github.io/Moto-Cardz/ (repository path is case-sensitive)
 
 ## Current release
+
+V2.1.9 / Build 010 — exact approved app icon, rapid-next safeguard, expanded release checks and deployment-verified checkpoint tags. All 28 automated checks and all 48 browser checks passed on `build/010-approved-icon`. Browser review artifacts and the successful run are at https://github.com/Moggs12/Moto-Cardz/actions/runs/39009229802 . The main workflow reruns the complete checks and requires successful Pages deployment for the same commit before creating `v2.1.9-build010`. `release/build009` and the prior immutable tags preserve rollback checkpoints. Deployment status and the release-tag SHA in GitHub Actions are authoritative.
+
+### Previous release checkpoint
 V2.1.8 / Build 009 — complete 178-bike illustrated pack, one responsive app, side-by-side comparisons on phone and desktop, desktop five-card Duel hand, searchable full gallery and complete artwork cache. The approved hero and original game scores are unchanged.
 
 Developed on `build/009-full-deck`, merged to live `main` through PR #4. GitHub Pages deployment and the full main-branch quality workflow succeeded on 2026-10-16. All 20 gameplay/asset checks and all 40 browser checks passed before and after merging. See `RELEASE_BUILD009.md` for verification limits, provenance and rollback.
@@ -106,4 +111,15 @@ Notes:
 - [x] 20 automated checks and 40 browser checks passed; screenshots visually reviewed.
 - [x] PR #4 merged, Pages deployed, main quality workflow succeeded.
 - [x] Prior release preserved; rollback instructions documented without rewriting history.
-- [ ] User physical-device installation and airplane-mode verification.
+- [x] User confirmed perfect offline gameplay on iPhone 15 Pro (2026-10-16).
+
+## Build 010 / V2.1.9 — approved icon and release hardening (2026-10-17)
+- [x] Exact attached-image icon approval recorded; crop/resize only.
+- [x] Versioned standard, Apple touch and maskable icons, with provenance hashes.
+- [x] Rapid-next guard and regression checks; no score/data/hero/artwork changes.
+- [x] Asset/manifest changes trigger CI; checkpoint tags require successful quality and deployment for the same commit; conflicting tags cannot be moved.
+- [x] Build 009 release branch and tag preserved.
+- [x] 28 automated checks and all 48 browser checks passed; install icon sizes/caching and rapid-next regression covered on every browser/viewport
+- [x] Dependency audit reported zero known vulnerabilities (2026-10-17); no runtime dependencies added
+- [x] Publication and tag creation are coupled to complete main QA plus same-commit successful Pages deployment; live/tag verification is part of the release handoff
+- [ ] User confirmation of the installed Build 010 icon and offline update.

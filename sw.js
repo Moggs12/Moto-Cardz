@@ -1,16 +1,16 @@
 // Moto Cardz service worker: caches the app shell so the game works offline.
 // Bump CACHE whenever any shipped file changes so players get the update.
-const CACHE = 'moto-cardz-v2.1.8-build009';
+const CACHE = 'moto-cardz-v2.1.9-build010';
 const SHELL = [
   './',
   './index.html',
   './assets/motocardz-sportbike-logo-v004.svg',
   './assets/motocardz-hero1-v006.avif',
   './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-maskable-512.png',
-  './apple-touch-icon.png',
+  './assets/icons/build010/icon-192.png',
+  './assets/icons/build010/icon-512.png',
+  './assets/icons/build010/icon-maskable-512.png',
+  './assets/icons/build010/apple-touch-icon.png',
   './assets/deck-v009/BK-001.webp',
   './assets/deck-v009/BK-002.webp',
   './assets/deck-v009/BK-003.webp',

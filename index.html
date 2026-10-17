@@ -8,8 +8,8 @@
 <meta name="apple-mobile-web-app-title" content="Moto Cardz">
 <title>Moto Cardz</title>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/build010/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/build010/apple-touch-icon.png">
 <style>
 :root{--bg:#25272C;--panel:#353740;--panel2:#353740;--text:#FFFAF3;--muted:#B8B5C3;--accent:#5B3DF5;--danger:#ff5c72;--line:rgba(255,255,255,.09)}
 *{box-sizing:border-box}
@@ -366,10 +366,10 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
 
 </style></head>
 <body><div class="app">
-<header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.8</div></div></header>
+<header><div class="brand"><img class="brand-bike" src="assets/motocardz-sportbike-logo-v004.svg" alt="" width="240" height="110"><div class="brand-name">MOTO<span>CARDZ</span></div><div class="brand-tagline">THE MOTORCYCLE CARD GAME</div></div><div class="hud"><div class="pill" id="aiPill">AI: Easy</div><div class="pill" id="countPill"></div><div class="pill version-pill" title="MotoCardz version">V2.1.9</div></div></header>
 
 <section id="home" class="screen active"><div class="hero"><div class="hero-inner">
-  <div class="eyebrow">V2.1.8 / BUILD 009</div>
+  <div class="eyebrow">V2.1.9 / BUILD 010</div>
   <div class="hero-stage">
     <img class="hero-photo" src="assets/motocardz-hero1-v006.avif" width="760" height="782" alt="Realistic black superbike surrounded by purple smoke" loading="eager" decoding="async" fetchpriority="high">
   </div>
@@ -380,7 +380,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
   <div class="hero-facts" aria-label="Game features">
     <div class="hero-fact"><strong>178</strong><small>Motorcycles</small></div>
     <div class="hero-fact"><strong>3</strong><small>AI levels</small></div>
-    <div class="hero-fact"><strong>V2.1.8</strong><small>Build 009</small></div>
+    <div class="hero-fact"><strong>V2.1.9</strong><small>Build 010</small></div>
   </div>
   <div class="deck-summary"><strong>The complete 178-bike pack</strong><span>28 makes · 6 motorcycle types</span><button class="text-link" id="viewDeck">Browse the deck ↗</button></div>
   <div class="setting"><div class="setting-title">Mode</div>
@@ -427,7 +427,7 @@ h1{font-size:clamp(48px,10vw,96px);line-height:.88;letter-spacing:-.075em;margin
   <div class="confirm" id="dConfirm" hidden><p id="dConfirmText"></p><div class="actions"><button class="btn secondary" id="dCancel">Change</button><button class="btn" id="dGo">Play card</button></div></div>
 </section>
 <section id="gallery" class="screen" aria-labelledby="galleryTitle">
-  <div class="game-top"><div><div class="round">BUILD 009 · THE COMPLETE PACK</div><h2 id="galleryTitle">178 bikes. Find your favourite.</h2></div><button class="btn secondary" data-menu>Back</button></div>
+  <div class="game-top"><div><div class="round">BUILD 010 · THE COMPLETE PACK</div><h2 id="galleryTitle">178 bikes. Find your favourite.</h2></div><button class="btn secondary" data-menu>Back</button></div>
   <p class="notice">Consistent, model-inspired AI illustrations. Every card keeps its original specifications and balanced game scores.</p>
   <div class="gallery-tools"><label for="deckSearch">Find a make or model</label><input id="deckSearch" type="search" placeholder="Try BMW, Africa Twin or Bonneville" autocomplete="off"><p id="galleryCount" role="status" aria-live="polite"></p></div>
   <div class="deck-gallery" id="deckGallery"></div>
@@ -616,7 +616,7 @@ function qEnd(){
     copy:`Quick match, first to ${S.target}, AI on ${cap(S.level)}. ${Q.results.length} rounds played.`});
 }
 $('qPlayer').addEventListener('click',e=>{const s=e.target.closest('.stat');if(s)qPlay(s.dataset.stat)});
-$('qNext').onclick=()=>{if(Q.over)qEnd();else qNext()};
+$('qNext').onclick=()=>{if(!Q||!Q.locked)return;if(Q.over)qEnd();else qNext()};
 
 /* ---------- Duel ---------- */
 let D=null,SID=0;
