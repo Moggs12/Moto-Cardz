@@ -13,6 +13,8 @@ No new dependencies, external services, monetisation or scoring changes were int
 
 ## Verification and limits
 
+Release-candidate results: all 28 automated checks and all 48 browser checks passed on the development branch. Successful full run and browser-review artifact: https://github.com/Moggs12/Moto-Cardz/actions/runs/39009229802 . The lockfile dependency audit on 2026-10-17 reported zero known vulnerabilities. The main workflow independently reruns the complete suite and verifies the exact commit's Pages deployment before tagging.
+
 `npm test` covers 28 checks, including 360 complete matches across both modes/all AI levels, sudden-death ties, menu cancellation, settings migration, source-data checksum, every artwork hash, exact approved icon provenance/dimensions, build consistency, rapid-next regression, immutable tags and deployment gates.
 
 The browser suite contains 48 checks: Chromium and WebKit at 320px/390px phone and 1280px/1440px desktop sizes; complete matches at every level, side-by-side image fitting, all 178 image decodes and model names, gallery/search, menu/rematch, real-origin-outage offline reload/play, install-icon decoding/caching and duplicate-next protection. GitHub Actions logs/artifacts are authoritative; counts describe the required suite, not an assumption that a pending run has passed.
