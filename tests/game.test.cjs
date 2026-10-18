@@ -5,6 +5,7 @@ const vm=require('node:vm');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const progressJs=fs.readFileSync(path.join(root,'progression.js'),'utf8');
 // Minimal DOM harness: exercises shipped game logic and rendered markup without a browser.
 function game(saved='{}'){
   const elements=new Map(),timers=[];
@@ -22,7 +23,7 @@ function game(saved='{}'){
     const block=html.split(`id="${id}"`)[1].split('</div>')[0];
     groups[id]=[...block.matchAll(/data-v="([^"]+)"/g)].map(([,v])=>{const e=new Element();e.dataset.v=v;e.parentElement=elements.get(id);return e});
   }
-  const screens=['home','quick','duel','gallery'].map(id=>elements.get(id));
+  const screens=['home','quick','duel','gallery','rider'].map(id=>elements.get(id));
   const document={getElementById:id=>{assert(elements.has(id),`Unknown element ${id}`);return elements.get(id)},querySelectorAll:s=>{
     if(s==='.screen')return screens;if(s==='[data-menu]')return[];
     return s.split(',').flatMap(part=>groups[part.trim().match(/^#(\w+) \.opt$/)?.[1]]||[]);
@@ -31,6 +32,7 @@ function game(saved='{}'){
   const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
   const math=Object.create(Math);math.random=random;
   const context=vm.createContext({console,document,window:{scrollTo(){}},localStorage:{getItem:()=>saved,setItem(){}},navigator:{},location:{protocol:'file:'},setTimeout:fn=>{timers.push(fn);return timers.length},Math:math});
+  vm.runInContext(progressJs,context);
   vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
   return{run:s=>vm.runInContext(s,context),el:id=>elements.get(id),flush:()=>{let n=0;while(timers.length){assert(++n<100);timers.shift()()}}};
 }
