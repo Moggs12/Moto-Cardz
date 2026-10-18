@@ -148,8 +148,9 @@ Status: XP foundation selected for Build 011 planning; challenges and trophies r
 - [x] Uses versioned localStorage record (device-only, no cross-device sync); safe fallback if localStorage blocked; no account/reset feature in Build 011.
 - [x] XP award appears on results modal; 178-bike source data, imagery, card scoring and gameplay modes unchanged.
 - [x] Unit + cross-browser suite PASSED on code commit `782cb9f6`: rewards, persistence, level thresholds, duplicates, quit/reload, Rider Hub, complete gameplay and offline/PWA checks. CI: https://github.com/Moggs12/Moto-Cardz/actions/runs/39071410344
-- [ ] Review development-branch QA; obtain user acceptance before any merge/deployment. Live main remains Build 010.
+- [x] User reviewed Rider Hub visual preview and explicitly approved deployment of Build 011 on 2026-10-18.
+- [ ] Confirm successful main-branch QA, GitHub Pages deployment and served Build 011 assets before closing release.
 - [ ] Design Daily/Weekly Challenges as connected second component in a subsequent iteration.
 - [ ] Design Lifetime Trophies as connected third component in a subsequent iteration.
 
-**Build 011 implementation branch:** `build/011-xp-rider-hub` — do not merge or deploy until final CI review and explicit user approval. Full QA (Node + cross-browser Playwright) passed on the tested code commit; waiting for the user's visual/UX review and explicit deploy approval.
+**Build 011 release approval:** User explicitly requested deployment on 2026-10-18 after Rider Hub preview. Full QA (Node + cross-browser Playwright) passed on tested code commit `782cb9f6`; later edits before merging were documentation only. GitHub Pages and production smoke verification remain required.
