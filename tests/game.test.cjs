@@ -82,19 +82,51 @@ for(const level of ['easy','medium','hard']){
  });
 }
 test('repeated sudden-death ties replenish the full reserve and never deal an undefined/duplicate pair',()=>{
- const g=game();g.run('BIKES.forEach(b=>b.stats={topSpeed:50,power:50,engine:50,economy:50,value:50});dStart()');g.flush();
+ const g=game();g.run('BIKES.forEach(b=>{b.stats={topSpeed:50,power:50,engine:50,economy:50,value:50};b.topSpeed=150;b.power=100;b.engineCC=900;b.mpg=50;b.price=10000});dStart()');g.flush();
  for(let round=0;round<100;round++){
   if(g.run("D.phase==='pAttack'"))g.run("D.sel={i:0,k:'power'}");else g.run('D.sel={i:0}');g.run('dConfirm()');g.flush();
   assert.equal(g.run('D.outcome'),'draw');assert.equal(g.run('D.over'),false);assert(g.run('D.pCard&&D.aCard&&D.pCard.id!==D.aCard.id'));g.run('dContinue()');g.flush();
  }
  assert.equal(g.run('D.sudden'),true);
 });
+test('Build 012: game scores never contradict the printed specs, and equal scores are settled by the spec',()=>{
+ const g=game();
+ const bad=g.run(`(()=>{let n=0;for(const k of STATS)for(const a of BIKES)for(const b of BIKES){if(a===b)continue;const r=Math.sign(RAW[k](a)-RAW[k](b));if(r&&Math.sign(a.stats[k]-b.stats[k])===-r)n++;if(settle(a,b,k)!==(r>0?'win':r<0?'lose':'draw'))n++}return n})()`);
+ assert.equal(bad,0);
+ assert(g.run("BIKES.every(b=>STATS.every(k=>Number.isInteger(b.stats[k])&&b.stats[k]>=1&&b.stats[k]<=99))"));
+ // Lower price means a higher Value score.
+ assert(g.run("(()=>{const s=BIKES.slice().sort((a,b)=>a.price-b.price);return s[0].stats.value>s[s.length-1].stats.value})()"));
+});
+test('Build 012: Quick Match AI hand sizes are 2, 4 and 5 cards',()=>{
+ const g=game();assert.equal(g.run('JSON.stringify(AI_HAND)'),JSON.stringify({easy:2,medium:4,hard:5}));
+});
+test('Build 012: a coin toss picks the Duel attacker for the final round and every sudden-death round',()=>{
+ const g=game();let same=0,switched=0,sdSame=0,sdSwitched=0;
+ for(let match=0;match<300;match++){
+  g.run('dStart()');g.flush();let n=0,prev=null;
+  while(!g.run('D.over')&&++n<60){
+   const phase=g.run('D.phase');
+   if(phase==='reveal'){g.run('dContinue()');g.flush();continue}
+   const att=g.run('D.attacker'),round=g.run('D.round'),sudden=g.run('D.sudden');
+   if(prev&&round===prev.round+1){
+    if(round<=4)assert.notEqual(att,prev.att,'rounds 1–4 alternate');
+    else if(round===5){att===prev.att?same++:switched++}
+    else{att===prev.att?sdSame++:sdSwitched++}
+   }
+   prev={round,att};
+   if(phase==='pAttack')g.run('D.sel={i:0,k:STATS[Math.floor(RNG()*5)]}');else g.run('D.sel={i:0}');
+   g.run('dConfirm()');g.flush();
+  }
+ }
+ assert(same>20&&switched>20,`final round attacker: same ${same}, switched ${switched}`);
+ assert(sdSame+sdSwitched===0||(sdSame>0&&sdSwitched>0)||sdSame+sdSwitched<4);
+});
 test('menu exit invalidates pending AI callbacks and rapid continue cannot skip a round',()=>{
  const g=game();g.run("RNG=()=>.8;dStart();toMenu()");g.flush();assert.equal(g.run('D'),null);
  g.run('dStart()');const round=g.run('D.round');g.run('dContinue();dContinue()');assert.equal(g.run('D.round'),round);
 });
-test('original dataset checksum and hero asset are preserved; every card renders one illustration and five stats',()=>{
- const g=game();const crypto=require('node:crypto');assert.equal(crypto.createHash('sha256').update(html.match(/const BIKES=(\[.*?\]);/s)[1]).digest('hex'),'d7bba1df21aa868111b833caf292538d0cb6605d7af251198cec10e62cc2e87a');
+test('Build 012 spec-based dataset checksum and hero asset are preserved; every card renders one illustration and five stats',()=>{
+ const g=game();const crypto=require('node:crypto');assert.equal(crypto.createHash('sha256').update(html.match(/const BIKES=(\[.*?\]);/s)[1]).digest('hex'),'9d08ac58bdf5951c287411229a94e93f83853c8ddf3e910a3ffd6fd680013f28');
  assert(html.includes('assets/motocardz-hero1-v006.avif'));
  assert(g.run("BIKES.every(b=>(cardHTML(b).match(/<img/g)||[]).length===1&&(cardHTML(b).match(/data-stat=/g)||[]).length===5)"));
 });

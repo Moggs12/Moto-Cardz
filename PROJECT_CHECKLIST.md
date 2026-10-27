@@ -154,3 +154,14 @@ Status: XP foundation selected for Build 011 planning; challenges and trophies r
 - [ ] Design Lifetime Trophies as connected third component in a subsequent iteration.
 
 **Build 011 release approval:** User explicitly requested deployment on 2026-10-18 after Rider Hub preview. Full QA (Node + cross-browser Playwright) passed on tested code commit `782cb9f6`; later edits before merging were documentation only. GitHub Pages and production smoke verification remain required.
+
+## Build 012 / V2.3.0 — balance update (2026-10-27; development branch `build/012-balance`)
+- [x] Balance test: ~1M simulated matches across both modes, all AI levels and targets.
+- [x] User asked for the balance fixes, with no visual changes.
+- [x] Scores rebuilt from real specs (percentile rank, 1–99); zero spec contradictions; Value = lower price.
+- [x] Equal scores settled by the printed spec.
+- [x] Quick Match AI hands 2/4/5.
+- [x] Duel: coin toss picks the attacker for round 5 and each sudden-death round; first-attacker edge removed.
+- [x] Unit 39/39 and Chromium browser 34/34 pass locally.
+- [ ] CI (Chromium + WebKit) green on the branch.
+- [ ] User plays and approves before merging to `main`.
